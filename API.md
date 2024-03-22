@@ -4031,6 +4031,64 @@ exceed the AWS Lambda 15 minutes)
 
 ---
 
+### ServiceQueryResult <a name="ServiceQueryResult" id="@open-constructs/aws-cdk.ServiceQueryResult"></a>
+
+The result of a service query.
+
+#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.ServiceQueryResult.Initializer"></a>
+
+```typescript
+import { ServiceQueryResult } from '@open-constructs/aws-cdk'
+
+const serviceQueryResult: ServiceQueryResult = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ServiceQueryResult.property.scope">scope</a></code> | <code>constructs.IConstruct</code> | A scope with that value for it's service property. |
+| <code><a href="#@open-constructs/aws-cdk.ServiceQueryResult.property.service">service</a></code> | <code>any</code> | The service property of the scope. |
+| <code><a href="#@open-constructs/aws-cdk.ServiceQueryResult.property.servicePropertyName">servicePropertyName</a></code> | <code>string</code> | The particular service that was queried. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ServiceQueryResult.property.scope"></a>
+
+```typescript
+public readonly scope: IConstruct;
+```
+
+- *Type:* constructs.IConstruct
+
+A scope with that value for it's service property.
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="@open-constructs/aws-cdk.ServiceQueryResult.property.service"></a>
+
+```typescript
+public readonly service: any;
+```
+
+- *Type:* any
+
+The service property of the scope.
+
+---
+
+##### `servicePropertyName`<sup>Required</sup> <a name="servicePropertyName" id="@open-constructs/aws-cdk.ServiceQueryResult.property.servicePropertyName"></a>
+
+```typescript
+public readonly servicePropertyName: string;
+```
+
+- *Type:* string
+
+The particular service that was queried.
+
+---
+
 ## Classes <a name="Classes" id="Classes"></a>
 
 ### AppConstructTreeService <a name="AppConstructTreeService" id="@open-constructs/aws-cdk.AppConstructTreeService"></a>

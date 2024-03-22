@@ -48,7 +48,6 @@ export interface ConstructServiceProps {
    * To ensure uniqueness.
    */
   readonly servicePropertyName: string;
-
   /**
    * This function is used when calling {@link ConstructService.searchUpOrCreate} or
    * {@link ConstructService.searchSelfOrCreate} to optionally create a service when none
