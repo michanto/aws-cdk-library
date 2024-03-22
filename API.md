@@ -2355,6 +2355,7 @@ Creates a named token.
 
 Service for tokens scoped to a construct.
 
+Allows the user to cleanly separate token usage and resolution.
 Users should use AppTokens or StackTokens instead of directly using this class.
 
 #### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.TokenService.Initializer"></a>
