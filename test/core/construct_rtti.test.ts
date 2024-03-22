@@ -6,17 +6,17 @@ import { NAMESPACE } from '../../src/core/private/internals';
 
 /** A construct with RTTI for testing. */
 export class TypedConstruct extends Construct {
-  static readonly TREE_INSPECTABLE_SERVICE = new ConstructRunTimeTypeInfo({
-    servicePropertyName: `${NAMESPACE}.TreeInspectable`,
+  static readonly TYPED_CONSTRUCT_RTTI = new ConstructRunTimeTypeInfo({
+    servicePropertyName: `${NAMESPACE}.test.TypedConstruct`,
   });
 
   static isTypedConstruct(x: IConstruct): x is TypedConstruct {
-    return TypedConstruct.TREE_INSPECTABLE_SERVICE.hasRtti(x);
+    return TypedConstruct.TYPED_CONSTRUCT_RTTI.hasRtti(x);
   }
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
-    TypedConstruct.TREE_INSPECTABLE_SERVICE.addRtti(this);
+    TypedConstruct.TYPED_CONSTRUCT_RTTI.addRtti(this);
   }
 }
 
