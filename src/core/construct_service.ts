@@ -198,9 +198,6 @@ export class ConstructService {
    * Sets a construct service factory on a construct.
    * Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
    * factory.
-   * @param scope Se
-   * @param factory 
-   * @returns 
    */
   setFactory(scope: IConstruct, factory: IConstructServiceFactory) {
     (factory as any)[ConstructService.factoryProperty] = true;
