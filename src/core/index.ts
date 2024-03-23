@@ -5,5 +5,6 @@ export * from './app_construct_tree_service';
 export * from './stack_construct_tree_service';
 export * from './construct_rtti';
 export * from './user_tokens';
+export * from './singleton';
 
 
