@@ -21,7 +21,7 @@ export class TypedConstruct extends Construct {
 }
 
 describe('Construct RTTI tests', () => {
-  it('Finds constructs using all methods.', () => {
+  it('Is marked with RTTI and is searchable.', () => {
     let app = new App();
     let typedScope1 = new TypedConstruct(app, 'One');
 
