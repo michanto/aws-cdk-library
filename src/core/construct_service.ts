@@ -179,6 +179,7 @@ export class ConstructService {
    * Returns undefined if the service is not on the construct.
    */
   get(scope: IConstruct): any {
+    if (!scope) return undefined;
     this.validateConstruct(scope);
     return (scope as any)[this.serviceProperty];
   }
