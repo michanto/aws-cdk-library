@@ -2012,6 +2012,89 @@ public readonly treeServiceProps: ConstructTreeServiceProps;
 ---
 
 
+### Singleton <a name="Singleton" id="@open-constructs/aws-cdk.Singleton"></a>
+
+Manages singletons in the stack.
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Singleton.create">create</a></code> | Creates or returns a singleton object. |
+| <code><a href="#@open-constructs/aws-cdk.Singleton.isSingleton">isSingleton</a></code> | True if the construct has been marked as Singleton by this class. |
+| <code><a href="#@open-constructs/aws-cdk.Singleton.mark">mark</a></code> | Marks an existing construct as a singleton. |
+
+---
+
+##### `create` <a name="create" id="@open-constructs/aws-cdk.Singleton.create"></a>
+
+```typescript
+import { Singleton } from '@open-constructs/aws-cdk'
+
+Singleton.create(scope: Construct, id: string, factory: IConstructFactory)
+```
+
+Creates or returns a singleton object.
+
+Throws if the existing object was not created or marked by this class.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Singleton.create.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.Singleton.create.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.Singleton.create.parameter.factory"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+
+---
+
+##### `isSingleton` <a name="isSingleton" id="@open-constructs/aws-cdk.Singleton.isSingleton"></a>
+
+```typescript
+import { Singleton } from '@open-constructs/aws-cdk'
+
+Singleton.isSingleton(x: IConstruct)
+```
+
+True if the construct has been marked as Singleton by this class.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.Singleton.isSingleton.parameter.x"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `mark` <a name="mark" id="@open-constructs/aws-cdk.Singleton.mark"></a>
+
+```typescript
+import { Singleton } from '@open-constructs/aws-cdk'
+
+Singleton.mark(scope: IConstruct)
+```
+
+Marks an existing construct as a singleton.
+
+This allows Singletons created outside this class to be used
+with this class.
+Throws if the construct is not a direct child of a stack.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Singleton.mark.parameter.scope"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+
+
 ### CurFormat <a name="CurFormat" id="@open-constructs/aws-cdk.aws_cur.CurFormat"></a>
 
 Enum for the possible formats of a cost report.
