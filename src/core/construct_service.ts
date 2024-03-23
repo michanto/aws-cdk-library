@@ -1,5 +1,6 @@
 import { Construct, IConstruct } from 'constructs';
 import { ConstructTreeSearch, IStopCondition } from './construct_tree_search';
+import { NAMESPACE } from './private/internals';
 
 /**
  * Factory for a construct service.  Like IStopCondition,
@@ -9,6 +10,9 @@ export interface IConstructServiceFactory {
   (scope: IConstruct): any;
 }
 
+/**
+ * Interface for creating a construct.
+ */
 export interface IConstructFactory {
   (scope: IConstruct, id: string): IConstruct;
 }
@@ -114,6 +118,19 @@ export class ConstructService {
   }
 
   /**
+   * Returns true if a service value is actualy a factory.
+   */
+  static isFactory(factory: any) {
+    return factory && typeof(factory) == 'function' && (factory as any)[ConstructService.factoryProperty];
+  }
+
+
+  /**
+   * The symbol for service factory.
+   */
+  private static readonly factoryProperty: symbol = Symbol.for(`${NAMESPACE}.@factory`);
+
+  /**
    * The symbol for servicePropertyName.
    */
   private readonly serviceProperty: symbol;
@@ -153,6 +170,9 @@ export class ConstructService {
     return scopes.map(s => this.createSearchResult(s)!);
   }
 
+  /**
+   * Note:  Switch to Construct.isConstruct once we upgrade constructs to 10.0.92
+   */
   protected validateConstruct(scope: IConstruct): scope is Construct {
     if (!ConstructService.isConstruct(scope)) {
       throw new Error('Construct services must be attached to constructs.');
@@ -172,6 +192,19 @@ export class ConstructService {
     }
     (scope as any)[this.serviceProperty] = service;
     return service;
+  }
+
+  /**
+   * Sets a construct service factory on a construct.
+   * Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
+   * factory.
+   * @param scope Se
+   * @param factory 
+   * @returns 
+   */
+  setFactory(scope: IConstruct, factory: IConstructServiceFactory) {
+    (factory as any)[ConstructService.factoryProperty] = true;
+    return this.set(scope, factory);
   }
 
   /**
