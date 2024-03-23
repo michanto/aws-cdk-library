@@ -17,10 +17,10 @@ describe('ConstructTreeSearch tests', () => {
     let bucket3 = Bucket.fromCfnBucket(cfnBucket3);
     let stack4 = new Stack(app, 'TestStack4');
     // Find constructs created by XXXX.fromCfnXXX (e.g. Key.fromCfnKey).
-    let frankensteinPredicate = (x: IConstruct): x is IConstruct => {
+    let isFrankenstein = (x: IConstruct): x is IConstruct => {
       return Resource.isResource(x) &&
         CfnResource.isCfnResource(x.node.scope) &&
-        Object.is(x.node.scope.node.defaultChild, x);
+        Object.is(x.node.defaultChild, x.node.scope);
     };
 
     // WHEN
@@ -28,7 +28,7 @@ describe('ConstructTreeSearch tests', () => {
     let l1seearch = new ConstructTreeSearch(x => CfnResource.isCfnResource(x) ? x : undefined);
     let l2seearch = new ConstructTreeSearch(x => Resource.isResource(x) ? x : undefined);
     let stackSearchFor = ConstructTreeSearch.for(Stack.isStack);
-    let frankensteinSearch = ConstructTreeSearch.for(frankensteinPredicate);
+    let frankensteinSearch = ConstructTreeSearch.for(isFrankenstein);
 
     expect(bucket3).toBeTruthy();
     expect(frankensteinSearch).toBeTruthy();
@@ -58,8 +58,11 @@ describe('ConstructTreeSearch tests', () => {
     expect(l2seearch.searchDown(stack4).length).toEqual(0);
     expect(l2seearch.searchSelf(bucket1)).toBeTruthy();
     expect(l2seearch.searchSelf(cfnBucket2)).toBeFalsy();
-    // TODO:  WHy does this caus a JSON conversion error?  Should not be converting to JSON
-    // expect(frankensteinSearch.searchDown(app).pop()).toBe(bucket3);
+    let frankensteins = frankensteinSearch.searchDown(app);
+    expect(frankensteins.length).toEqual(1);
+    let frankenstein = frankensteins.pop();
+    // Note:  Using expect().toBe causes unexpected JSON conversion.  JEST issue.
+    expect(frankenstein?.node.path).toEqual(bucket3.node.path);
 
     // Find with StopCondition.
 
