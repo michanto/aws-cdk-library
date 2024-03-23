@@ -2,7 +2,7 @@ import { App, CustomResource, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
-import { AppToken, StackToken } from '../../src';
+import { AppToken, Singleton, StackToken } from '../../src';
 
 describe('UserToken tests', () => {
   test('StackToken happy path.', () => {
@@ -12,11 +12,11 @@ describe('UserToken tests', () => {
       bucketName: StackToken.string(stack, 'bucketName'),
     });
 
-    let fn = new Function(stack, 'Function', {
+    let fn = Singleton.create(stack, 'Function', (s, id) => new Function(s, id, {
       code: Code.fromInline('bad code'),
       handler: 'handler',
       runtime: Runtime.NODEJS_18_X,
-    });
+    })) as Function;
 
     new CustomResource(stack, 'CustomResource', {
       serviceToken: fn.functionArn,
