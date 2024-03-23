@@ -67,7 +67,7 @@ export class ConstructTreeService extends ConstructService {
 
       if (cache) {
         // Allow factories to be installed in the hierarchy.
-        if (typeof cache.service == 'function') {
+        if (ConstructService.isFactory(cache.service)) {
           return this.createCache(scope, cache.service as IConstructServiceFactory);
         }
         // Cache it on this object for fast lookups.
