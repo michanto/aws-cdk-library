@@ -485,7 +485,7 @@ new AppConstructTreeService(treeServiceProps: ConstructTreeServiceProps)
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.searchSelfOrCreate">searchSelfOrCreate</a></code> | Returns a ServiceQueryResult if the scope has the service. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.searchUp">searchUp</a></code> | Check the hierarchy to see if there is an ascendent object of scope that defines the serviceProperty (including scope). |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.set">set</a></code> | Sets the given value on the scope as the serviceProperty property. |
-| <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.setFactory">setFactory</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.setFactory">setFactory</a></code> | Sets a construct service factory on a construct. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.of">of</a></code> | Returns the cached service on an object, or creates one if none is available up the hierarchy. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.searchUpOrCreate">searchUpOrCreate</a></code> | Searches towards the root for a value. |
 
@@ -617,18 +617,25 @@ Sets the given value on the scope as the serviceProperty property.
 ##### `setFactory` <a name="setFactory" id="@open-constructs/aws-cdk.AppConstructTreeService.setFactory"></a>
 
 ```typescript
-public setFactory(scope: IConstruct, factory: IConstructFactory): any
+public setFactory(scope: IConstruct, factory: IConstructServiceFactory): any
 ```
+
+Sets a construct service factory on a construct.
+
+Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
+factory.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.AppConstructTreeService.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
 
+Se.
+
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.AppConstructTreeService.setFactory.parameter.factory"></a>
 
-- *Type:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
 
 ---
 
@@ -1077,7 +1084,7 @@ new ConstructRunTimeTypeInfo(props: ConstructServiceProps)
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.searchSelfOrCreate">searchSelfOrCreate</a></code> | Returns a ServiceQueryResult if the scope has the service. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.searchUp">searchUp</a></code> | Check the hierarchy to see if there is an ascendent object of scope that defines the serviceProperty (including scope). |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.set">set</a></code> | Sets the given value on the scope as the serviceProperty property. |
-| <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.setFactory">setFactory</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.setFactory">setFactory</a></code> | Sets a construct service factory on a construct. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.addRtti">addRtti</a></code> | Sets the RTTI of the construct.  Should be called from a Construct constructor. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.hasRtti">hasRtti</a></code> | Returns true if the construct has this RTTI set on it. |
 
@@ -1209,18 +1216,25 @@ Sets the given value on the scope as the serviceProperty property.
 ##### `setFactory` <a name="setFactory" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.setFactory"></a>
 
 ```typescript
-public setFactory(scope: IConstruct, factory: IConstructFactory): any
+public setFactory(scope: IConstruct, factory: IConstructServiceFactory): any
 ```
+
+Sets a construct service factory on a construct.
+
+Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
+factory.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
 
+Se.
+
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.setFactory.parameter.factory"></a>
 
-- *Type:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
 
 ---
 
@@ -1405,7 +1419,7 @@ new ConstructService(props: ConstructServiceProps)
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.searchSelfOrCreate">searchSelfOrCreate</a></code> | Returns a ServiceQueryResult if the scope has the service. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.searchUp">searchUp</a></code> | Check the hierarchy to see if there is an ascendent object of scope that defines the serviceProperty (including scope). |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.set">set</a></code> | Sets the given value on the scope as the serviceProperty property. |
-| <code><a href="#@open-constructs/aws-cdk.ConstructService.setFactory">setFactory</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.ConstructService.setFactory">setFactory</a></code> | Sets a construct service factory on a construct. |
 
 ---
 
@@ -1535,18 +1549,25 @@ Sets the given value on the scope as the serviceProperty property.
 ##### `setFactory` <a name="setFactory" id="@open-constructs/aws-cdk.ConstructService.setFactory"></a>
 
 ```typescript
-public setFactory(scope: IConstruct, factory: IConstructFactory): any
+public setFactory(scope: IConstruct, factory: IConstructServiceFactory): any
 ```
+
+Sets a construct service factory on a construct.
+
+Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
+factory.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructService.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
 
+Se.
+
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.ConstructService.setFactory.parameter.factory"></a>
 
-- *Type:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
 
 ---
 
@@ -1854,7 +1875,7 @@ new ConstructTreeService(treeServiceProps: ConstructTreeServiceProps)
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.searchSelfOrCreate">searchSelfOrCreate</a></code> | Returns a ServiceQueryResult if the scope has the service. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.searchUp">searchUp</a></code> | Check the hierarchy to see if there is an ascendent object of scope that defines the serviceProperty (including scope). |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.set">set</a></code> | Sets the given value on the scope as the serviceProperty property. |
-| <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.setFactory">setFactory</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.setFactory">setFactory</a></code> | Sets a construct service factory on a construct. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.of">of</a></code> | Returns the cached service on an object, or creates one if none is available up the hierarchy. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.searchUpOrCreate">searchUpOrCreate</a></code> | Searches towards the root for a value. |
 
@@ -1986,18 +2007,25 @@ Sets the given value on the scope as the serviceProperty property.
 ##### `setFactory` <a name="setFactory" id="@open-constructs/aws-cdk.ConstructTreeService.setFactory"></a>
 
 ```typescript
-public setFactory(scope: IConstruct, factory: IConstructFactory): any
+public setFactory(scope: IConstruct, factory: IConstructServiceFactory): any
 ```
+
+Sets a construct service factory on a construct.
+
+Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
+factory.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructTreeService.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
 
+Se.
+
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.ConstructTreeService.setFactory.parameter.factory"></a>
 
-- *Type:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
 
 ---
 
@@ -2519,7 +2547,7 @@ new StackConstructTreeService(treeServiceProps: ConstructTreeServiceProps)
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.searchSelfOrCreate">searchSelfOrCreate</a></code> | Returns a ServiceQueryResult if the scope has the service. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.searchUp">searchUp</a></code> | Check the hierarchy to see if there is an ascendent object of scope that defines the serviceProperty (including scope). |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.set">set</a></code> | Sets the given value on the scope as the serviceProperty property. |
-| <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.setFactory">setFactory</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.setFactory">setFactory</a></code> | Sets a construct service factory on a construct. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.of">of</a></code> | Return the stack service for the construct. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.searchUpOrCreate">searchUpOrCreate</a></code> | Searches towards the root for a value. |
 
@@ -2651,18 +2679,25 @@ Sets the given value on the scope as the serviceProperty property.
 ##### `setFactory` <a name="setFactory" id="@open-constructs/aws-cdk.StackConstructTreeService.setFactory"></a>
 
 ```typescript
-public setFactory(scope: IConstruct, factory: IConstructFactory): any
+public setFactory(scope: IConstruct, factory: IConstructServiceFactory): any
 ```
+
+Sets a construct service factory on a construct.
+
+Use case: Set a factory for AWSCredentials on the app.  When a stack needs to make an AWS call, it gets credentials from the
+factory.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.StackConstructTreeService.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
 
+Se.
+
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.StackConstructTreeService.setFactory.parameter.factory"></a>
 
-- *Type:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
 
 ---
 
@@ -3345,6 +3380,8 @@ public readonly service: ConstructTreeService;
 ### IConstructFactory <a name="IConstructFactory" id="@open-constructs/aws-cdk.IConstructFactory"></a>
 
 - *Implemented By:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
+
+Interface for creating a construct.
 
 
 
