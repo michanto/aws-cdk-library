@@ -16,20 +16,19 @@ export class Singleton {
     let stack = Stack.of(scope);
     const existing = stack.node.tryFindChild(id);
     if (existing) {
-      if (Singleton.SINGELTON_RTTI.hasRtti(existing)) {
+      if (Singleton.isSingleton(existing)) {
         return existing;
       }
       throw new Error(`Construct ${existing.node.path} is not a singleton.`);
     }
-    let construct = factory(stack, id);
-    Singleton.SINGELTON_RTTI.addRtti(construct);
-    return construct;
+    this.mark(factory(stack, id));
+    return stack.node.tryFindChild(id);
   }
 
   /**
      * True if the construct has been marked as Singleton by this class.
      */
-  static isSingleton(x: IConstruct): x is IConstruct {
+  static isSingleton(x: IConstruct): boolean {
     return Singleton.SINGELTON_RTTI.hasRtti(x);
   }
 

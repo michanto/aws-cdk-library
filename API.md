@@ -410,8 +410,6 @@ factory.
 
 - *Type:* constructs.IConstruct
 
-Se.
-
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.AppConstructTreeService.setFactory.parameter.factory"></a>
@@ -1009,8 +1007,6 @@ factory.
 
 - *Type:* constructs.IConstruct
 
-Se.
-
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.setFactory.parameter.factory"></a>
@@ -1341,8 +1337,6 @@ factory.
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructService.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
-
-Se.
 
 ---
 
@@ -1800,8 +1794,6 @@ factory.
 
 - *Type:* constructs.IConstruct
 
-Se.
-
 ---
 
 ###### `factory`<sup>Required</sup> <a name="factory" id="@open-constructs/aws-cdk.ConstructTreeService.setFactory.parameter.factory"></a>
@@ -2228,8 +2220,6 @@ factory.
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.StackConstructTreeService.setFactory.parameter.scope"></a>
 
 - *Type:* constructs.IConstruct
-
-Se.
 
 ---
 
