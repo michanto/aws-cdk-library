@@ -6,5 +6,7 @@ export * from './stack_construct_tree_service';
 export * from './construct_rtti';
 export * from './user_tokens';
 export * from './singleton';
+export * from './tree_inspectable';
+export * from './service_inspector_aspect';
 
 
