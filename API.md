@@ -1953,6 +1953,50 @@ public readonly treeServiceProps: ConstructTreeServiceProps;
 ---
 
 
+### ServiceInspectorAspect <a name="ServiceInspectorAspect" id="@open-constructs/aws-cdk.ServiceInspectorAspect"></a>
+
+- *Implements:* aws-cdk-lib.IAspect
+
+Writes the names and types of all symbols on a construct to tree.json.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.ServiceInspectorAspect.Initializer"></a>
+
+```typescript
+import { ServiceInspectorAspect } from '@open-constructs/aws-cdk'
+
+new ServiceInspectorAspect()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ServiceInspectorAspect.visit">visit</a></code> | All aspects can visit an IConstruct. |
+
+---
+
+##### `visit` <a name="visit" id="@open-constructs/aws-cdk.ServiceInspectorAspect.visit"></a>
+
+```typescript
+public visit(node: IConstruct): void
+```
+
+All aspects can visit an IConstruct.
+
+###### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.ServiceInspectorAspect.visit.parameter.node"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+
+
+
 ### Singleton <a name="Singleton" id="@open-constructs/aws-cdk.Singleton"></a>
 
 Manages singletons in the stack.
@@ -2898,6 +2942,152 @@ public readonly service: ConstructTreeService;
 
 ---
 
+
+### TreeInspectable <a name="TreeInspectable" id="@open-constructs/aws-cdk.TreeInspectable"></a>
+
+- *Implements:* aws-cdk-lib.IInspectable
+
+Makes any construct IInspectable so it can add metadata to the tree.json file without creating new constructs.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.addAttribute">addAttribute</a></code> | Adds attribute to bag. |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.inspect">inspect</a></code> | Called by the CDK to write attribute to tree.json file. |
+
+---
+
+##### `addAttribute` <a name="addAttribute" id="@open-constructs/aws-cdk.TreeInspectable.addAttribute"></a>
+
+```typescript
+public addAttribute(key: string, value: any): void
+```
+
+Adds attribute to bag.
+
+Keys should be added by convention to prevent conflicts
+i.e. L1 constructs will contain attributes with keys prefixed with aws:cdk:cloudformation
+
+###### `key`<sup>Required</sup> <a name="key" id="@open-constructs/aws-cdk.TreeInspectable.addAttribute.parameter.key"></a>
+
+- *Type:* string
+
+key for metadata.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@open-constructs/aws-cdk.TreeInspectable.addAttribute.parameter.value"></a>
+
+- *Type:* any
+
+value of metadata.
+
+---
+
+##### `inspect` <a name="inspect" id="@open-constructs/aws-cdk.TreeInspectable.inspect"></a>
+
+```typescript
+public inspect(inspector: TreeInspector): void
+```
+
+Called by the CDK to write attribute to tree.json file.
+
+###### `inspector`<sup>Required</sup> <a name="inspector" id="@open-constructs/aws-cdk.TreeInspectable.inspect.parameter.inspector"></a>
+
+- *Type:* aws-cdk-lib.TreeInspector
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.isInspectable">isInspectable</a></code> | True if a construct supports IInspectable interface. |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.of">of</a></code> | Returns or creates a TreeInspectable for the given construct. |
+
+---
+
+##### `isInspectable` <a name="isInspectable" id="@open-constructs/aws-cdk.TreeInspectable.isInspectable"></a>
+
+```typescript
+import { TreeInspectable } from '@open-constructs/aws-cdk'
+
+TreeInspectable.isInspectable(inspectable: any)
+```
+
+True if a construct supports IInspectable interface.
+
+###### `inspectable`<sup>Required</sup> <a name="inspectable" id="@open-constructs/aws-cdk.TreeInspectable.isInspectable.parameter.inspectable"></a>
+
+- *Type:* any
+
+---
+
+##### `of` <a name="of" id="@open-constructs/aws-cdk.TreeInspectable.of"></a>
+
+```typescript
+import { TreeInspectable } from '@open-constructs/aws-cdk'
+
+TreeInspectable.of(scope: IConstruct)
+```
+
+Returns or creates a TreeInspectable for the given construct.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.TreeInspectable.of.parameter.scope"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.property.attributes">attributes</a></code> | <code>{[ key: string ]: any}</code> | Represents the bag of attributes as key-value pairs. |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.property.scope">scope</a></code> | <code>constructs.IConstruct</code> | *No description.* |
+
+---
+
+##### `attributes`<sup>Required</sup> <a name="attributes" id="@open-constructs/aws-cdk.TreeInspectable.property.attributes"></a>
+
+```typescript
+public readonly attributes: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+Represents the bag of attributes as key-value pairs.
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.TreeInspectable.property.scope"></a>
+
+```typescript
+public readonly scope: IConstruct;
+```
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.TreeInspectable.property.TREE_INSPECTABLE_SERVICE">TREE_INSPECTABLE_SERVICE</a></code> | <code><a href="#@open-constructs/aws-cdk.ConstructService">ConstructService</a></code> | *No description.* |
+
+---
+
+##### `TREE_INSPECTABLE_SERVICE`<sup>Required</sup> <a name="TREE_INSPECTABLE_SERVICE" id="@open-constructs/aws-cdk.TreeInspectable.property.TREE_INSPECTABLE_SERVICE"></a>
+
+```typescript
+public readonly TREE_INSPECTABLE_SERVICE: ConstructService;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ConstructService">ConstructService</a>
+
+---
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
