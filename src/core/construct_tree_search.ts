@@ -26,7 +26,7 @@ export interface IStopCondition {
  * Usage:
  */
 export interface IConstuctTest {
-  (x: IConstruct): x is IConstruct;
+  (x: IConstruct): boolean;
 }
 
 /**

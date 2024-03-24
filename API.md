@@ -188,10 +188,10 @@ public readonly servicePropertyName: string;
 The symbol property for this construct service.
 
 This needs to be
-unique, so define your symbol this way:
+unique, so namespace your symbol:
 ```
 // Your package name
-const NAMESPACE = "cdk-long-promise"
+const NAMESPACE = "@open-constructs/aws-cdk"
 // PackageName.ServiceName
 Symbol.for(`${NAMESPACE}.CfnTransform`)
 ```
@@ -209,11 +209,9 @@ public readonly factory: IConstructServiceFactory;
 
 This function is used when calling {@link ConstructService.searchUpOrCreate } or {@link ConstructService.searchSelfOrCreate} to optionally create a service when none is found.
 
-This is useful for IOC services stored in the construct tree, similar to how
-Annotations works.
-
-Note:  You can also store factories in the tree itself, and those factories (when found) will be used instead of
-this default factory.
+Note:  You can also store factories in the tree itself using ConstructService.setFactory.
+If a factory is found instead of a service, then that factory will be used instead of this
+default factory.
 
 ---
 
@@ -250,10 +248,10 @@ public readonly servicePropertyName: string;
 The symbol property for this construct service.
 
 This needs to be
-unique, so define your symbol this way:
+unique, so namespace your symbol:
 ```
 // Your package name
-const NAMESPACE = "cdk-long-promise"
+const NAMESPACE = "@open-constructs/aws-cdk"
 // PackageName.ServiceName
 Symbol.for(`${NAMESPACE}.CfnTransform`)
 ```
@@ -271,11 +269,9 @@ public readonly factory: IConstructServiceFactory;
 
 This function is used when calling {@link ConstructService.searchUpOrCreate } or {@link ConstructService.searchSelfOrCreate} to optionally create a service when none is found.
 
-This is useful for IOC services stored in the construct tree, similar to how
-Annotations works.
-
-Note:  You can also store factories in the tree itself, and those factories (when found) will be used instead of
-this default factory.
+Note:  You can also store factories in the tree itself using ConstructService.setFactory.
+If a factory is found instead of a service, then that factory will be used instead of this
+default factory.
 
 ---
 
@@ -674,7 +670,7 @@ cache it on the scope.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.isConstruct">isConstruct</a></code> | Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403. |
+| <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
@@ -690,7 +686,7 @@ import { AppConstructTreeService } from '@open-constructs/aws-cdk'
 AppConstructTreeService.isConstruct(scope: any)
 ```
 
-Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403.
+Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.AppConstructTreeService.isConstruct.parameter.scope"></a>
 
@@ -1270,7 +1266,7 @@ Used to implement ConstructXXX:isConstructXXX functions.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isConstruct">isConstruct</a></code> | Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403. |
+| <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
@@ -1286,7 +1282,7 @@ import { ConstructRunTimeTypeInfo } from '@open-constructs/aws-cdk'
 ConstructRunTimeTypeInfo.isConstruct(scope: any)
 ```
 
-Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403.
+Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isConstruct.parameter.scope"></a>
 
@@ -1569,7 +1565,7 @@ factory.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.ConstructService.isConstruct">isConstruct</a></code> | Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403. |
+| <code><a href="#@open-constructs/aws-cdk.ConstructService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
@@ -1585,7 +1581,7 @@ import { ConstructService } from '@open-constructs/aws-cdk'
 ConstructService.isConstruct(scope: any)
 ```
 
-Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403.
+Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructService.isConstruct.parameter.scope"></a>
 
@@ -2058,7 +2054,7 @@ cache it on the scope.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.isConstruct">isConstruct</a></code> | Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403. |
+| <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
@@ -2074,7 +2070,7 @@ import { ConstructTreeService } from '@open-constructs/aws-cdk'
 ConstructTreeService.isConstruct(scope: any)
 ```
 
-Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403.
+Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructTreeService.isConstruct.parameter.scope"></a>
 
@@ -2728,7 +2724,7 @@ cache it on the scope.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.isConstruct">isConstruct</a></code> | Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403. |
+| <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
@@ -2744,7 +2740,7 @@ import { StackConstructTreeService } from '@open-constructs/aws-cdk'
 StackConstructTreeService.isConstruct(scope: any)
 ```
 
-Construct.isConstruct does not always work because the property is set on the prototype. And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK. See https://github.com/aws/constructs/issues/1403.
+Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.StackConstructTreeService.isConstruct.parameter.scope"></a>
 
@@ -3388,9 +3384,6 @@ Generalized little-l lambda for a construct.
 - *Implemented By:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
 
 Factory for a construct service.
-
-Like IStopCondition,
-this is optional based on your use-case.
 
 
 
