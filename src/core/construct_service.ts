@@ -3,8 +3,7 @@ import { ConstructTreeSearch, IStopCondition } from './construct_tree_search';
 import { NAMESPACE } from './private/internals';
 
 /**
- * Factory for a construct service.  Like IStopCondition,
- * this is optional based on your use-case.
+ * Factory for a construct service.
  */
 export interface IConstructServiceFactory {
   (scope: IConstruct): any;
@@ -34,26 +33,25 @@ export interface IConstructFactory {
 export interface ConstructServiceProps {
   /**
    * The symbol property for this construct service.  This needs to be
-   * unique, so define your symbol this way:
+   * unique, so namespace your symbol:
    * ```
    * // Your package name
-   * const NAMESPACE = "cdk-long-promise"
+   * const NAMESPACE = "@open-constructs/aws-cdk"
    * // PackageName.ServiceName
    * Symbol.for(`${NAMESPACE}.CfnTransform`)
    * ```
    * To ensure uniqueness.
    */
   readonly servicePropertyName: string;
+
   /**
    * This function is used when calling {@link ConstructService.searchUpOrCreate} or
    * {@link ConstructService.searchSelfOrCreate} to optionally create a service when none
    * is found.
    *
-   * This is useful for IOC services stored in the construct tree, similar to how
-   * Annotations works.
-   *
-   * Note:  You can also store factories in the tree itself, and those factories (when found) will be used instead of
-   * this default factory.
+   * Note:  You can also store factories in the tree itself using ConstructService.setFactory.
+   * If a factory is found instead of a service, then that factory will be used instead of this
+   * default factory.
    */
   readonly factory?: IConstructServiceFactory;
 }
@@ -108,9 +106,9 @@ export class ConstructService {
   }
 
   /**
-   * Construct.isConstruct does not always work because the property is set on the prototype.
-   * And if prototypes worked across library versions, we wouldn't need symbol-based RTTI in the CDK.
-   * See https://github.com/aws/constructs/issues/1403
+   * Can be changed to Construct.isConstruct once we get this fix:
+   * https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771
+   * constructs 10.0.92
    * @returns True if the scope is a construct.
    */
   static isConstruct(scope: any): scope is Construct {
@@ -123,7 +121,6 @@ export class ConstructService {
   static isFactory(factory: any) {
     return factory && typeof(factory) == 'function' && (factory as any)[ConstructService.factoryProperty];
   }
-
 
   /**
    * The symbol for service factory.
