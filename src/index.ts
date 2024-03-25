@@ -1,4 +1,5 @@
 // Export constructs here
-export * from './core/index';
+export * from './core';
 export * from './aws-lambda-nodejs';
 export * from './aws-stepfunctions';
+export * from './cloudformation-include';

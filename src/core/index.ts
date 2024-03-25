@@ -10,5 +10,4 @@ export * from './user_tokens';
 export * from './singleton';
 export * from './tree_inspectable';
 export * from './service_inspector_aspect';
-
-
+export * from './cfn_element_utils';
