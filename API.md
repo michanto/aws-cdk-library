@@ -2,29 +2,1148 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
-### CostReport <a name="CostReport" id="@open-constructs/aws-cdk.aws_cur.CostReport"></a>
+### InlineNodejsFunction <a name="InlineNodejsFunction" id="@open-constructs/aws-cdk.InlineNodejsFunction"></a>
 
-Represents a Cost Report construct in AWS CDK.
+- *Implements:* aws-cdk-lib.IInspectable
 
-This class creates an AWS Cost and Usage Report, stored in an S3 bucket, and configures the necessary permissions.
+Inline code version of NodejsFunction.
 
-*Example*
+This class minifies your JavaScript code, so you can feel free to add comments
+and proper variables names in your inline code.  They will be stripped away,
+depending on which minification engine you use (See {@link MinifyEngine}).
+
+Even better, this class writes out the minified javascript code to it's same file name
+under `${process.env.TMPDIR}/minified-${RANDOM_HASH}`.  This means you can find the
+file and copy updated JavaScript right to the AWS lambda console.  This really reduces your
+turn around time when coding a new lambda.
+
+It's amazing how much can be accomplished using small, inline TypeScript Lambdas.
+
+InlineNodejsFunction.tmpFileName contains the path of the temporary file with the
+minified code.  This path is also published via IInspectiable, and thus will appear in
+the tree.json file.  This makes it possible to get quick development turn around by
+compiling your project and copying the minified code to the console.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.InlineNodejsFunction.Initializer"></a>
 
 ```typescript
-const report = new CostReport(stack, 'MyReport', {
-  costReportName: 'business-report',
-  reportGranularity: ReportGranularity.MONTHLY,
-  format: CurFormat.PARQUET
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+new InlineNodejsFunction(scope: Construct, id: string, props: InlineNodejsFunctionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.Initializer.parameter.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps">InlineNodejsFunctionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.InlineNodejsFunction.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.InlineNodejsFunction.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps">InlineNodejsFunctionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addEventSource">addEventSource</a></code> | Adds an event source to this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addEventSourceMapping">addEventSourceMapping</a></code> | Adds an event source that maps to this AWS Lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addFunctionUrl">addFunctionUrl</a></code> | Adds a url to this lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addPermission">addPermission</a></code> | Adds a permission to the Lambda resource policy. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addToRolePolicy">addToRolePolicy</a></code> | Adds a statement to the IAM role assumed by the instance. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.configureAsyncInvoke">configureAsyncInvoke</a></code> | Configures options for asynchronous invocation. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.considerWarningOnInvokeFunctionPermissions">considerWarningOnInvokeFunctionPermissions</a></code> | A warning will be added to functions under the following conditions: - permissions that include `lambda:InvokeFunction` are added to the unqualified function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.grantInvoke">grantInvoke</a></code> | Grant the given identity permissions to invoke this Lambda. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.grantInvokeCompositePrincipal">grantInvokeCompositePrincipal</a></code> | Grant multiple principals the ability to invoke this Lambda via CompositePrincipal. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.grantInvokeUrl">grantInvokeUrl</a></code> | Grant the given identity permissions to invoke this Lambda Function URL. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metric">metric</a></code> | Return the given named metric for this Function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricDuration">metricDuration</a></code> | How long execution of this Lambda takes. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricErrors">metricErrors</a></code> | How many invocations of this Lambda fail. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricInvocations">metricInvocations</a></code> | How often this Lambda is invoked. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricThrottles">metricThrottles</a></code> | How often this Lambda is throttled. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addAlias">addAlias</a></code> | Defines an alias for this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addEnvironment">addEnvironment</a></code> | Adds an environment variable to this Lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.addLayers">addLayers</a></code> | Adds one or more Lambda Layers to this Lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.invalidateVersionBasedOn">invalidateVersionBasedOn</a></code> | Mix additional information into the hash of the Version object. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.inspect">inspect</a></code> | Examines construct. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.InlineNodejsFunction.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@open-constructs/aws-cdk.InlineNodejsFunction.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="@open-constructs/aws-cdk.InlineNodejsFunction.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `addEventSource` <a name="addEventSource" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEventSource"></a>
+
+```typescript
+public addEventSource(source: IEventSource): void
+```
+
+Adds an event source to this function.
+
+Event sources are implemented in the aws-cdk-lib/aws-lambda-event-sources module.
+
+The following example adds an SQS Queue as an event source:
+```
+import { SqsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
+myFunction.addEventSource(new SqsEventSource(myQueue));
+```
+
+###### `source`<sup>Required</sup> <a name="source" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEventSource.parameter.source"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.IEventSource
+
+---
+
+##### `addEventSourceMapping` <a name="addEventSourceMapping" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEventSourceMapping"></a>
+
+```typescript
+public addEventSourceMapping(id: string, options: EventSourceMappingOptions): EventSourceMapping
+```
+
+Adds an event source that maps to this AWS Lambda function.
+
+###### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEventSourceMapping.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEventSourceMapping.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.EventSourceMappingOptions
+
+---
+
+##### `addFunctionUrl` <a name="addFunctionUrl" id="@open-constructs/aws-cdk.InlineNodejsFunction.addFunctionUrl"></a>
+
+```typescript
+public addFunctionUrl(options?: FunctionUrlOptions): FunctionUrl
+```
+
+Adds a url to this lambda function.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@open-constructs/aws-cdk.InlineNodejsFunction.addFunctionUrl.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.FunctionUrlOptions
+
+---
+
+##### `addPermission` <a name="addPermission" id="@open-constructs/aws-cdk.InlineNodejsFunction.addPermission"></a>
+
+```typescript
+public addPermission(id: string, permission: Permission): void
+```
+
+Adds a permission to the Lambda resource policy.
+
+> [Permission for details.](Permission for details.)
+
+###### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.InlineNodejsFunction.addPermission.parameter.id"></a>
+
+- *Type:* string
+
+The id for the permission construct.
+
+---
+
+###### `permission`<sup>Required</sup> <a name="permission" id="@open-constructs/aws-cdk.InlineNodejsFunction.addPermission.parameter.permission"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.Permission
+
+The permission to grant to this Lambda function.
+
+---
+
+##### `addToRolePolicy` <a name="addToRolePolicy" id="@open-constructs/aws-cdk.InlineNodejsFunction.addToRolePolicy"></a>
+
+```typescript
+public addToRolePolicy(statement: PolicyStatement): void
+```
+
+Adds a statement to the IAM role assumed by the instance.
+
+###### `statement`<sup>Required</sup> <a name="statement" id="@open-constructs/aws-cdk.InlineNodejsFunction.addToRolePolicy.parameter.statement"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement
+
+---
+
+##### `configureAsyncInvoke` <a name="configureAsyncInvoke" id="@open-constructs/aws-cdk.InlineNodejsFunction.configureAsyncInvoke"></a>
+
+```typescript
+public configureAsyncInvoke(options: EventInvokeConfigOptions): void
+```
+
+Configures options for asynchronous invocation.
+
+###### `options`<sup>Required</sup> <a name="options" id="@open-constructs/aws-cdk.InlineNodejsFunction.configureAsyncInvoke.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.EventInvokeConfigOptions
+
+---
+
+##### `considerWarningOnInvokeFunctionPermissions` <a name="considerWarningOnInvokeFunctionPermissions" id="@open-constructs/aws-cdk.InlineNodejsFunction.considerWarningOnInvokeFunctionPermissions"></a>
+
+```typescript
+public considerWarningOnInvokeFunctionPermissions(scope: Construct, action: string): void
+```
+
+A warning will be added to functions under the following conditions: - permissions that include `lambda:InvokeFunction` are added to the unqualified function.
+
+function.currentVersion is invoked before or after the permission is created.
+
+This applies only to permissions on Lambda functions, not versions or aliases.
+This function is overridden as a noOp for QualifiedFunctionBase.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.InlineNodejsFunction.considerWarningOnInvokeFunctionPermissions.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `action`<sup>Required</sup> <a name="action" id="@open-constructs/aws-cdk.InlineNodejsFunction.considerWarningOnInvokeFunctionPermissions.parameter.action"></a>
+
+- *Type:* string
+
+---
+
+##### `grantInvoke` <a name="grantInvoke" id="@open-constructs/aws-cdk.InlineNodejsFunction.grantInvoke"></a>
+
+```typescript
+public grantInvoke(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to invoke this Lambda.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@open-constructs/aws-cdk.InlineNodejsFunction.grantInvoke.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantInvokeCompositePrincipal` <a name="grantInvokeCompositePrincipal" id="@open-constructs/aws-cdk.InlineNodejsFunction.grantInvokeCompositePrincipal"></a>
+
+```typescript
+public grantInvokeCompositePrincipal(compositePrincipal: CompositePrincipal): Grant[]
+```
+
+Grant multiple principals the ability to invoke this Lambda via CompositePrincipal.
+
+###### `compositePrincipal`<sup>Required</sup> <a name="compositePrincipal" id="@open-constructs/aws-cdk.InlineNodejsFunction.grantInvokeCompositePrincipal.parameter.compositePrincipal"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.CompositePrincipal
+
+---
+
+##### `grantInvokeUrl` <a name="grantInvokeUrl" id="@open-constructs/aws-cdk.InlineNodejsFunction.grantInvokeUrl"></a>
+
+```typescript
+public grantInvokeUrl(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to invoke this Lambda Function URL.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@open-constructs/aws-cdk.InlineNodejsFunction.grantInvokeUrl.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `metric` <a name="metric" id="@open-constructs/aws-cdk.InlineNodejsFunction.metric"></a>
+
+```typescript
+public metric(metricName: string, props?: MetricOptions): Metric
+```
+
+Return the given named metric for this Function.
+
+###### `metricName`<sup>Required</sup> <a name="metricName" id="@open-constructs/aws-cdk.InlineNodejsFunction.metric.parameter.metricName"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metric.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricDuration` <a name="metricDuration" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricDuration"></a>
+
+```typescript
+public metricDuration(props?: MetricOptions): Metric
+```
+
+How long execution of this Lambda takes.
+
+Average over 5 minutes
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricDuration.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricErrors` <a name="metricErrors" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricErrors"></a>
+
+```typescript
+public metricErrors(props?: MetricOptions): Metric
+```
+
+How many invocations of this Lambda fail.
+
+Sum over 5 minutes
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricErrors.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricInvocations` <a name="metricInvocations" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricInvocations"></a>
+
+```typescript
+public metricInvocations(props?: MetricOptions): Metric
+```
+
+How often this Lambda is invoked.
+
+Sum over 5 minutes
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricInvocations.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricThrottles` <a name="metricThrottles" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricThrottles"></a>
+
+```typescript
+public metricThrottles(props?: MetricOptions): Metric
+```
+
+How often this Lambda is throttled.
+
+Sum over 5 minutes
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricThrottles.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `addAlias` <a name="addAlias" id="@open-constructs/aws-cdk.InlineNodejsFunction.addAlias"></a>
+
+```typescript
+public addAlias(aliasName: string, options?: AliasOptions): Alias
+```
+
+Defines an alias for this function.
+
+The alias will automatically be updated to point to the latest version of
+the function as it is being updated during a deployment.
+
+```ts
+declare const fn: lambda.Function;
+
+fn.addAlias('Live');
+
+// Is equivalent to
+
+new lambda.Alias(this, 'AliasLive', {
+  aliasName: 'Live',
+  version: fn.currentVersion,
 });
 ```
 
+###### `aliasName`<sup>Required</sup> <a name="aliasName" id="@open-constructs/aws-cdk.InlineNodejsFunction.addAlias.parameter.aliasName"></a>
 
-#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.aws_cur.CostReport.Initializer"></a>
+- *Type:* string
+
+The name of the alias.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@open-constructs/aws-cdk.InlineNodejsFunction.addAlias.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.AliasOptions
+
+Alias options.
+
+---
+
+##### `addEnvironment` <a name="addEnvironment" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEnvironment"></a>
 
 ```typescript
-import { aws_cur } from '@open-constructs/aws-cdk'
+public addEnvironment(key: string, value: string, options?: EnvironmentOptions): Function
+```
 
-new aws_cur.CostReport(scope: Construct, id: string, props: CostReportProps)
+Adds an environment variable to this Lambda function.
+
+If this is a ref to a Lambda function, this operation results in a no-op.
+
+###### `key`<sup>Required</sup> <a name="key" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEnvironment.parameter.key"></a>
+
+- *Type:* string
+
+The environment variable key.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEnvironment.parameter.value"></a>
+
+- *Type:* string
+
+The environment variable's value.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@open-constructs/aws-cdk.InlineNodejsFunction.addEnvironment.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.EnvironmentOptions
+
+Environment variable options.
+
+---
+
+##### `addLayers` <a name="addLayers" id="@open-constructs/aws-cdk.InlineNodejsFunction.addLayers"></a>
+
+```typescript
+public addLayers(layers: ILayerVersion): void
+```
+
+Adds one or more Lambda Layers to this Lambda function.
+
+###### `layers`<sup>Required</sup> <a name="layers" id="@open-constructs/aws-cdk.InlineNodejsFunction.addLayers.parameter.layers"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.ILayerVersion
+
+the layers to be added.
+
+---
+
+##### `invalidateVersionBasedOn` <a name="invalidateVersionBasedOn" id="@open-constructs/aws-cdk.InlineNodejsFunction.invalidateVersionBasedOn"></a>
+
+```typescript
+public invalidateVersionBasedOn(x: string): void
+```
+
+Mix additional information into the hash of the Version object.
+
+The Lambda Function construct does its best to automatically create a new
+Version when anything about the Function changes (its code, its layers,
+any of the other properties).
+
+However, you can sometimes source information from places that the CDK cannot
+look into, like the deploy-time values of SSM parameters. In those cases,
+the CDK would not force the creation of a new Version object when it actually
+should.
+
+This method can be used to invalidate the current Version object. Pass in
+any string into this method, and make sure the string changes when you know
+a new Version needs to be created.
+
+This method may be called more than once.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.InlineNodejsFunction.invalidateVersionBasedOn.parameter.x"></a>
+
+- *Type:* string
+
+---
+
+##### `inspect` <a name="inspect" id="@open-constructs/aws-cdk.InlineNodejsFunction.inspect"></a>
+
+```typescript
+public inspect(inspector: TreeInspector): void
+```
+
+Examines construct.
+
+###### `inspector`<sup>Required</sup> <a name="inspector" id="@open-constructs/aws-cdk.InlineNodejsFunction.inspect.parameter.inspector"></a>
+
+- *Type:* aws-cdk-lib.TreeInspector
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.classifyVersionProperty">classifyVersionProperty</a></code> | Record whether specific properties in the `AWS::Lambda::Function` resource should also be associated to the Version resource. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionArn">fromFunctionArn</a></code> | Import a lambda function into the CDK using its ARN. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionAttributes">fromFunctionAttributes</a></code> | Creates a Lambda function object which represents a function not defined within this stack. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionName">fromFunctionName</a></code> | Import a lambda function into the CDK using its name. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAll">metricAll</a></code> | Return the given named metric for this Lambda. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAllConcurrentExecutions">metricAllConcurrentExecutions</a></code> | Metric for the number of concurrent executions across all Lambdas. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAllDuration">metricAllDuration</a></code> | Metric for the Duration executing all Lambdas. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAllErrors">metricAllErrors</a></code> | Metric for the number of Errors executing all Lambdas. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAllInvocations">metricAllInvocations</a></code> | Metric for the number of invocations of all Lambdas. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAllThrottles">metricAllThrottles</a></code> | Metric for the number of throttled invocations of all Lambdas. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.metricAllUnreservedConcurrentExecutions">metricAllUnreservedConcurrentExecutions</a></code> | Metric for the number of unreserved concurrent executions across all Lambdas. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.minifyEngineFromProps">minifyEngineFromProps</a></code> | *No description.* |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.InlineNodejsFunction.isConstruct"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.InlineNodejsFunction.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="@open-constructs/aws-cdk.InlineNodejsFunction.isOwnedResource"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.InlineNodejsFunction.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="@open-constructs/aws-cdk.InlineNodejsFunction.isResource"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.InlineNodejsFunction.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `classifyVersionProperty` <a name="classifyVersionProperty" id="@open-constructs/aws-cdk.InlineNodejsFunction.classifyVersionProperty"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.classifyVersionProperty(propertyName: string, locked: boolean)
+```
+
+Record whether specific properties in the `AWS::Lambda::Function` resource should also be associated to the Version resource.
+
+See 'currentVersion' section in the module README for more details.
+
+###### `propertyName`<sup>Required</sup> <a name="propertyName" id="@open-constructs/aws-cdk.InlineNodejsFunction.classifyVersionProperty.parameter.propertyName"></a>
+
+- *Type:* string
+
+The property to classify.
+
+---
+
+###### `locked`<sup>Required</sup> <a name="locked" id="@open-constructs/aws-cdk.InlineNodejsFunction.classifyVersionProperty.parameter.locked"></a>
+
+- *Type:* boolean
+
+whether the property should be associated to the version or not.
+
+---
+
+##### `fromFunctionArn` <a name="fromFunctionArn" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionArn"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.fromFunctionArn(scope: Construct, id: string, functionArn: string)
+```
+
+Import a lambda function into the CDK using its ARN.
+
+For `Function.addPermissions()` to work on this imported lambda, make sure that is
+in the same account and region as the stack you are importing it into.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionArn.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `functionArn`<sup>Required</sup> <a name="functionArn" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionArn.parameter.functionArn"></a>
+
+- *Type:* string
+
+---
+
+##### `fromFunctionAttributes` <a name="fromFunctionAttributes" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionAttributes"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.fromFunctionAttributes(scope: Construct, id: string, attrs: FunctionAttributes)
+```
+
+Creates a Lambda function object which represents a function not defined within this stack.
+
+For `Function.addPermissions()` to work on this imported lambda, set the sameEnvironment property to true
+if this imported lambda is in the same account and region as the stack you are importing it into.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The parent construct.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionAttributes.parameter.id"></a>
+
+- *Type:* string
+
+The name of the lambda construct.
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionAttributes.parameter.attrs"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.FunctionAttributes
+
+the attributes of the function to import.
+
+---
+
+##### `fromFunctionName` <a name="fromFunctionName" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionName"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.fromFunctionName(scope: Construct, id: string, functionName: string)
+```
+
+Import a lambda function into the CDK using its name.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionName.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionName.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `functionName`<sup>Required</sup> <a name="functionName" id="@open-constructs/aws-cdk.InlineNodejsFunction.fromFunctionName.parameter.functionName"></a>
+
+- *Type:* string
+
+---
+
+##### `metricAll` <a name="metricAll" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAll"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAll(metricName: string, props?: MetricOptions)
+```
+
+Return the given named metric for this Lambda.
+
+###### `metricName`<sup>Required</sup> <a name="metricName" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAll.parameter.metricName"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAll.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricAllConcurrentExecutions` <a name="metricAllConcurrentExecutions" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllConcurrentExecutions"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAllConcurrentExecutions(props?: MetricOptions)
+```
+
+Metric for the number of concurrent executions across all Lambdas.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllConcurrentExecutions.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricAllDuration` <a name="metricAllDuration" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllDuration"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAllDuration(props?: MetricOptions)
+```
+
+Metric for the Duration executing all Lambdas.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllDuration.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricAllErrors` <a name="metricAllErrors" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllErrors"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAllErrors(props?: MetricOptions)
+```
+
+Metric for the number of Errors executing all Lambdas.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllErrors.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricAllInvocations` <a name="metricAllInvocations" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllInvocations"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAllInvocations(props?: MetricOptions)
+```
+
+Metric for the number of invocations of all Lambdas.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllInvocations.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricAllThrottles` <a name="metricAllThrottles" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllThrottles"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAllThrottles(props?: MetricOptions)
+```
+
+Metric for the number of throttled invocations of all Lambdas.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllThrottles.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricAllUnreservedConcurrentExecutions` <a name="metricAllUnreservedConcurrentExecutions" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllUnreservedConcurrentExecutions"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.metricAllUnreservedConcurrentExecutions(props?: MetricOptions)
+```
+
+Metric for the number of unreserved concurrent executions across all Lambdas.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.metricAllUnreservedConcurrentExecutions.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `minifyEngineFromProps` <a name="minifyEngineFromProps" id="@open-constructs/aws-cdk.InlineNodejsFunction.minifyEngineFromProps"></a>
+
+```typescript
+import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
+
+InlineNodejsFunction.minifyEngineFromProps(props: InlineNodejsFunctionProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.InlineNodejsFunction.minifyEngineFromProps.parameter.props"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps">InlineNodejsFunctionProps</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The architecture of this Lambda Function (this is an optional attribute and defaults to X86_64). |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Access the Connections object. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.functionArn">functionArn</a></code> | <code>string</code> | ARN of this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.functionName">functionName</a></code> | <code>string</code> | Name of this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.grantPrincipal">grantPrincipal</a></code> | <code>aws-cdk-lib.aws_iam.IPrincipal</code> | The principal this Lambda Function is running as. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.isBoundToVpc">isBoundToVpc</a></code> | <code>boolean</code> | Whether or not this Lambda function was bound to a VPC. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.latestVersion">latestVersion</a></code> | <code>aws-cdk-lib.aws_lambda.IVersion</code> | The `$LATEST` version of this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.permissionsNode">permissionsNode</a></code> | <code>constructs.Node</code> | The construct node where permissions are attached. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.resourceArnsForGrantInvoke">resourceArnsForGrantInvoke</a></code> | <code>string[]</code> | The ARN(s) to put into the resource field of the generated IAM policy for grantInvoke(). |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Execution role associated with this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.currentVersion">currentVersion</a></code> | <code>aws-cdk-lib.aws_lambda.Version</code> | Returns a `lambda.Version` which represents the current version of this Lambda function. A new version will be created every time the function's configuration changes. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | The LogGroup where the Lambda function's logs are made available. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | The runtime configured for this lambda. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | The DLQ (as queue) associated with this Lambda Function (this is an optional attribute). |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.deadLetterTopic">deadLetterTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | The DLQ (as topic) associated with this Lambda Function (this is an optional attribute). |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The timeout configured for this lambda. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.tmpFile">tmpFile</a></code> | <code>string</code> | Path to the temporary file with the minified code. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `architecture`<sup>Required</sup> <a name="architecture" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.architecture"></a>
+
+```typescript
+public readonly architecture: Architecture;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Architecture
+
+The architecture of this Lambda Function (this is an optional attribute and defaults to X86_64).
+
+---
+
+##### `connections`<sup>Required</sup> <a name="connections" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+Access the Connections object.
+
+Will fail if not a VPC-enabled Lambda Function
+
+---
+
+##### `functionArn`<sup>Required</sup> <a name="functionArn" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.functionArn"></a>
+
+```typescript
+public readonly functionArn: string;
+```
+
+- *Type:* string
+
+ARN of this function.
+
+---
+
+##### `functionName`<sup>Required</sup> <a name="functionName" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.functionName"></a>
+
+```typescript
+public readonly functionName: string;
+```
+
+- *Type:* string
+
+Name of this function.
+
+---
+
+##### `grantPrincipal`<sup>Required</sup> <a name="grantPrincipal" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.grantPrincipal"></a>
+
+```typescript
+public readonly grantPrincipal: IPrincipal;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IPrincipal
+
+The principal this Lambda Function is running as.
+
+---
+
+##### `isBoundToVpc`<sup>Required</sup> <a name="isBoundToVpc" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.isBoundToVpc"></a>
+
+```typescript
+public readonly isBoundToVpc: boolean;
+```
+
+- *Type:* boolean
+
+Whether or not this Lambda function was bound to a VPC.
+
+If this is is `false`, trying to access the `connections` object will fail.
+
+---
+
+##### `latestVersion`<sup>Required</sup> <a name="latestVersion" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.latestVersion"></a>
+
+```typescript
+public readonly latestVersion: IVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IVersion
+
+The `$LATEST` version of this function.
+
+Note that this is reference to a non-specific AWS Lambda version, which
+means the function this version refers to can return different results in
+different invocations.
+
+To obtain a reference to an explicit version which references the current
+function configuration, use `lambdaFunction.currentVersion` instead.
+
+---
+
+##### `permissionsNode`<sup>Required</sup> <a name="permissionsNode" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.permissionsNode"></a>
+
+```typescript
+public readonly permissionsNode: Node;
+```
+
+- *Type:* constructs.Node
+
+The construct node where permissions are attached.
+
+---
+
+##### `resourceArnsForGrantInvoke`<sup>Required</sup> <a name="resourceArnsForGrantInvoke" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.resourceArnsForGrantInvoke"></a>
+
+```typescript
+public readonly resourceArnsForGrantInvoke: string[];
+```
+
+- *Type:* string[]
+
+The ARN(s) to put into the resource field of the generated IAM policy for grantInvoke().
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+Execution role associated with this function.
+
+---
+
+##### `currentVersion`<sup>Required</sup> <a name="currentVersion" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.currentVersion"></a>
+
+```typescript
+public readonly currentVersion: Version;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Version
+
+Returns a `lambda.Version` which represents the current version of this Lambda function. A new version will be created every time the function's configuration changes.
+
+You can specify options for this version using the `currentVersionOptions`
+prop when initializing the `lambda.Function`.
+
+---
+
+##### `logGroup`<sup>Required</sup> <a name="logGroup" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
+
+The LogGroup where the Lambda function's logs are made available.
+
+If either `logRetention` is set or this property is called, a CloudFormation custom resource is added to the stack that
+pre-creates the log group as part of the stack deployment, if it already doesn't exist, and sets the correct log retention
+period (never expire, by default).
+
+Further, if the log group already exists and the `logRetention` is not set, the custom resource will reset the log retention
+to never expire even if it was configured with a different value.
+
+---
+
+##### `runtime`<sup>Required</sup> <a name="runtime" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.runtime"></a>
+
+```typescript
+public readonly runtime: Runtime;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Runtime
+
+The runtime configured for this lambda.
+
+---
+
+##### `deadLetterQueue`<sup>Optional</sup> <a name="deadLetterQueue" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.deadLetterQueue"></a>
+
+```typescript
+public readonly deadLetterQueue: IQueue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.IQueue
+
+The DLQ (as queue) associated with this Lambda Function (this is an optional attribute).
+
+---
+
+##### `deadLetterTopic`<sup>Optional</sup> <a name="deadLetterTopic" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.deadLetterTopic"></a>
+
+```typescript
+public readonly deadLetterTopic: ITopic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.ITopic
+
+The DLQ (as topic) associated with this Lambda Function (this is an optional attribute).
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.timeout"></a>
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+
+The timeout configured for this lambda.
+
+---
+
+##### `tmpFile`<sup>Required</sup> <a name="tmpFile" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.tmpFile"></a>
+
+```typescript
+public readonly tmpFile: string;
+```
+
+- *Type:* string
+
+Path to the temporary file with the minified code.
+
+This path is also published via IInspectiable, and thus will appear in
+the tree.json file as attribute "cdk-long-promise.InlineNodejsFunction.tmpfile".
+
+This makes it possible to get quick development turn around by
+compiling your project and copying the minified code to the console.
+Note the location will change for each compile, so re-query the tree.json file.
+
+TODO:  Example JQ query to extract file name from tree.json file.
+
+---
+
+
 ### LateBoundStepFunctionsStartExecution <a name="LateBoundStepFunctionsStartExecution" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution"></a>
 
 Class for StepFunction wrappers. Use it to add pre- or post-processing to a StepFunction.
@@ -750,16 +1869,773 @@ or {@link ConstructService.searchSelfOrCreate}.
 
 ---
 
-### CostReportProps <a name="CostReportProps" id="@open-constructs/aws-cdk.aws_cur.CostReportProps"></a>
+### InlineNodejsFunctionProps <a name="InlineNodejsFunctionProps" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps"></a>
 
-Properties for defining a Cost and Usage Report.
+Properties for a inline NodejsFunction.
 
-#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.aws_cur.CostReportProps.Initializer"></a>
+#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.Initializer"></a>
 
 ```typescript
-import { aws_cur } from '@open-constructs/aws-cdk'
+import { InlineNodejsFunctionProps } from '@open-constructs/aws-cdk'
 
-const costReportProps: aws_cur.CostReportProps = { ... }
+const inlineNodejsFunctionProps: InlineNodejsFunctionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.maxEventAge">maxEventAge</a></code> | <code>aws-cdk-lib.Duration</code> | The maximum age of a request that Lambda sends to a function for processing. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.onFailure">onFailure</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for failed invocations. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.onSuccess">onSuccess</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for successful invocations. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.retryAttempts">retryAttempts</a></code> | <code>number</code> | The maximum number of times to retry when the function returns an error. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.adotInstrumentation">adotInstrumentation</a></code> | <code>aws-cdk-lib.aws_lambda.AdotInstrumentationConfig</code> | Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.allowPublicSubnet">allowPublicSubnet</a></code> | <code>boolean</code> | Lambda Functions in a public subnet can NOT access the internet. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.applicationLogLevel">applicationLogLevel</a></code> | <code>string</code> | Sets the application log level for the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The system architectures compatible with this lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.codeSigningConfig">codeSigningConfig</a></code> | <code>aws-cdk-lib.aws_lambda.ICodeSigningConfig</code> | Code signing config associated with this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.currentVersionOptions">currentVersionOptions</a></code> | <code>aws-cdk-lib.aws_lambda.VersionOptions</code> | Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | The SQS queue to use if DLQ is enabled. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.deadLetterQueueEnabled">deadLetterQueueEnabled</a></code> | <code>boolean</code> | Enabled DLQ. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.deadLetterTopic">deadLetterTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | The SNS topic to use as a DLQ. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.description">description</a></code> | <code>string</code> | A description of the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.environment">environment</a></code> | <code>{[ key: string ]: string}</code> | Key-value pairs that Lambda caches and makes available for your Lambda functions. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.environmentEncryption">environmentEncryption</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The AWS KMS key that's used to encrypt your function's environment variables. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.ephemeralStorageSize">ephemeralStorageSize</a></code> | <code>aws-cdk-lib.Size</code> | The size of the function’s /tmp directory in MiB. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.events">events</a></code> | <code>aws-cdk-lib.aws_lambda.IEventSource[]</code> | Event sources for this function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.filesystem">filesystem</a></code> | <code>aws-cdk-lib.aws_lambda.FileSystem</code> | The filesystem configuration for the lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.functionName">functionName</a></code> | <code>string</code> | A name for the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.initialPolicy">initialPolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Initial policy statements to add to the created Lambda Role. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.insightsVersion">insightsVersion</a></code> | <code>aws-cdk-lib.aws_lambda.LambdaInsightsVersion</code> | Specify the version of CloudWatch Lambda insights to use for monitoring. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | A list of layers to add to the function's execution environment. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logFormat">logFormat</a></code> | <code>string</code> | Sets the logFormat for the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | Sets the log group name for the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | The number of days log events are kept in CloudWatch Logs. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.memorySize">memorySize</a></code> | <code>number</code> | The amount of memory, in MB, that is allocated to your Lambda function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.paramsAndSecrets">paramsAndSecrets</a></code> | <code>aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion</code> | Specify the configuration of Parameters and Secrets Extension. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.profiling">profiling</a></code> | <code>boolean</code> | Enable profiling. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.profilingGroup">profilingGroup</a></code> | <code>aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup</code> | Profiling Group. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.reservedConcurrentExecutions">reservedConcurrentExecutions</a></code> | <code>number</code> | The maximum of concurrent executions you want to reserve for the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Lambda execution role. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.runtimeManagementMode">runtimeManagementMode</a></code> | <code>aws-cdk-lib.aws_lambda.RuntimeManagementMode</code> | Sets the runtime management configuration for a function's version. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The list of security groups to associate with the Lambda's network interfaces. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.snapStart">snapStart</a></code> | <code>aws-cdk-lib.aws_lambda.SnapStartConf</code> | Enable SnapStart for Lambda Function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.systemLogLevel">systemLogLevel</a></code> | <code>string</code> | Sets the system log level for the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The function execution time (in seconds) after which Lambda terminates the function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.tracing">tracing</a></code> | <code>aws-cdk-lib.aws_lambda.Tracing</code> | Enable AWS X-Ray Tracing for Lambda Function. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place Lambda network interfaces. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.entry">entry</a></code> | <code>string</code> | Path to the entry file (JavaScript only). |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.handler">handler</a></code> | <code>string</code> | The name of the exported handler in the entry file. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.minifyEngine">minifyEngine</a></code> | <code><a href="#@open-constructs/aws-cdk.MinifyEngine">MinifyEngine</a></code> | Default is "SIMPLE". |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | The runtime environment. |
+
+---
+
+##### `maxEventAge`<sup>Optional</sup> <a name="maxEventAge" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.maxEventAge"></a>
+
+```typescript
+public readonly maxEventAge: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.hours(6)
+
+The maximum age of a request that Lambda sends to a function for processing.
+
+Minimum: 60 seconds
+Maximum: 6 hours
+
+---
+
+##### `onFailure`<sup>Optional</sup> <a name="onFailure" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.onFailure"></a>
+
+```typescript
+public readonly onFailure: IDestination;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IDestination
+- *Default:* no destination
+
+The destination for failed invocations.
+
+---
+
+##### `onSuccess`<sup>Optional</sup> <a name="onSuccess" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.onSuccess"></a>
+
+```typescript
+public readonly onSuccess: IDestination;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IDestination
+- *Default:* no destination
+
+The destination for successful invocations.
+
+---
+
+##### `retryAttempts`<sup>Optional</sup> <a name="retryAttempts" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.retryAttempts"></a>
+
+```typescript
+public readonly retryAttempts: number;
+```
+
+- *Type:* number
+- *Default:* 2
+
+The maximum number of times to retry when the function returns an error.
+
+Minimum: 0
+Maximum: 2
+
+---
+
+##### `adotInstrumentation`<sup>Optional</sup> <a name="adotInstrumentation" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.adotInstrumentation"></a>
+
+```typescript
+public readonly adotInstrumentation: AdotInstrumentationConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.AdotInstrumentationConfig
+- *Default:* No ADOT instrumentation
+
+Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation.
+
+> [https://aws-otel.github.io/docs/getting-started/lambda](https://aws-otel.github.io/docs/getting-started/lambda)
+
+---
+
+##### `allowAllOutbound`<sup>Optional</sup> <a name="allowAllOutbound" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.allowAllOutbound"></a>
+
+```typescript
+public readonly allowAllOutbound: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to allow the Lambda to send all network traffic.
+
+If set to false, you must individually add traffic rules to allow the
+Lambda to connect to network targets.
+
+Do not specify this property if the `securityGroups` or `securityGroup` property is set.
+Instead, configure `allowAllOutbound` directly on the security group.
+
+---
+
+##### `allowPublicSubnet`<sup>Optional</sup> <a name="allowPublicSubnet" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.allowPublicSubnet"></a>
+
+```typescript
+public readonly allowPublicSubnet: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Lambda Functions in a public subnet can NOT access the internet.
+
+Use this property to acknowledge this limitation and still place the function in a public subnet.
+
+> [https://stackoverflow.com/questions/52992085/why-cant-an-aws-lambda-function-inside-a-public-subnet-in-a-vpc-connect-to-the/52994841#52994841](https://stackoverflow.com/questions/52992085/why-cant-an-aws-lambda-function-inside-a-public-subnet-in-a-vpc-connect-to-the/52994841#52994841)
+
+---
+
+##### `applicationLogLevel`<sup>Optional</sup> <a name="applicationLogLevel" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.applicationLogLevel"></a>
+
+```typescript
+public readonly applicationLogLevel: string;
+```
+
+- *Type:* string
+- *Default:* INFO
+
+Sets the application log level for the function.
+
+---
+
+##### `architecture`<sup>Optional</sup> <a name="architecture" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.architecture"></a>
+
+```typescript
+public readonly architecture: Architecture;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Architecture
+- *Default:* Architecture.X86_64
+
+The system architectures compatible with this lambda function.
+
+---
+
+##### `codeSigningConfig`<sup>Optional</sup> <a name="codeSigningConfig" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.codeSigningConfig"></a>
+
+```typescript
+public readonly codeSigningConfig: ICodeSigningConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ICodeSigningConfig
+- *Default:* Not Sign the Code
+
+Code signing config associated with this function.
+
+---
+
+##### `currentVersionOptions`<sup>Optional</sup> <a name="currentVersionOptions" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.currentVersionOptions"></a>
+
+```typescript
+public readonly currentVersionOptions: VersionOptions;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.VersionOptions
+- *Default:* default options as described in `VersionOptions`
+
+Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method.
+
+---
+
+##### `deadLetterQueue`<sup>Optional</sup> <a name="deadLetterQueue" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.deadLetterQueue"></a>
+
+```typescript
+public readonly deadLetterQueue: IQueue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.IQueue
+- *Default:* SQS queue with 14 day retention period if `deadLetterQueueEnabled` is `true`
+
+The SQS queue to use if DLQ is enabled.
+
+If SNS topic is desired, specify `deadLetterTopic` property instead.
+
+---
+
+##### `deadLetterQueueEnabled`<sup>Optional</sup> <a name="deadLetterQueueEnabled" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.deadLetterQueueEnabled"></a>
+
+```typescript
+public readonly deadLetterQueueEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false unless `deadLetterQueue` is set, which implies DLQ is enabled.
+
+Enabled DLQ.
+
+If `deadLetterQueue` is undefined,
+an SQS queue with default options will be defined for your Function.
+
+---
+
+##### `deadLetterTopic`<sup>Optional</sup> <a name="deadLetterTopic" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.deadLetterTopic"></a>
+
+```typescript
+public readonly deadLetterTopic: ITopic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.ITopic
+- *Default:* no SNS topic
+
+The SNS topic to use as a DLQ.
+
+Note that if `deadLetterQueueEnabled` is set to `true`, an SQS queue will be created
+rather than an SNS topic. Using an SNS topic as a DLQ requires this property to be set explicitly.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* No description.
+
+A description of the function.
+
+---
+
+##### `environment`<sup>Optional</sup> <a name="environment" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.environment"></a>
+
+```typescript
+public readonly environment: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* No environment variables.
+
+Key-value pairs that Lambda caches and makes available for your Lambda functions.
+
+Use environment variables to apply configuration changes, such
+as test and production environment configurations, without changing your
+Lambda function source code.
+
+---
+
+##### `environmentEncryption`<sup>Optional</sup> <a name="environmentEncryption" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.environmentEncryption"></a>
+
+```typescript
+public readonly environmentEncryption: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Default:* AWS Lambda creates and uses an AWS managed customer master key (CMK).
+
+The AWS KMS key that's used to encrypt your function's environment variables.
+
+---
+
+##### `ephemeralStorageSize`<sup>Optional</sup> <a name="ephemeralStorageSize" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.ephemeralStorageSize"></a>
+
+```typescript
+public readonly ephemeralStorageSize: Size;
+```
+
+- *Type:* aws-cdk-lib.Size
+- *Default:* 512 MiB
+
+The size of the function’s /tmp directory in MiB.
+
+---
+
+##### `events`<sup>Optional</sup> <a name="events" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.events"></a>
+
+```typescript
+public readonly events: IEventSource[];
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IEventSource[]
+- *Default:* No event sources.
+
+Event sources for this function.
+
+You can also add event sources using `addEventSource`.
+
+---
+
+##### `filesystem`<sup>Optional</sup> <a name="filesystem" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.filesystem"></a>
+
+```typescript
+public readonly filesystem: FileSystem;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.FileSystem
+- *Default:* will not mount any filesystem
+
+The filesystem configuration for the lambda function.
+
+---
+
+##### `functionName`<sup>Optional</sup> <a name="functionName" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.functionName"></a>
+
+```typescript
+public readonly functionName: string;
+```
+
+- *Type:* string
+- *Default:* AWS CloudFormation generates a unique physical ID and uses that ID for the function's name. For more information, see Name Type.
+
+A name for the function.
+
+---
+
+##### `initialPolicy`<sup>Optional</sup> <a name="initialPolicy" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.initialPolicy"></a>
+
+```typescript
+public readonly initialPolicy: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+- *Default:* No policy statements are added to the created Lambda role.
+
+Initial policy statements to add to the created Lambda Role.
+
+You can call `addToRolePolicy` to the created lambda to add statements post creation.
+
+---
+
+##### `insightsVersion`<sup>Optional</sup> <a name="insightsVersion" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.insightsVersion"></a>
+
+```typescript
+public readonly insightsVersion: LambdaInsightsVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.LambdaInsightsVersion
+- *Default:* No Lambda Insights
+
+Specify the version of CloudWatch Lambda insights to use for monitoring.
+
+> [https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started-docker.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started-docker.html)
+
+---
+
+##### `layers`<sup>Optional</sup> <a name="layers" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.layers"></a>
+
+```typescript
+public readonly layers: ILayerVersion[];
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ILayerVersion[]
+- *Default:* No layers.
+
+A list of layers to add to the function's execution environment.
+
+You can configure your Lambda function to pull in
+additional code during initialization in the form of layers. Layers are packages of libraries or other dependencies
+that can be used by multiple functions.
+
+---
+
+##### `logFormat`<sup>Optional</sup> <a name="logFormat" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logFormat"></a>
+
+```typescript
+public readonly logFormat: string;
+```
+
+- *Type:* string
+- *Default:* Text format
+
+Sets the logFormat for the function.
+
+---
+
+##### `logGroup`<sup>Optional</sup> <a name="logGroup" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
+- *Default:* `/aws/lambda/${this.functionName}` default log group name created by Lambda
+
+Sets the log group name for the function.
+
+---
+
+##### `logRetention`<sup>Optional</sup> <a name="logRetention" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logRetention"></a>
+
+```typescript
+public readonly logRetention: RetentionDays;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.RetentionDays
+- *Default:* logs.RetentionDays.INFINITE
+
+The number of days log events are kept in CloudWatch Logs.
+
+When updating
+this property, unsetting it doesn't remove the log retention policy. To
+remove the retention policy, set the value to `INFINITE`.
+
+---
+
+##### `logRetentionRetryOptions`<sup>Optional</sup> <a name="logRetentionRetryOptions" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logRetentionRetryOptions"></a>
+
+```typescript
+public readonly logRetentionRetryOptions: LogRetentionRetryOptions;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.LogRetentionRetryOptions
+- *Default:* Default AWS SDK retry options.
+
+When log retention is specified, a custom resource attempts to create the CloudWatch log group.
+
+These options control the retry policy when interacting with CloudWatch APIs.
+
+---
+
+##### `logRetentionRole`<sup>Optional</sup> <a name="logRetentionRole" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.logRetentionRole"></a>
+
+```typescript
+public readonly logRetentionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* A new role is created.
+
+The IAM role for the Lambda function associated with the custom resource that sets the retention policy.
+
+---
+
+##### `memorySize`<sup>Optional</sup> <a name="memorySize" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.memorySize"></a>
+
+```typescript
+public readonly memorySize: number;
+```
+
+- *Type:* number
+- *Default:* 128
+
+The amount of memory, in MB, that is allocated to your Lambda function.
+
+Lambda uses this value to proportionally allocate the amount of CPU
+power. For more information, see Resource Model in the AWS Lambda
+Developer Guide.
+
+---
+
+##### `paramsAndSecrets`<sup>Optional</sup> <a name="paramsAndSecrets" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.paramsAndSecrets"></a>
+
+```typescript
+public readonly paramsAndSecrets: ParamsAndSecretsLayerVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion
+- *Default:* No Parameters and Secrets Extension
+
+Specify the configuration of Parameters and Secrets Extension.
+
+> [https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html](https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html)
+
+---
+
+##### `profiling`<sup>Optional</sup> <a name="profiling" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.profiling"></a>
+
+```typescript
+public readonly profiling: boolean;
+```
+
+- *Type:* boolean
+- *Default:* No profiling.
+
+Enable profiling.
+
+> [https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html)
+
+---
+
+##### `profilingGroup`<sup>Optional</sup> <a name="profilingGroup" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.profilingGroup"></a>
+
+```typescript
+public readonly profilingGroup: IProfilingGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup
+- *Default:* A new profiling group will be created if `profiling` is set.
+
+Profiling Group.
+
+> [https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html)
+
+---
+
+##### `reservedConcurrentExecutions`<sup>Optional</sup> <a name="reservedConcurrentExecutions" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.reservedConcurrentExecutions"></a>
+
+```typescript
+public readonly reservedConcurrentExecutions: number;
+```
+
+- *Type:* number
+- *Default:* No specific limit - account limit.
+
+The maximum of concurrent executions you want to reserve for the function.
+
+> [https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html)
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* A unique role will be generated for this lambda function. Both supplied and generated roles can always be changed by calling `addToRolePolicy`.
+
+Lambda execution role.
+
+This is the role that will be assumed by the function upon execution.
+It controls the permissions that the function will have. The Role must
+be assumable by the 'lambda.amazonaws.com' service principal.
+
+The default Role automatically has permissions granted for Lambda execution. If you
+provide a Role, you must add the relevant AWS managed policies yourself.
+
+The relevant managed policies are "service-role/AWSLambdaBasicExecutionRole" and
+"service-role/AWSLambdaVPCAccessExecutionRole".
+
+---
+
+##### `runtimeManagementMode`<sup>Optional</sup> <a name="runtimeManagementMode" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.runtimeManagementMode"></a>
+
+```typescript
+public readonly runtimeManagementMode: RuntimeManagementMode;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.RuntimeManagementMode
+- *Default:* Auto
+
+Sets the runtime management configuration for a function's version.
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.securityGroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+- *Default:* If the function is placed within a VPC and a security group is not specified, either by this or securityGroup prop, a dedicated security group will be created for this function.
+
+The list of security groups to associate with the Lambda's network interfaces.
+
+Only used if 'vpc' is supplied.
+
+---
+
+##### `snapStart`<sup>Optional</sup> <a name="snapStart" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.snapStart"></a>
+
+```typescript
+public readonly snapStart: SnapStartConf;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.SnapStartConf
+- *Default:* No snapstart
+
+Enable SnapStart for Lambda Function.
+
+SnapStart is currently supported only for Java 11, 17 runtime
+
+---
+
+##### `systemLogLevel`<sup>Optional</sup> <a name="systemLogLevel" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.systemLogLevel"></a>
+
+```typescript
+public readonly systemLogLevel: string;
+```
+
+- *Type:* string
+- *Default:* INFO
+
+Sets the system log level for the function.
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.timeout"></a>
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.seconds(3)
+
+The function execution time (in seconds) after which Lambda terminates the function.
+
+Because the execution time affects cost, set this value
+based on the function's expected execution time.
+
+---
+
+##### `tracing`<sup>Optional</sup> <a name="tracing" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.tracing"></a>
+
+```typescript
+public readonly tracing: Tracing;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Tracing
+- *Default:* Tracing.Disabled
+
+Enable AWS X-Ray Tracing for Lambda Function.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+- *Default:* Function is not placed within a VPC.
+
+VPC network to place Lambda network interfaces.
+
+Specify this if the Lambda function needs to access resources in a VPC.
+This is required when `vpcSubnets` is specified.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="vpcSubnets" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.vpcSubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+- *Default:* the Vpc default strategy if not specified
+
+Where to place the network interfaces within the VPC.
+
+This requires `vpc` to be specified in order for interfaces to actually be
+placed in the subnets. If `vpc` is not specify, this will raise an error.
+
+Note: Internet access for Lambda Functions requires a NAT Gateway, so picking
+public subnets is not allowed (unless `allowPublicSubnet` is set to `true`).
+
+---
+
+##### `entry`<sup>Optional</sup> <a name="entry" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.entry"></a>
+
+```typescript
+public readonly entry: string;
+```
+
+- *Type:* string
+
+Path to the entry file (JavaScript only).
+
+That means if you are in typescript, just pass the path to the compiled .js file.
+What that is will differ between projects.
+
+---
+
+##### `handler`<sup>Optional</sup> <a name="handler" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.handler"></a>
+
+```typescript
+public readonly handler: string;
+```
+
+- *Type:* string
+- *Default:* index.handler
+
+The name of the exported handler in the entry file.
+
+---
+
+##### `minifyEngine`<sup>Optional</sup> <a name="minifyEngine" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.minifyEngine"></a>
+
+```typescript
+public readonly minifyEngine: MinifyEngine;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.MinifyEngine">MinifyEngine</a>
+
+Default is "SIMPLE".
+
+See {@link MinifyEngine} for values.
+
+---
+
+##### `runtime`<sup>Optional</sup> <a name="runtime" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.runtime"></a>
+
+```typescript
+public readonly runtime: Runtime;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Runtime
+- *Default:* Runtime.NODEJS_16_X
+
+The runtime environment.
+
+Only runtimes of the Node.js family are
+supported.
+
+---
+
 ### LateBoundStepFunctionsStartExecutionProps <a name="LateBoundStepFunctionsStartExecutionProps" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps"></a>
 
 Properties for LateBoundStepFunctionsStartExecution.
@@ -4943,6 +6819,46 @@ FATAL = 0.5).  Subclass Log and Logger to support custom log levels.
 
 
 ##### `ALL` <a name="ALL" id="@open-constructs/aws-cdk.LogLevel.ALL"></a>
+
+---
+
+
+### MinifyEngine <a name="MinifyEngine" id="@open-constructs/aws-cdk.MinifyEngine"></a>
+
+Which minification engine to use.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.MinifyEngine.NONE">NONE</a></code> | No minification. |
+| <code><a href="#@open-constructs/aws-cdk.MinifyEngine.ES_BUILD">ES_BUILD</a></code> | Uses esbuild for minification. |
+| <code><a href="#@open-constructs/aws-cdk.MinifyEngine.SIMPLE">SIMPLE</a></code> | Removes comments and trims leading/trailing spaces from lines. |
+
+---
+
+##### `NONE` <a name="NONE" id="@open-constructs/aws-cdk.MinifyEngine.NONE"></a>
+
+No minification.
+
+---
+
+
+##### `ES_BUILD` <a name="ES_BUILD" id="@open-constructs/aws-cdk.MinifyEngine.ES_BUILD"></a>
+
+Uses esbuild for minification.
+
+Add the following to your package.json file:
+```
+"esbuild": "^0.12.28"
+```
+
+---
+
+
+##### `SIMPLE` <a name="SIMPLE" id="@open-constructs/aws-cdk.MinifyEngine.SIMPLE"></a>
+
+Removes comments and trims leading/trailing spaces from lines.
 
 ---
 
