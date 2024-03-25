@@ -384,6 +384,36 @@ The granularity of the line items in the report.
 
 ---
 
+### LoggerProps <a name="LoggerProps" id="@open-constructs/aws-cdk.LoggerProps"></a>
+
+#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.LoggerProps.Initializer"></a>
+
+```typescript
+import { LoggerProps } from '@open-constructs/aws-cdk'
+
+const loggerProps: LoggerProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LoggerProps.property.logLevel">logLevel</a></code> | <code>number</code> | # Note: This is a number to support custom log levels (e.g. FATAL = 0.5). |
+
+---
+
+##### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.LoggerProps.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: number;
+```
+
+- *Type:* number
+
+# Note: This is a number to support custom log levels (e.g. FATAL = 0.5).
+
+---
+
 ### ServiceQueryResult <a name="ServiceQueryResult" id="@open-constructs/aws-cdk.ServiceQueryResult"></a>
 
 The result of a service query.
@@ -2172,6 +2202,473 @@ public readonly treeServiceProps: ConstructTreeServiceProps;
 ---
 
 
+### Log <a name="Log" id="@open-constructs/aws-cdk.Log"></a>
+
+Scoped logging.
+
+Allows users to turn logging on and off for individual constructs or whole sub-trees
+of the construct tree.  LoggingAspect will set the LogLevel of
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.Log.Initializer"></a>
+
+```typescript
+import { Log } from '@open-constructs/aws-cdk'
+
+new Log(scope: Construct)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Log.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Log.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Log.debug">debug</a></code> | {@link Logger} will log this via {@link console.debug}. |
+| <code><a href="#@open-constructs/aws-cdk.Log.error">error</a></code> | {@link Logger} will log this via {@link console.error}. |
+| <code><a href="#@open-constructs/aws-cdk.Log.info">info</a></code> | {@link Logger} will log this via {@link console.info}. |
+| <code><a href="#@open-constructs/aws-cdk.Log.warn">warn</a></code> | {@link Logger} will log this via {@link console.warn}. |
+
+---
+
+##### `debug` <a name="debug" id="@open-constructs/aws-cdk.Log.debug"></a>
+
+```typescript
+public debug(msg: string | IStringProvider): void
+```
+
+{@link Logger} will log this via {@link console.debug}.
+
+###### `msg`<sup>Required</sup> <a name="msg" id="@open-constructs/aws-cdk.Log.debug.parameter.msg"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+---
+
+##### `error` <a name="error" id="@open-constructs/aws-cdk.Log.error"></a>
+
+```typescript
+public error(msg: string | IStringProvider): void
+```
+
+{@link Logger} will log this via {@link console.error}.
+
+###### `msg`<sup>Required</sup> <a name="msg" id="@open-constructs/aws-cdk.Log.error.parameter.msg"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+---
+
+##### `info` <a name="info" id="@open-constructs/aws-cdk.Log.info"></a>
+
+```typescript
+public info(msg: string | IStringProvider): void
+```
+
+{@link Logger} will log this via {@link console.info}.
+
+###### `msg`<sup>Required</sup> <a name="msg" id="@open-constructs/aws-cdk.Log.info.parameter.msg"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+---
+
+##### `warn` <a name="warn" id="@open-constructs/aws-cdk.Log.warn"></a>
+
+```typescript
+public warn(msg: string | IStringProvider): void
+```
+
+{@link Logger} will log this via {@link console.warn}.
+
+###### `msg`<sup>Required</sup> <a name="msg" id="@open-constructs/aws-cdk.Log.warn.parameter.msg"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Log.of">of</a></code> | *No description.* |
+
+---
+
+##### `of` <a name="of" id="@open-constructs/aws-cdk.Log.of"></a>
+
+```typescript
+import { Log } from '@open-constructs/aws-cdk'
+
+Log.of(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Log.of.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Log.property.logger">logger</a></code> | <code><a href="#@open-constructs/aws-cdk.ILogger">ILogger</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.Log.property.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+
+---
+
+##### `logger`<sup>Required</sup> <a name="logger" id="@open-constructs/aws-cdk.Log.property.logger"></a>
+
+```typescript
+public readonly logger: ILogger;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ILogger">ILogger</a>
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Log.property.scope"></a>
+
+```typescript
+public readonly scope: Construct;
+```
+
+- *Type:* constructs.Construct
+
+---
+
+
+### Logger <a name="Logger" id="@open-constructs/aws-cdk.Logger"></a>
+
+- *Implements:* <a href="#@open-constructs/aws-cdk.ILogger">ILogger</a>
+
+Node console logger.
+
+Provides scoped logging to a construct.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.Logger.Initializer"></a>
+
+```typescript
+import { Logger } from '@open-constructs/aws-cdk'
+
+new Logger(props?: LoggerProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Logger.Initializer.parameter.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.LoggerProps">LoggerProps</a></code> | *No description.* |
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.Logger.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.LoggerProps">LoggerProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Logger.levelColor">levelColor</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.Logger.levelName">levelName</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.Logger.log">log</a></code> | *No description.* |
+
+---
+
+##### `levelColor` <a name="levelColor" id="@open-constructs/aws-cdk.Logger.levelColor"></a>
+
+```typescript
+public levelColor(logLevel: number): string
+```
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.Logger.levelColor.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+##### `levelName` <a name="levelName" id="@open-constructs/aws-cdk.Logger.levelName"></a>
+
+```typescript
+public levelName(logLevel: number): string
+```
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.Logger.levelName.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+##### `log` <a name="log" id="@open-constructs/aws-cdk.Logger.log"></a>
+
+```typescript
+public log(scope: Construct, logLevel: number, message: string | IStringProvider): void
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Logger.log.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.Logger.log.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+###### `message`<sup>Required</sup> <a name="message" id="@open-constructs/aws-cdk.Logger.log.parameter.message"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Logger.of">of</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.Logger.set">set</a></code> | *No description.* |
+
+---
+
+##### `of` <a name="of" id="@open-constructs/aws-cdk.Logger.of"></a>
+
+```typescript
+import { Logger } from '@open-constructs/aws-cdk'
+
+Logger.of(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Logger.of.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `set` <a name="set" id="@open-constructs/aws-cdk.Logger.set"></a>
+
+```typescript
+import { Logger } from '@open-constructs/aws-cdk'
+
+Logger.set(scope: Construct, logger: ILogger)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Logger.set.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logger`<sup>Required</sup> <a name="logger" id="@open-constructs/aws-cdk.Logger.set.parameter.logger"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ILogger">ILogger</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Logger.property.logLevel">logLevel</a></code> | <code>number</code> | Returns the current log level. |
+| <code><a href="#@open-constructs/aws-cdk.Logger.property.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.LoggerProps">LoggerProps</a></code> | *No description.* |
+
+---
+
+##### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.Logger.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: number;
+```
+
+- *Type:* number
+
+Returns the current log level.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.Logger.property.props"></a>
+
+```typescript
+public readonly props: LoggerProps;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.LoggerProps">LoggerProps</a>
+
+---
+
+
+### NoOpLogger <a name="NoOpLogger" id="@open-constructs/aws-cdk.NoOpLogger"></a>
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.NoOpLogger.Initializer"></a>
+
+```typescript
+import { NoOpLogger } from '@open-constructs/aws-cdk'
+
+new NoOpLogger()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.levelColor">levelColor</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.levelName">levelName</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.log">log</a></code> | *No description.* |
+
+---
+
+##### `levelColor` <a name="levelColor" id="@open-constructs/aws-cdk.NoOpLogger.levelColor"></a>
+
+```typescript
+public levelColor(logLevel: number): string
+```
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.NoOpLogger.levelColor.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+##### `levelName` <a name="levelName" id="@open-constructs/aws-cdk.NoOpLogger.levelName"></a>
+
+```typescript
+public levelName(logLevel: number): string
+```
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.NoOpLogger.levelName.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+##### `log` <a name="log" id="@open-constructs/aws-cdk.NoOpLogger.log"></a>
+
+```typescript
+public log(scope: Construct, logLevel: number, message: string | IStringProvider): void
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.NoOpLogger.log.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.NoOpLogger.log.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+###### `message`<sup>Required</sup> <a name="message" id="@open-constructs/aws-cdk.NoOpLogger.log.parameter.message"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.of">of</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.set">set</a></code> | *No description.* |
+
+---
+
+##### `of` <a name="of" id="@open-constructs/aws-cdk.NoOpLogger.of"></a>
+
+```typescript
+import { NoOpLogger } from '@open-constructs/aws-cdk'
+
+NoOpLogger.of(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.NoOpLogger.of.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `set` <a name="set" id="@open-constructs/aws-cdk.NoOpLogger.set"></a>
+
+```typescript
+import { NoOpLogger } from '@open-constructs/aws-cdk'
+
+NoOpLogger.set(scope: Construct, logger: ILogger)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.NoOpLogger.set.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logger`<sup>Required</sup> <a name="logger" id="@open-constructs/aws-cdk.NoOpLogger.set.parameter.logger"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ILogger">ILogger</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.property.logLevel">logLevel</a></code> | <code>number</code> | Returns the current log level. |
+| <code><a href="#@open-constructs/aws-cdk.NoOpLogger.property.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.LoggerProps">LoggerProps</a></code> | *No description.* |
+
+---
+
+##### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.NoOpLogger.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: number;
+```
+
+- *Type:* number
+
+Returns the current log level.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.NoOpLogger.property.props"></a>
+
+```typescript
+public readonly props: LoggerProps;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.LoggerProps">LoggerProps</a>
+
+---
+
+
 ### ServiceInspectorAspect <a name="ServiceInspectorAspect" id="@open-constructs/aws-cdk.ServiceInspectorAspect"></a>
 
 - *Implements:* aws-cdk-lib.IAspect
@@ -3591,6 +4088,72 @@ Usage:
 
 
 
+### ILogger <a name="ILogger" id="@open-constructs/aws-cdk.ILogger"></a>
+
+- *Implemented By:* <a href="#@open-constructs/aws-cdk.Logger">Logger</a>, <a href="#@open-constructs/aws-cdk.NoOpLogger">NoOpLogger</a>, <a href="#@open-constructs/aws-cdk.ILogger">ILogger</a>
+
+Interface for scoped logging backend.
+
+See {@link Logger}.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ILogger.log">log</a></code> | *No description.* |
+
+---
+
+##### `log` <a name="log" id="@open-constructs/aws-cdk.ILogger.log"></a>
+
+```typescript
+public log(scope: Construct, logLevel: number, message: string | IStringProvider): void
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ILogger.log.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+Scope for the log line.
+
+---
+
+###### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.ILogger.log.parameter.logLevel"></a>
+
+- *Type:* number
+
+a number to support custom levels (e.g. FATAL = 0.5).
+
+---
+
+###### `message`<sup>Required</sup> <a name="message" id="@open-constructs/aws-cdk.ILogger.log.parameter.message"></a>
+
+- *Type:* string | <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+The message.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ILogger.property.logLevel">logLevel</a></code> | <code>number</code> | Returns the current log level. |
+
+---
+
+##### `logLevel`<sup>Required</sup> <a name="logLevel" id="@open-constructs/aws-cdk.ILogger.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: number;
+```
+
+- *Type:* number
+
+Returns the current log level.
+
+---
+
 ### IStopCondition <a name="IStopCondition" id="@open-constructs/aws-cdk.IStopCondition"></a>
 
 - *Implemented By:* <a href="#@open-constructs/aws-cdk.IStopCondition">IStopCondition</a>
@@ -3601,4 +4164,66 @@ If not provided, we stop either at the top or bottom of the tree (depending
 on search direction).
 
 
+
+### IStringProvider <a name="IStringProvider" id="@open-constructs/aws-cdk.IStringProvider"></a>
+
+- *Implemented By:* <a href="#@open-constructs/aws-cdk.IStringProvider">IStringProvider</a>
+
+Delayed log-line construction.
+
+
+
+## Enums <a name="Enums" id="Enums"></a>
+
+### LogLevel <a name="LogLevel" id="@open-constructs/aws-cdk.LogLevel"></a>
+
+The Node logging levels (from the console object).
+
+# Note:
+
+The logging interfaces take numbers for logLevel instead of this enum.
+This allows the user to define custom log levels (e.g.
+FATAL = 0.5).  Subclass Log and Logger to support custom log levels.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LogLevel.OFF">OFF</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.LogLevel.ERROR">ERROR</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.LogLevel.WARNING">WARNING</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.LogLevel.INFO">INFO</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.LogLevel.DEBUG">DEBUG</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.LogLevel.ALL">ALL</a></code> | *No description.* |
+
+---
+
+##### `OFF` <a name="OFF" id="@open-constructs/aws-cdk.LogLevel.OFF"></a>
+
+---
+
+
+##### `ERROR` <a name="ERROR" id="@open-constructs/aws-cdk.LogLevel.ERROR"></a>
+
+---
+
+
+##### `WARNING` <a name="WARNING" id="@open-constructs/aws-cdk.LogLevel.WARNING"></a>
+
+---
+
+
+##### `INFO` <a name="INFO" id="@open-constructs/aws-cdk.LogLevel.INFO"></a>
+
+---
+
+
+##### `DEBUG` <a name="DEBUG" id="@open-constructs/aws-cdk.LogLevel.DEBUG"></a>
+
+---
+
+
+##### `ALL` <a name="ALL" id="@open-constructs/aws-cdk.LogLevel.ALL"></a>
+
+---
 
