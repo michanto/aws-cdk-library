@@ -1,5 +1,506 @@
 # API Reference <a name="API Reference" id="api-reference"></a>
 
+## Constructs <a name="Constructs" id="Constructs"></a>
+
+### LateBoundStepFunctionsStartExecution <a name="LateBoundStepFunctionsStartExecution" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution"></a>
+
+Class for StepFunction wrappers. Use it to add pre- or post-processing to a StepFunction.
+
+Runs the state machine specified by input field "$.stateMachineArn".
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
+
+new LateBoundStepFunctionsStartExecution(scope: Construct, id: string, props: LateBoundStepFunctionsStartExecutionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer.parameter.id">id</a></code> | <code>string</code> | Descriptive identifier for this chainable. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer.parameter.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps">LateBoundStepFunctionsStartExecutionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+Descriptive identifier for this chainable.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps">LateBoundStepFunctionsStartExecutionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addPrefix">addPrefix</a></code> | Add a prefix to the stateId of this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.bindToGraph">bindToGraph</a></code> | Register this state as part of the given graph. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.toStateJson">toStateJson</a></code> | Return the Amazon States Language object for this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addCatch">addCatch</a></code> | Add a recovery handler for this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addRetry">addRetry</a></code> | Add retry configuration for this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metric">metric</a></code> | Return the given named metric for this Task. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricFailed">metricFailed</a></code> | Metric for the number of times this activity fails. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricHeartbeatTimedOut">metricHeartbeatTimedOut</a></code> | Metric for the number of times the heartbeat times out for this activity. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricRunTime">metricRunTime</a></code> | The interval, in milliseconds, between the time the Task starts and the time it closes. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricScheduled">metricScheduled</a></code> | Metric for the number of times this activity is scheduled. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricScheduleTime">metricScheduleTime</a></code> | The interval, in milliseconds, for which the activity stays in the schedule state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricStarted">metricStarted</a></code> | Metric for the number of times this activity is started. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricSucceeded">metricSucceeded</a></code> | Metric for the number of times this activity succeeds. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricTime">metricTime</a></code> | The interval, in milliseconds, between the time the activity is scheduled and the time it closes. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricTimedOut">metricTimedOut</a></code> | Metric for the number of times this activity times out. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.next">next</a></code> | Continue normal execution with the given state. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addPrefix` <a name="addPrefix" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addPrefix"></a>
+
+```typescript
+public addPrefix(x: string): void
+```
+
+Add a prefix to the stateId of this state.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addPrefix.parameter.x"></a>
+
+- *Type:* string
+
+---
+
+##### `bindToGraph` <a name="bindToGraph" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.bindToGraph"></a>
+
+```typescript
+public bindToGraph(graph: StateGraph): void
+```
+
+Register this state as part of the given graph.
+
+Don't call this. It will be called automatically when you work
+with states normally.
+
+###### `graph`<sup>Required</sup> <a name="graph" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.bindToGraph.parameter.graph"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateGraph
+
+---
+
+##### `toStateJson` <a name="toStateJson" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.toStateJson"></a>
+
+```typescript
+public toStateJson(): object
+```
+
+Return the Amazon States Language object for this state.
+
+##### `addCatch` <a name="addCatch" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addCatch"></a>
+
+```typescript
+public addCatch(handler: IChainable, props?: CatchProps): TaskStateBase
+```
+
+Add a recovery handler for this state.
+
+When a particular error occurs, execution will continue at the error
+handler instead of failing the state machine execution.
+
+###### `handler`<sup>Required</sup> <a name="handler" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addCatch.parameter.handler"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.IChainable
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addCatch.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.CatchProps
+
+---
+
+##### `addRetry` <a name="addRetry" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addRetry"></a>
+
+```typescript
+public addRetry(props?: RetryProps): TaskStateBase
+```
+
+Add retry configuration for this state.
+
+This controls if and how the execution will be retried if a particular
+error occurs.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.addRetry.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.RetryProps
+
+---
+
+##### `metric` <a name="metric" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metric"></a>
+
+```typescript
+public metric(metricName: string, props?: MetricOptions): Metric
+```
+
+Return the given named metric for this Task.
+
+###### `metricName`<sup>Required</sup> <a name="metricName" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metric.parameter.metricName"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metric.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricFailed` <a name="metricFailed" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricFailed"></a>
+
+```typescript
+public metricFailed(props?: MetricOptions): Metric
+```
+
+Metric for the number of times this activity fails.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricFailed.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricHeartbeatTimedOut` <a name="metricHeartbeatTimedOut" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricHeartbeatTimedOut"></a>
+
+```typescript
+public metricHeartbeatTimedOut(props?: MetricOptions): Metric
+```
+
+Metric for the number of times the heartbeat times out for this activity.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricHeartbeatTimedOut.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricRunTime` <a name="metricRunTime" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricRunTime"></a>
+
+```typescript
+public metricRunTime(props?: MetricOptions): Metric
+```
+
+The interval, in milliseconds, between the time the Task starts and the time it closes.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricRunTime.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricScheduled` <a name="metricScheduled" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricScheduled"></a>
+
+```typescript
+public metricScheduled(props?: MetricOptions): Metric
+```
+
+Metric for the number of times this activity is scheduled.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricScheduled.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricScheduleTime` <a name="metricScheduleTime" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricScheduleTime"></a>
+
+```typescript
+public metricScheduleTime(props?: MetricOptions): Metric
+```
+
+The interval, in milliseconds, for which the activity stays in the schedule state.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricScheduleTime.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricStarted` <a name="metricStarted" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricStarted"></a>
+
+```typescript
+public metricStarted(props?: MetricOptions): Metric
+```
+
+Metric for the number of times this activity is started.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricStarted.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricSucceeded` <a name="metricSucceeded" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricSucceeded"></a>
+
+```typescript
+public metricSucceeded(props?: MetricOptions): Metric
+```
+
+Metric for the number of times this activity succeeds.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricSucceeded.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricTime` <a name="metricTime" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricTime"></a>
+
+```typescript
+public metricTime(props?: MetricOptions): Metric
+```
+
+The interval, in milliseconds, between the time the activity is scheduled and the time it closes.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricTime.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `metricTimedOut` <a name="metricTimedOut" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricTimedOut"></a>
+
+```typescript
+public metricTimedOut(props?: MetricOptions): Metric
+```
+
+Metric for the number of times this activity times out.
+
+###### `props`<sup>Optional</sup> <a name="props" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.metricTimedOut.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `next` <a name="next" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.next"></a>
+
+```typescript
+public next(next: IChainable): Chain
+```
+
+Continue normal execution with the given state.
+
+###### `next`<sup>Required</sup> <a name="next" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.next.parameter.next"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.IChainable
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.filterNextables">filterNextables</a></code> | Return only the states that allow chaining from an array of states. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableEndStates">findReachableEndStates</a></code> | Find the set of end states states reachable through transitions from the given start state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableStates">findReachableStates</a></code> | Find the set of states reachable through transitions from the given start state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.prefixStates">prefixStates</a></code> | Add a prefix to the stateId of all States found in a construct tree. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.isConstruct"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
+
+LateBoundStepFunctionsStartExecution.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `filterNextables` <a name="filterNextables" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.filterNextables"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
+
+LateBoundStepFunctionsStartExecution.filterNextables(states: State[])
+```
+
+Return only the states that allow chaining from an array of states.
+
+###### `states`<sup>Required</sup> <a name="states" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.filterNextables.parameter.states"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.State[]
+
+---
+
+##### `findReachableEndStates` <a name="findReachableEndStates" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableEndStates"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
+
+LateBoundStepFunctionsStartExecution.findReachableEndStates(start: State, options?: FindStateOptions)
+```
+
+Find the set of end states states reachable through transitions from the given start state.
+
+###### `start`<sup>Required</sup> <a name="start" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableEndStates.parameter.start"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.State
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableEndStates.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.FindStateOptions
+
+---
+
+##### `findReachableStates` <a name="findReachableStates" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableStates"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
+
+LateBoundStepFunctionsStartExecution.findReachableStates(start: State, options?: FindStateOptions)
+```
+
+Find the set of states reachable through transitions from the given start state.
+
+This does not retrieve states from within sub-graphs, such as states within a Parallel state's branch.
+
+###### `start`<sup>Required</sup> <a name="start" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableStates.parameter.start"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.State
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.findReachableStates.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.FindStateOptions
+
+---
+
+##### `prefixStates` <a name="prefixStates" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.prefixStates"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
+
+LateBoundStepFunctionsStartExecution.prefixStates(root: IConstruct, prefix: string)
+```
+
+Add a prefix to the stateId of all States found in a construct tree.
+
+###### `root`<sup>Required</sup> <a name="root" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.prefixStates.parameter.root"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+###### `prefix`<sup>Required</sup> <a name="prefix" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.prefixStates.parameter.prefix"></a>
+
+- *Type:* string
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.endStates">endStates</a></code> | <code>aws-cdk-lib.aws_stepfunctions.INextable[]</code> | Continuable states of this Chainable. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.id">id</a></code> | <code>string</code> | Descriptive identifier for this chainable. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.startState">startState</a></code> | <code>aws-cdk-lib.aws_stepfunctions.State</code> | First state of this Chainable. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.stateId">stateId</a></code> | <code>string</code> | Tokenized string that evaluates to the state's ID. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `endStates`<sup>Required</sup> <a name="endStates" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.endStates"></a>
+
+```typescript
+public readonly endStates: INextable[];
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.INextable[]
+
+Continuable states of this Chainable.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+Descriptive identifier for this chainable.
+
+---
+
+##### `startState`<sup>Required</sup> <a name="startState" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.startState"></a>
+
+```typescript
+public readonly startState: State;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.State
+
+First state of this Chainable.
+
+---
+
+##### `stateId`<sup>Required</sup> <a name="stateId" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.property.stateId"></a>
+
+```typescript
+public readonly stateId: string;
+```
+
+- *Type:* string
+
+Tokenized string that evaluates to the state's ID.
+
+---
+
 
 ## Structs <a name="Structs" id="Structs"></a>
 
@@ -162,6 +663,291 @@ Which would cause the search to stop at a stack (or sub-stack depending on direc
 
 The stopCondition is not applied when calling  {@link ConstructService.searchSelf}
 or {@link ConstructService.searchSelfOrCreate}.
+
+---
+
+### LateBoundStepFunctionsStartExecutionProps <a name="LateBoundStepFunctionsStartExecutionProps" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps"></a>
+
+Properties for LateBoundStepFunctionsStartExecution.
+
+#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.Initializer"></a>
+
+```typescript
+import { LateBoundStepFunctionsStartExecutionProps } from '@open-constructs/aws-cdk'
+
+const lateBoundStepFunctionsStartExecutionProps: LateBoundStepFunctionsStartExecutionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.comment">comment</a></code> | <code>string</code> | An optional description for this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.credentials">credentials</a></code> | <code>aws-cdk-lib.aws_stepfunctions.Credentials</code> | Credentials for an IAM Role that the State Machine assumes for executing the task. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.heartbeat">heartbeat</a></code> | <code>aws-cdk-lib.Duration</code> | Timeout for the heartbeat. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.heartbeatTimeout">heartbeatTimeout</a></code> | <code>aws-cdk-lib.aws_stepfunctions.Timeout</code> | Timeout for the heartbeat. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.inputPath">inputPath</a></code> | <code>string</code> | JSONPath expression to select part of the state to be the input to this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.integrationPattern">integrationPattern</a></code> | <code>aws-cdk-lib.aws_stepfunctions.IntegrationPattern</code> | AWS Step Functions integrates with services directly in the Amazon States Language. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.outputPath">outputPath</a></code> | <code>string</code> | JSONPath expression to select select a portion of the state output to pass to the next state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.resultPath">resultPath</a></code> | <code>string</code> | JSONPath expression to indicate where to inject the state's output. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.resultSelector">resultSelector</a></code> | <code>{[ key: string ]: any}</code> | The JSON that will replace the state's raw result and become the effective result before ResultPath is applied. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.stateName">stateName</a></code> | <code>string</code> | Optional name for this state. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.taskTimeout">taskTimeout</a></code> | <code>aws-cdk-lib.aws_stepfunctions.Timeout</code> | Timeout for the task. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | Timeout for the task. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.associateWithParent">associateWithParent</a></code> | <code>boolean</code> | Pass the execution ID from the context object to the execution input. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.input">input</a></code> | <code>aws-cdk-lib.aws_stepfunctions.TaskInput</code> | The JSON input for the execution, same as that of StartExecution. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.name">name</a></code> | <code>string</code> | The name of the execution, same as that of StartExecution. |
+| <code><a href="#@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.stateMachineArnPath">stateMachineArnPath</a></code> | <code>string</code> | Where in the event the arn of the stateMachine to call is stored. |
+
+---
+
+##### `comment`<sup>Optional</sup> <a name="comment" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.comment"></a>
+
+```typescript
+public readonly comment: string;
+```
+
+- *Type:* string
+- *Default:* No comment
+
+An optional description for this state.
+
+---
+
+##### `credentials`<sup>Optional</sup> <a name="credentials" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.credentials"></a>
+
+```typescript
+public readonly credentials: Credentials;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.Credentials
+- *Default:* None (Task is executed using the State Machine's execution role)
+
+Credentials for an IAM Role that the State Machine assumes for executing the task.
+
+This enables cross-account resource invocations.
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/concepts-access-cross-acct-resources.html](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-access-cross-acct-resources.html)
+
+---
+
+##### ~~`heartbeat`~~<sup>Optional</sup> <a name="heartbeat" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.heartbeat"></a>
+
+- *Deprecated:* use `heartbeatTimeout`
+
+```typescript
+public readonly heartbeat: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* None
+
+Timeout for the heartbeat.
+
+---
+
+##### `heartbeatTimeout`<sup>Optional</sup> <a name="heartbeatTimeout" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.heartbeatTimeout"></a>
+
+```typescript
+public readonly heartbeatTimeout: Timeout;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.Timeout
+- *Default:* None
+
+Timeout for the heartbeat.
+
+[disable-awslint:duration-prop-type] is needed because all props interface in
+aws-stepfunctions-tasks extend this interface
+
+---
+
+##### `inputPath`<sup>Optional</sup> <a name="inputPath" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.inputPath"></a>
+
+```typescript
+public readonly inputPath: string;
+```
+
+- *Type:* string
+- *Default:* The entire task input (JSON path '$')
+
+JSONPath expression to select part of the state to be the input to this state.
+
+May also be the special value JsonPath.DISCARD, which will cause the effective
+input to be the empty object {}.
+
+---
+
+##### `integrationPattern`<sup>Optional</sup> <a name="integrationPattern" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.integrationPattern"></a>
+
+```typescript
+public readonly integrationPattern: IntegrationPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.IntegrationPattern
+- *Default:* `IntegrationPattern.REQUEST_RESPONSE` for most tasks. `IntegrationPattern.RUN_JOB` for the following exceptions: `BatchSubmitJob`, `EmrAddStep`, `EmrCreateCluster`, `EmrTerminationCluster`, and `EmrContainersStartJobRun`.
+
+AWS Step Functions integrates with services directly in the Amazon States Language.
+
+You can control these AWS services using service integration patterns
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token)
+
+---
+
+##### `outputPath`<sup>Optional</sup> <a name="outputPath" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.outputPath"></a>
+
+```typescript
+public readonly outputPath: string;
+```
+
+- *Type:* string
+- *Default:* The entire JSON node determined by the state input, the task result, and resultPath is passed to the next state (JSON path '$')
+
+JSONPath expression to select select a portion of the state output to pass to the next state.
+
+May also be the special value JsonPath.DISCARD, which will cause the effective
+output to be the empty object {}.
+
+---
+
+##### `resultPath`<sup>Optional</sup> <a name="resultPath" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.resultPath"></a>
+
+```typescript
+public readonly resultPath: string;
+```
+
+- *Type:* string
+- *Default:* Replaces the entire input with the result (JSON path '$')
+
+JSONPath expression to indicate where to inject the state's output.
+
+May also be the special value JsonPath.DISCARD, which will cause the state's
+input to become its output.
+
+---
+
+##### `resultSelector`<sup>Optional</sup> <a name="resultSelector" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.resultSelector"></a>
+
+```typescript
+public readonly resultSelector: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* None
+
+The JSON that will replace the state's raw result and become the effective result before ResultPath is applied.
+
+You can use ResultSelector to create a payload with values that are static
+or selected from the state's raw result.
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector)
+
+---
+
+##### `stateName`<sup>Optional</sup> <a name="stateName" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.stateName"></a>
+
+```typescript
+public readonly stateName: string;
+```
+
+- *Type:* string
+- *Default:* The construct ID will be used as state name
+
+Optional name for this state.
+
+---
+
+##### `taskTimeout`<sup>Optional</sup> <a name="taskTimeout" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.taskTimeout"></a>
+
+```typescript
+public readonly taskTimeout: Timeout;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.Timeout
+- *Default:* None
+
+Timeout for the task.
+
+[disable-awslint:duration-prop-type] is needed because all props interface in
+aws-stepfunctions-tasks extend this interface
+
+---
+
+##### ~~`timeout`~~<sup>Optional</sup> <a name="timeout" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.timeout"></a>
+
+- *Deprecated:* use `taskTimeout`
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* None
+
+Timeout for the task.
+
+---
+
+##### `associateWithParent`<sup>Optional</sup> <a name="associateWithParent" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.associateWithParent"></a>
+
+```typescript
+public readonly associateWithParent: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Pass the execution ID from the context object to the execution input.
+
+This allows the Step Functions UI to link child executions from parent executions, making it easier to trace execution flow across state machines.
+
+If you set this property to `true`, the `input` property must be an object (provided by `TaskInput.fromObject`) or omitted entirely.
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/concepts-nested-workflows.html#nested-execution-startid](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-nested-workflows.html#nested-execution-startid)
+
+---
+
+##### `input`<sup>Optional</sup> <a name="input" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.input"></a>
+
+```typescript
+public readonly input: TaskInput;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.TaskInput
+- *Default:* The state input (JSON path '$')
+
+The JSON input for the execution, same as that of StartExecution.
+
+> [https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html](https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html)
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+- *Default:* None
+
+The name of the execution, same as that of StartExecution.
+
+> [https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html](https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html)
+
+---
+
+##### `stateMachineArnPath`<sup>Optional</sup> <a name="stateMachineArnPath" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecutionProps.property.stateMachineArnPath"></a>
+
+```typescript
+public readonly stateMachineArnPath: string;
+```
+
+- *Type:* string
+- *Default:* "$.stateMachineArn"
+
+Where in the event the arn of the stateMachine to call is stored.
 
 ---
 
