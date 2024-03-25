@@ -7,7 +7,7 @@ import { CfnElementUtilities, ConstructTreeSearch } from '../core';
 /**
  * Utilities for converting resources from CfnInclude to a CDK L2-derived class.
  */
-export class CfnToCdk {
+export class CfnIncludeToCdk {
   /**
    * Returns true if the given construct is an instance of CfnInclude
    * @param x
@@ -66,7 +66,7 @@ export class CfnToCdk {
    */
   static removeIncluded(logicalId: string, scope: Construct) {
     let stack = Stack.of(scope);
-    let cfnIncludes = ConstructTreeSearch.for(CfnToCdk.isCfnInclude).searchDown(stack, x => Stack.isStack(x)) as CfnInclude[];
+    let cfnIncludes = ConstructTreeSearch.for(CfnIncludeToCdk.isCfnInclude).searchDown(stack, x => Stack.isStack(x)) as CfnInclude[];
     for (let include of cfnIncludes) {
       let original: CfnElement = include.getResource(logicalId);
       if (!original) {
@@ -110,9 +110,9 @@ export class CfnToCdk {
    * @param replacementConstruct Construct that should be replacing the included construct.
    */
   static replaceIncluded<T extends Construct>(logicalId: string, replacementConstruct: T): T {
-    CfnToCdk.removeIncluded(logicalId, replacementConstruct);
+    CfnIncludeToCdk.removeIncluded(logicalId, replacementConstruct);
 
     // Set the LogicalId of the replacement to be the same as the LogicalId of the replaced construct
-    return CfnToCdk.setLogicalId(replacementConstruct, logicalId);
+    return CfnIncludeToCdk.setLogicalId(replacementConstruct, logicalId);
   }
 }
