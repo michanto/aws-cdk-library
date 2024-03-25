@@ -57,7 +57,6 @@ describe('LateBoundStepFunctionsStartExecution tests', () => {
     });
 
     let template = JSON.parse(JSON.stringify(Template.fromStack(stack)));
-    console.log(JSON.stringify(template, undefined, 1));
     let stepFn = template.Resources.MyStateMachine6C968CA5;
     expect(JSON.stringify(stepFn.Properties)).toContain('$.stateMachineArn');
     expect(JSON.stringify(stepFn.Properties)).toContain('AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID');
