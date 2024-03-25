@@ -2,6 +2,278 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### CfnTransform <a name="CfnTransform" id="@open-constructs/aws-cdk.CfnTransform"></a>
+
+- *Implements:* <a href="#@open-constructs/aws-cdk.ICfnTransform">ICfnTransform</a>
+
+This is the base class for CDK Transform constructs.
+
+A CfnTransform class will have no affect on the template unless it is hosted.
+The hosting construct must support Transform processing.  CfnTransformHostHook
+ensures the construct is hosted by either the antecedent CfnElement, Stack, or by
+another construct in the heirarchy (such as a TemplateImporter)
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnTransform.Initializer"></a>
+
+```typescript
+import { CfnTransform } from '@open-constructs/aws-cdk'
+
+new CfnTransform(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnTransform.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.CfnTransform.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.apply">apply</a></code> | Modifies the template. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.CfnTransform.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `apply` <a name="apply" id="@open-constructs/aws-cdk.CfnTransform.apply"></a>
+
+```typescript
+public apply(template: any): any
+```
+
+Modifies the template.
+
+###### `template`<sup>Required</sup> <a name="template" id="@open-constructs/aws-cdk.CfnTransform.apply.parameter.template"></a>
+
+- *Type:* any
+
+The template to transform.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.isCfnTransform">isCfnTransform</a></code> | Returns `true` if a construct is a CfnTransform. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.CfnTransform.isConstruct"></a>
+
+```typescript
+import { CfnTransform } from '@open-constructs/aws-cdk'
+
+CfnTransform.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnTransform.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isCfnTransform` <a name="isCfnTransform" id="@open-constructs/aws-cdk.CfnTransform.isCfnTransform"></a>
+
+```typescript
+import { CfnTransform } from '@open-constructs/aws-cdk'
+
+CfnTransform.isCfnTransform(x: any)
+```
+
+Returns `true` if a construct is a CfnTransform.
+
+Uses duck-typing instead of `instanceof` to allow CfnTransforms from different
+versions of this library to be included in the same stack.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnTransform.isCfnTransform.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.property.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.CfnTransform.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.CfnTransform.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+
+### CfnTransformHost <a name="CfnTransformHost" id="@open-constructs/aws-cdk.CfnTransformHost"></a>
+
+Normally, transforms are hosted by a Stack or CfnElement, and they are applied during synthesis (calls to _toCloudFormation).
+
+You can use
+either cfnTransformHost (as a decorator) or makeTransformHost (called
+from the Stack constructor) to turn a Stack into a transform host.
+
+But if you want transforms hosted for some other reason, this is the class you should use.
+This class hosts transforms, but does not know what to do with them.
+So anything can be done with the transforms hosted here, but they will not affect the stack itself.
+
+This is used for import and other non-stack not-element scenarios.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnTransformHost.Initializer"></a>
+
+```typescript
+import { CfnTransformHost } from '@open-constructs/aws-cdk'
+
+new CfnTransformHost(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransformHost.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransformHost.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnTransformHost.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.CfnTransformHost.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransformHost.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.CfnTransformHost.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransformHost.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransformHost.isCfnTransformHost">isCfnTransformHost</a></code> | Tells you if an object is a CfnTransformHost. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.CfnTransformHost.isConstruct"></a>
+
+```typescript
+import { CfnTransformHost } from '@open-constructs/aws-cdk'
+
+CfnTransformHost.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnTransformHost.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isCfnTransformHost` <a name="isCfnTransformHost" id="@open-constructs/aws-cdk.CfnTransformHost.isCfnTransformHost"></a>
+
+```typescript
+import { CfnTransformHost } from '@open-constructs/aws-cdk'
+
+CfnTransformHost.isCfnTransformHost(scope: Construct)
+```
+
+Tells you if an object is a CfnTransformHost.
+
+Duck-typing.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnTransformHost.isCfnTransformHost.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransformHost.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.CfnTransformHost.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### InlineNodejsFunction <a name="InlineNodejsFunction" id="@open-constructs/aws-cdk.InlineNodejsFunction"></a>
 
 - *Implements:* aws-cdk-lib.IInspectable
@@ -1645,6 +1917,66 @@ Tokenized string that evaluates to the state's ID.
 
 
 ## Structs <a name="Structs" id="Structs"></a>
+
+### ConstructHostProps <a name="ConstructHostProps" id="@open-constructs/aws-cdk.ConstructHostProps"></a>
+
+Properties for ConstructHost.
+
+#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.ConstructHostProps.Initializer"></a>
+
+```typescript
+import { ConstructHostProps } from '@open-constructs/aws-cdk'
+
+const constructHostProps: ConstructHostProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ConstructHostProps.property.hostConstructTypeInfo">hostConstructTypeInfo</a></code> | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo">ConstructRunTimeTypeInfo</a></code> | Host RTTI. |
+| <code><a href="#@open-constructs/aws-cdk.ConstructHostProps.property.hostedConstructTypeInfo">hostedConstructTypeInfo</a></code> | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo">ConstructRunTimeTypeInfo</a></code> | Hosted construct RTTI. |
+| <code><a href="#@open-constructs/aws-cdk.ConstructHostProps.property.stopCondition">stopCondition</a></code> | <code><a href="#@open-constructs/aws-cdk.IStopCondition">IStopCondition</a></code> | Stop condition for searching for hosted constructs. |
+
+---
+
+##### `hostConstructTypeInfo`<sup>Required</sup> <a name="hostConstructTypeInfo" id="@open-constructs/aws-cdk.ConstructHostProps.property.hostConstructTypeInfo"></a>
+
+```typescript
+public readonly hostConstructTypeInfo: ConstructRunTimeTypeInfo;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo">ConstructRunTimeTypeInfo</a>
+
+Host RTTI.
+
+---
+
+##### `hostedConstructTypeInfo`<sup>Required</sup> <a name="hostedConstructTypeInfo" id="@open-constructs/aws-cdk.ConstructHostProps.property.hostedConstructTypeInfo"></a>
+
+```typescript
+public readonly hostedConstructTypeInfo: ConstructRunTimeTypeInfo;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo">ConstructRunTimeTypeInfo</a>
+
+Hosted construct RTTI.
+
+---
+
+##### `stopCondition`<sup>Optional</sup> <a name="stopCondition" id="@open-constructs/aws-cdk.ConstructHostProps.property.stopCondition"></a>
+
+```typescript
+public readonly stopCondition: IStopCondition;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.IStopCondition">IStopCondition</a>
+
+Stop condition for searching for hosted constructs.
+
+Normally this will at least exclude sub-stacks.
+
+---
 
 ### ConstructServiceProps <a name="ConstructServiceProps" id="@open-constructs/aws-cdk.ConstructServiceProps"></a>
 
@@ -3743,6 +4075,76 @@ The resource construct.
 
 
 
+### ConstructHost <a name="ConstructHost" id="@open-constructs/aws-cdk.ConstructHost"></a>
+
+Helper class to make it easier for a construct to "host" constructs of a specific type, as defined by Construct RTTI.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.ConstructHost.Initializer"></a>
+
+```typescript
+import { ConstructHost } from '@open-constructs/aws-cdk'
+
+new ConstructHost(props: ConstructHostProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ConstructHost.Initializer.parameter.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.ConstructHostProps">ConstructHostProps</a></code> | *No description.* |
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.ConstructHost.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ConstructHostProps">ConstructHostProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ConstructHost.getHostedConstructs">getHostedConstructs</a></code> | Returns constructs that match the hosted type that are under scope. |
+
+---
+
+##### `getHostedConstructs` <a name="getHostedConstructs" id="@open-constructs/aws-cdk.ConstructHost.getHostedConstructs"></a>
+
+```typescript
+public getHostedConstructs(scope: IConstruct): IConstruct[]
+```
+
+Returns constructs that match the hosted type that are under scope.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructHost.getHostedConstructs.parameter.scope"></a>
+
+- *Type:* constructs.IConstruct
+
+Scope for the search.
+
+Not required to be the host.
+
+---
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ConstructHost.property.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.ConstructHostProps">ConstructHostProps</a></code> | *No description.* |
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.ConstructHost.property.props"></a>
+
+```typescript
+public readonly props: ConstructHostProps;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.ConstructHostProps">ConstructHostProps</a>
+
+---
+
+
 ### ConstructRunTimeTypeInfo <a name="ConstructRunTimeTypeInfo" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo"></a>
 
 This class should be used for symbol-based Construct RTTI.
@@ -5339,6 +5741,127 @@ public readonly props: LoggerProps;
 ---
 
 
+### PostResolveToken <a name="PostResolveToken" id="@open-constructs/aws-cdk.PostResolveToken"></a>
+
+- *Implements:* aws-cdk-lib.IResolvable, aws-cdk-lib.IPostProcessor
+
+Copied out of the CDK.
+
+Because not public.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.PostResolveToken.Initializer"></a>
+
+```typescript
+import { PostResolveToken } from '@open-constructs/aws-cdk'
+
+new PostResolveToken(value: any, processor: IProcessor)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.Initializer.parameter.value">value</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.Initializer.parameter.processor">processor</a></code> | <code><a href="#@open-constructs/aws-cdk.IProcessor">IProcessor</a></code> | *No description.* |
+
+---
+
+##### `value`<sup>Required</sup> <a name="value" id="@open-constructs/aws-cdk.PostResolveToken.Initializer.parameter.value"></a>
+
+- *Type:* any
+
+---
+
+##### `processor`<sup>Required</sup> <a name="processor" id="@open-constructs/aws-cdk.PostResolveToken.Initializer.parameter.processor"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.IProcessor">IProcessor</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.postProcess">postProcess</a></code> | Process the completely resolved value, after full recursion/resolution has happened. |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.resolve">resolve</a></code> | Produce the Token's value at resolution time. |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.toJSON">toJSON</a></code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.toString">toString</a></code> | Return a string representation of this resolvable object. |
+
+---
+
+##### `postProcess` <a name="postProcess" id="@open-constructs/aws-cdk.PostResolveToken.postProcess"></a>
+
+```typescript
+public postProcess(o: any, _context: IResolveContext): any
+```
+
+Process the completely resolved value, after full recursion/resolution has happened.
+
+###### `o`<sup>Required</sup> <a name="o" id="@open-constructs/aws-cdk.PostResolveToken.postProcess.parameter.o"></a>
+
+- *Type:* any
+
+---
+
+###### `_context`<sup>Required</sup> <a name="_context" id="@open-constructs/aws-cdk.PostResolveToken.postProcess.parameter._context"></a>
+
+- *Type:* aws-cdk-lib.IResolveContext
+
+---
+
+##### `resolve` <a name="resolve" id="@open-constructs/aws-cdk.PostResolveToken.resolve"></a>
+
+```typescript
+public resolve(context: IResolveContext): any
+```
+
+Produce the Token's value at resolution time.
+
+###### `context`<sup>Required</sup> <a name="context" id="@open-constructs/aws-cdk.PostResolveToken.resolve.parameter.context"></a>
+
+- *Type:* aws-cdk-lib.IResolveContext
+
+---
+
+##### `toJSON` <a name="toJSON" id="@open-constructs/aws-cdk.PostResolveToken.toJSON"></a>
+
+```typescript
+public toJSON(): any
+```
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.PostResolveToken.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Return a string representation of this resolvable object.
+
+Returns a reversible string representation.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.PostResolveToken.property.creationStack">creationStack</a></code> | <code>string[]</code> | The creation stack of this resolvable which will be appended to errors thrown during resolution. |
+
+---
+
+##### `creationStack`<sup>Required</sup> <a name="creationStack" id="@open-constructs/aws-cdk.PostResolveToken.property.creationStack"></a>
+
+```typescript
+public readonly creationStack: string[];
+```
+
+- *Type:* string[]
+
+The creation stack of this resolvable which will be appended to errors thrown during resolution.
+
+This may return an array with a single informational element indicating how
+to get this property populated, if it was skipped for performance reasons.
+
+---
+
+
 ### ServiceInspectorAspect <a name="ServiceInspectorAspect" id="@open-constructs/aws-cdk.ServiceInspectorAspect"></a>
 
 - *Implements:* aws-cdk-lib.IAspect
@@ -6329,6 +6852,214 @@ public readonly service: ConstructTreeService;
 ---
 
 
+### TransformHost <a name="TransformHost" id="@open-constructs/aws-cdk.TransformHost"></a>
+
+Static helpers.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.TransformHost.Initializer"></a>
+
+```typescript
+import { TransformHost } from '@open-constructs/aws-cdk'
+
+new TransformHost()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.TransformHost.ensureHosted">ensureHosted</a></code> | Ensures that a Transform is hosted by modifying the ancestor CfnElement or Stack (if necessary) so they can host transforms. |
+| <code><a href="#@open-constructs/aws-cdk.TransformHost.hook">hook</a></code> | This turns a Stack or CfnElement into a transform host. |
+| <code><a href="#@open-constructs/aws-cdk.TransformHost.isTransformHost">isTransformHost</a></code> | Returns true for any Stack or CfnElement that is a transform host, as well as for all CfnTransformHost constructs. |
+| <code><a href="#@open-constructs/aws-cdk.TransformHost.mark">mark</a></code> | Marks a construct as a TransformHost, isolating the transforms under it from the Stack. |
+| <code><a href="#@open-constructs/aws-cdk.TransformHost.of">of</a></code> | Note: This returns the transform host, which may be either a Stack, a CfnElement, or a CfnTransformHost. |
+
+---
+
+##### `ensureHosted` <a name="ensureHosted" id="@open-constructs/aws-cdk.TransformHost.ensureHosted"></a>
+
+```typescript
+import { TransformHost } from '@open-constructs/aws-cdk'
+
+TransformHost.ensureHosted(scope: Construct)
+```
+
+Ensures that a Transform is hosted by modifying the ancestor CfnElement or Stack (if necessary) so they can host transforms.
+
+Ensures that Tranforms under a CfnElement apply to the CfnElement, and Transforms under
+a Stack apply to the Stack.
+
+Not being able to do this may not be fatal, so we don't throw.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.TransformHost.ensureHosted.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `hook` <a name="hook" id="@open-constructs/aws-cdk.TransformHost.hook"></a>
+
+```typescript
+import { TransformHost } from '@open-constructs/aws-cdk'
+
+TransformHost.hook(construct: IConstruct)
+```
+
+This turns a Stack or CfnElement into a transform host.
+
+Can be used from the stack constructor, or via the
+provided cfnTransformHost decorator.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.TransformHost.hook.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isTransformHost` <a name="isTransformHost" id="@open-constructs/aws-cdk.TransformHost.isTransformHost"></a>
+
+```typescript
+import { TransformHost } from '@open-constructs/aws-cdk'
+
+TransformHost.isTransformHost(scope: Construct)
+```
+
+Returns true for any Stack or CfnElement that is a transform host, as well as for all CfnTransformHost constructs.
+
+It does NOT tell you that the object is of type CfnTransformHost.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.TransformHost.isTransformHost.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `mark` <a name="mark" id="@open-constructs/aws-cdk.TransformHost.mark"></a>
+
+```typescript
+import { TransformHost } from '@open-constructs/aws-cdk'
+
+TransformHost.mark(scope: Construct)
+```
+
+Marks a construct as a TransformHost, isolating the transforms under it from the Stack.
+
+Host decides when to apply the descendent transforms.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.TransformHost.mark.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `of` <a name="of" id="@open-constructs/aws-cdk.TransformHost.of"></a>
+
+```typescript
+import { TransformHost } from '@open-constructs/aws-cdk'
+
+TransformHost.of(scope: Construct)
+```
+
+Note: This returns the transform host, which may be either a Stack, a CfnElement, or a CfnTransformHost.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.TransformHost.of.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+
+
+### Transforms <a name="Transforms" id="@open-constructs/aws-cdk.Transforms"></a>
+
+This helper class can extract ICfnTransforms from a construct tree so they can be applied to a template.
+
+This class is used by the framework to apply transforms, and can be used to import templates into
+a CfnInclude construct.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Transforms.apply">apply</a></code> | Applies the transforms on a scope to a template. |
+| <code><a href="#@open-constructs/aws-cdk.Transforms.get">get</a></code> | Returns all transforms attached to the scope as descendents. |
+
+---
+
+##### `apply` <a name="apply" id="@open-constructs/aws-cdk.Transforms.apply"></a>
+
+```typescript
+public apply(template: any): any
+```
+
+Applies the transforms on a scope to a template.
+
+###### `template`<sup>Required</sup> <a name="template" id="@open-constructs/aws-cdk.Transforms.apply.parameter.template"></a>
+
+- *Type:* any
+
+---
+
+##### `get` <a name="get" id="@open-constructs/aws-cdk.Transforms.get"></a>
+
+```typescript
+public get(): ICfnTransform[]
+```
+
+Returns all transforms attached to the scope as descendents.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Transforms.of">of</a></code> | Returns a transforms object for the scope. |
+
+---
+
+##### `of` <a name="of" id="@open-constructs/aws-cdk.Transforms.of"></a>
+
+```typescript
+import { Transforms } from '@open-constructs/aws-cdk'
+
+Transforms.of(scope: IConstruct)
+```
+
+Returns a transforms object for the scope.
+
+This object has access to all transforms attached to the scope
+as descendents.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Transforms.of.parameter.scope"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.Transforms.property.scope">scope</a></code> | <code>constructs.IConstruct</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.Transforms.property.scope"></a>
+
+```typescript
+public readonly scope: IConstruct;
+```
+
+- *Type:* constructs.IConstruct
+
+---
+
+
 ### TreeInspectable <a name="TreeInspectable" id="@open-constructs/aws-cdk.TreeInspectable"></a>
 
 - *Implements:* aws-cdk-lib.IInspectable
@@ -6477,6 +7208,61 @@ public readonly TREE_INSPECTABLE_SERVICE: ConstructService;
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
+### ICfnTransform <a name="ICfnTransform" id="@open-constructs/aws-cdk.ICfnTransform"></a>
+
+- *Extends:* constructs.IConstruct
+
+- *Implemented By:* <a href="#@open-constructs/aws-cdk.CfnTransform">CfnTransform</a>, <a href="#@open-constructs/aws-cdk.ICfnTransform">ICfnTransform</a>
+
+The base interface for CDK Transforms.
+
+A CDK Transform is a construct that can take
+input, such as CloudFormation, and transform it, most likely into slightly different
+CloudFormation.
+
+CDK Transforms have two use-cases:  Preprocessing CloudFormation before it is imported to the CDK,
+and post-processing CloudFormation produced by the CDK before it is written to a file in cdk.out.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ICfnTransform.apply">apply</a></code> | *No description.* |
+
+---
+
+##### `apply` <a name="apply" id="@open-constructs/aws-cdk.ICfnTransform.apply"></a>
+
+```typescript
+public apply(template: any): any
+```
+
+###### `template`<sup>Required</sup> <a name="template" id="@open-constructs/aws-cdk.ICfnTransform.apply.parameter.template"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.ICfnTransform.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.ICfnTransform.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
 ### IConstructFactory <a name="IConstructFactory" id="@open-constructs/aws-cdk.IConstructFactory"></a>
 
 - *Implemented By:* <a href="#@open-constructs/aws-cdk.IConstructFactory">IConstructFactory</a>
@@ -6580,6 +7366,31 @@ public readonly logLevel: number;
 Returns the current log level.
 
 ---
+
+### IProcessor <a name="IProcessor" id="@open-constructs/aws-cdk.IProcessor"></a>
+
+- *Implemented By:* <a href="#@open-constructs/aws-cdk.IProcessor">IProcessor</a>
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.IProcessor.process">process</a></code> | *No description.* |
+
+---
+
+##### `process` <a name="process" id="@open-constructs/aws-cdk.IProcessor.process"></a>
+
+```typescript
+public process(x: any): any
+```
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.IProcessor.process.parameter.x"></a>
+
+- *Type:* any
+
+---
+
 
 ### IStopCondition <a name="IStopCondition" id="@open-constructs/aws-cdk.IStopCondition"></a>
 
