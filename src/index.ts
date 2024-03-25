@@ -1,5 +1,6 @@
 // Export constructs here
 export * as aws_cur from './aws-cur';
-export * from './core/index';
+export * from './core';
 export * from './aws-lambda-nodejs';
 export * from './aws-stepfunctions';
+export * from './cloudformation-include';

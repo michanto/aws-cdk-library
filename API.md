@@ -3668,6 +3668,200 @@ Creates a named token.
 
 
 
+### CfnElementUtilities <a name="CfnElementUtilities" id="@open-constructs/aws-cdk.CfnElementUtilities"></a>
+
+Utilities for use with CfnElement.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnElementUtilities.Initializer"></a>
+
+```typescript
+import { CfnElementUtilities } from '@open-constructs/aws-cdk'
+
+new CfnElementUtilities()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnElementUtilities.cfnElementHost">cfnElementHost</a></code> | Returns the antecedent cnfElement in the tree  (if any). |
+| <code><a href="#@open-constructs/aws-cdk.CfnElementUtilities.cfnElements">cfnElements</a></code> | Returns a list of all L1 construct descendents of the scope. |
+
+---
+
+##### `cfnElementHost` <a name="cfnElementHost" id="@open-constructs/aws-cdk.CfnElementUtilities.cfnElementHost"></a>
+
+```typescript
+public cfnElementHost(scope: Construct): IConstruct
+```
+
+Returns the antecedent cnfElement in the tree  (if any).
+
+Basially, CfnElement.of (like Stack.of).
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnElementUtilities.cfnElementHost.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `cfnElements` <a name="cfnElements" id="@open-constructs/aws-cdk.CfnElementUtilities.cfnElements"></a>
+
+```typescript
+public cfnElements(scope: Construct): CfnElement[]
+```
+
+Returns a list of all L1 construct descendents of the scope.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnElementUtilities.cfnElements.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+
+
+
+### CfnToCdk <a name="CfnToCdk" id="@open-constructs/aws-cdk.CfnToCdk"></a>
+
+Utilities for converting resources from CfnInclude to a CDK L2-derived class.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnToCdk.Initializer"></a>
+
+```typescript
+import { CfnToCdk } from '@open-constructs/aws-cdk'
+
+new CfnToCdk()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.isCfnInclude">isCfnInclude</a></code> | Returns true if the given construct is an instance of CfnInclude. |
+| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.removeIncluded">removeIncluded</a></code> | Removes a construct from CfnInclude with the given logicalId. |
+| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.replaceIncluded">replaceIncluded</a></code> | Replaces an L1 construct in a CfnInclude with an L1 or L2 CDK construct of your choosing. |
+| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.setLogicalId">setLogicalId</a></code> | Sets the logical ID of the resource to the Node ID of the construct. |
+
+---
+
+##### `isCfnInclude` <a name="isCfnInclude" id="@open-constructs/aws-cdk.CfnToCdk.isCfnInclude"></a>
+
+```typescript
+import { CfnToCdk } from '@open-constructs/aws-cdk'
+
+CfnToCdk.isCfnInclude(x?: IConstruct)
+```
+
+Returns true if the given construct is an instance of CfnInclude.
+
+###### `x`<sup>Optional</sup> <a name="x" id="@open-constructs/aws-cdk.CfnToCdk.isCfnInclude.parameter.x"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `removeIncluded` <a name="removeIncluded" id="@open-constructs/aws-cdk.CfnToCdk.removeIncluded"></a>
+
+```typescript
+import { CfnToCdk } from '@open-constructs/aws-cdk'
+
+CfnToCdk.removeIncluded(logicalId: string, scope: Construct)
+```
+
+Removes a construct from CfnInclude with the given logicalId.
+
+Finds the CfnInclude in the stack of the given scope.
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnToCdk.removeIncluded.parameter.logicalId"></a>
+
+- *Type:* string
+
+---
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnToCdk.removeIncluded.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `replaceIncluded` <a name="replaceIncluded" id="@open-constructs/aws-cdk.CfnToCdk.replaceIncluded"></a>
+
+```typescript
+import { CfnToCdk } from '@open-constructs/aws-cdk'
+
+CfnToCdk.replaceIncluded(logicalId: string, replacementConstruct: Construct)
+```
+
+Replaces an L1 construct in a CfnInclude with an L1 or L2 CDK construct of your choosing.
+
+Removes the original imported L1 for the construct from the CfnInclude.
+- Sets the logical resource ID of the replacement to the correct value so it acts as a drop-in replacement.
+
+If the L1 cannot be found, this function assumes the related CfnInclude is converted
+and was removed from the stack.
+
+FUTURE: Ensure the new construct is of the same resource type as the old one?  Is that useful?
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnToCdk.replaceIncluded.parameter.logicalId"></a>
+
+- *Type:* string
+
+Logical ID of the construct we are replacing.
+
+---
+
+###### `replacementConstruct`<sup>Required</sup> <a name="replacementConstruct" id="@open-constructs/aws-cdk.CfnToCdk.replaceIncluded.parameter.replacementConstruct"></a>
+
+- *Type:* constructs.Construct
+
+Construct that should be replacing the included construct.
+
+---
+
+##### `setLogicalId` <a name="setLogicalId" id="@open-constructs/aws-cdk.CfnToCdk.setLogicalId"></a>
+
+```typescript
+import { CfnToCdk } from '@open-constructs/aws-cdk'
+
+CfnToCdk.setLogicalId(construct: Construct, id?: string)
+```
+
+Sets the logical ID of the resource to the Node ID of the construct.
+
+This should be used when you want the resource ID to be the same as the Node ID.
+Such as when you are replicating an existing hand-crafted template.
+
+Note:  This function L1 or L2 constructs, or any case where there is one L1 in the
+sub-tree.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.CfnToCdk.setLogicalId.parameter.construct"></a>
+
+- *Type:* constructs.Construct
+
+The resource construct.
+
+---
+
+###### `id`<sup>Optional</sup> <a name="id" id="@open-constructs/aws-cdk.CfnToCdk.setLogicalId.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+
+
 ### ConstructRunTimeTypeInfo <a name="ConstructRunTimeTypeInfo" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo"></a>
 
 This class should be used for symbol-based Construct RTTI.
