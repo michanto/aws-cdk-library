@@ -3608,16 +3608,16 @@ Returns a list of all L1 construct descendents of the scope.
 
 
 
-### CfnToCdk <a name="CfnToCdk" id="@open-constructs/aws-cdk.CfnToCdk"></a>
+### CfnIncludeToCdk <a name="CfnIncludeToCdk" id="@open-constructs/aws-cdk.CfnIncludeToCdk"></a>
 
 Utilities for converting resources from CfnInclude to a CDK L2-derived class.
 
-#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnToCdk.Initializer"></a>
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnIncludeToCdk.Initializer"></a>
 
 ```typescript
-import { CfnToCdk } from '@open-constructs/aws-cdk'
+import { CfnIncludeToCdk } from '@open-constructs/aws-cdk'
 
-new CfnToCdk()
+new CfnIncludeToCdk()
 ```
 
 | **Name** | **Type** | **Description** |
@@ -3630,59 +3630,59 @@ new CfnToCdk()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.isCfnInclude">isCfnInclude</a></code> | Returns true if the given construct is an instance of CfnInclude. |
-| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.removeIncluded">removeIncluded</a></code> | Removes a construct from CfnInclude with the given logicalId. |
-| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.replaceIncluded">replaceIncluded</a></code> | Replaces an L1 construct in a CfnInclude with an L1 or L2 CDK construct of your choosing. |
-| <code><a href="#@open-constructs/aws-cdk.CfnToCdk.setLogicalId">setLogicalId</a></code> | Sets the logical ID of the resource to the Node ID of the construct. |
+| <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.isCfnInclude">isCfnInclude</a></code> | Returns true if the given construct is an instance of CfnInclude. |
+| <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.removeIncluded">removeIncluded</a></code> | Removes a construct from CfnInclude with the given logicalId. |
+| <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.replaceIncluded">replaceIncluded</a></code> | Replaces an L1 construct in a CfnInclude with an L1 or L2 CDK construct of your choosing. |
+| <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.setLogicalId">setLogicalId</a></code> | Sets the logical ID of the resource to the Node ID of the construct. |
 
 ---
 
-##### `isCfnInclude` <a name="isCfnInclude" id="@open-constructs/aws-cdk.CfnToCdk.isCfnInclude"></a>
+##### `isCfnInclude` <a name="isCfnInclude" id="@open-constructs/aws-cdk.CfnIncludeToCdk.isCfnInclude"></a>
 
 ```typescript
-import { CfnToCdk } from '@open-constructs/aws-cdk'
+import { CfnIncludeToCdk } from '@open-constructs/aws-cdk'
 
-CfnToCdk.isCfnInclude(x?: IConstruct)
+CfnIncludeToCdk.isCfnInclude(x?: IConstruct)
 ```
 
 Returns true if the given construct is an instance of CfnInclude.
 
-###### `x`<sup>Optional</sup> <a name="x" id="@open-constructs/aws-cdk.CfnToCdk.isCfnInclude.parameter.x"></a>
+###### `x`<sup>Optional</sup> <a name="x" id="@open-constructs/aws-cdk.CfnIncludeToCdk.isCfnInclude.parameter.x"></a>
 
 - *Type:* constructs.IConstruct
 
 ---
 
-##### `removeIncluded` <a name="removeIncluded" id="@open-constructs/aws-cdk.CfnToCdk.removeIncluded"></a>
+##### `removeIncluded` <a name="removeIncluded" id="@open-constructs/aws-cdk.CfnIncludeToCdk.removeIncluded"></a>
 
 ```typescript
-import { CfnToCdk } from '@open-constructs/aws-cdk'
+import { CfnIncludeToCdk } from '@open-constructs/aws-cdk'
 
-CfnToCdk.removeIncluded(logicalId: string, scope: Construct)
+CfnIncludeToCdk.removeIncluded(logicalId: string, scope: Construct)
 ```
 
 Removes a construct from CfnInclude with the given logicalId.
 
 Finds the CfnInclude in the stack of the given scope.
 
-###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnToCdk.removeIncluded.parameter.logicalId"></a>
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnIncludeToCdk.removeIncluded.parameter.logicalId"></a>
 
 - *Type:* string
 
 ---
 
-###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnToCdk.removeIncluded.parameter.scope"></a>
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnIncludeToCdk.removeIncluded.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-##### `replaceIncluded` <a name="replaceIncluded" id="@open-constructs/aws-cdk.CfnToCdk.replaceIncluded"></a>
+##### `replaceIncluded` <a name="replaceIncluded" id="@open-constructs/aws-cdk.CfnIncludeToCdk.replaceIncluded"></a>
 
 ```typescript
-import { CfnToCdk } from '@open-constructs/aws-cdk'
+import { CfnIncludeToCdk } from '@open-constructs/aws-cdk'
 
-CfnToCdk.replaceIncluded(logicalId: string, replacementConstruct: Construct)
+CfnIncludeToCdk.replaceIncluded(logicalId: string, replacementConstruct: Construct)
 ```
 
 Replaces an L1 construct in a CfnInclude with an L1 or L2 CDK construct of your choosing.
@@ -3695,7 +3695,7 @@ and was removed from the stack.
 
 FUTURE: Ensure the new construct is of the same resource type as the old one?  Is that useful?
 
-###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnToCdk.replaceIncluded.parameter.logicalId"></a>
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnIncludeToCdk.replaceIncluded.parameter.logicalId"></a>
 
 - *Type:* string
 
@@ -3703,7 +3703,7 @@ Logical ID of the construct we are replacing.
 
 ---
 
-###### `replacementConstruct`<sup>Required</sup> <a name="replacementConstruct" id="@open-constructs/aws-cdk.CfnToCdk.replaceIncluded.parameter.replacementConstruct"></a>
+###### `replacementConstruct`<sup>Required</sup> <a name="replacementConstruct" id="@open-constructs/aws-cdk.CfnIncludeToCdk.replaceIncluded.parameter.replacementConstruct"></a>
 
 - *Type:* constructs.Construct
 
@@ -3711,12 +3711,12 @@ Construct that should be replacing the included construct.
 
 ---
 
-##### `setLogicalId` <a name="setLogicalId" id="@open-constructs/aws-cdk.CfnToCdk.setLogicalId"></a>
+##### `setLogicalId` <a name="setLogicalId" id="@open-constructs/aws-cdk.CfnIncludeToCdk.setLogicalId"></a>
 
 ```typescript
-import { CfnToCdk } from '@open-constructs/aws-cdk'
+import { CfnIncludeToCdk } from '@open-constructs/aws-cdk'
 
-CfnToCdk.setLogicalId(construct: Construct, id?: string)
+CfnIncludeToCdk.setLogicalId(construct: Construct, id?: string)
 ```
 
 Sets the logical ID of the resource to the Node ID of the construct.
@@ -3727,7 +3727,7 @@ Such as when you are replicating an existing hand-crafted template.
 Note:  This function L1 or L2 constructs, or any case where there is one L1 in the
 sub-tree.
 
-###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.CfnToCdk.setLogicalId.parameter.construct"></a>
+###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.CfnIncludeToCdk.setLogicalId.parameter.construct"></a>
 
 - *Type:* constructs.Construct
 
@@ -3735,7 +3735,7 @@ The resource construct.
 
 ---
 
-###### `id`<sup>Optional</sup> <a name="id" id="@open-constructs/aws-cdk.CfnToCdk.setLogicalId.parameter.id"></a>
+###### `id`<sup>Optional</sup> <a name="id" id="@open-constructs/aws-cdk.CfnIncludeToCdk.setLogicalId.parameter.id"></a>
 
 - *Type:* string
 

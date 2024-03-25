@@ -6,13 +6,13 @@ import { NAMESPACE } from '../../src/core/private/internals';
 
 /** A construct with RTTI for testing. */
 export class TypedConstruct extends Construct {
-  static readonly TYPED_CONSTRUCT_RTTI = new ConstructRunTimeTypeInfo({
-    servicePropertyName: `${NAMESPACE}.test.TypedConstruct`,
-  });
-
   static isTypedConstruct(x: IConstruct): x is TypedConstruct {
     return TypedConstruct.TYPED_CONSTRUCT_RTTI.hasRtti(x);
   }
+
+  private static readonly TYPED_CONSTRUCT_RTTI = new ConstructRunTimeTypeInfo({
+    servicePropertyName: `${NAMESPACE}.test.TypedConstruct`,
+  });
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
