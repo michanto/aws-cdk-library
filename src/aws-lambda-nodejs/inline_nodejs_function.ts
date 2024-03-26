@@ -26,6 +26,9 @@ function stripComments(code: string) {
   return code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim();
 }
 
+/**
+ * Returns a new directory under tmp folder.
+ */
 const minifiedOutDir = (function () {
   let _minifiedOutDir: string | undefined = undefined;
   return function () {
@@ -64,12 +67,20 @@ function getInlineCode(entry: string, minifyEngine: number): string {
   return inlineCode;
 }
 
+/**
+ * @returns A randomish alphanumeric string of up to 6 characters.
+ */
+function upToSixRandomChars() {
+  return (Math.random() + 1).toString(36).substring(7);
+}
+
+
 function getMinifiedTmpFile(entry: string) {
   let fileName = function (str: string) {
     return str.split('\\').pop()!.split('/').pop()!;
   }(entry);
 
-  return `${minifiedOutDir()}/${fileName}`;
+  return `${minifiedOutDir()}/${upToSixRandomChars()}-${fileName}`;
 }
 
 function getSimpleMinification(entry: string) {
@@ -175,6 +186,9 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * compiling your project and copying the minified code to the console.
  */
 export class InlineNodejsFunction extends Function implements IInspectable {
+  /** Link in tree.json to the file used for inline code. */
+  static readonly TMP_FILE_ATTRIBUTE_NAME = `${NAMESPACE}.InlineNodejsFunction.tmpfile`;
+
   static minifyEngineFromProps(props: InlineNodejsFunctionProps) {
     return (props.minifyEngine == undefined) ? MinifyEngine.SIMPLE : props.minifyEngine;
   }
@@ -211,6 +225,6 @@ export class InlineNodejsFunction extends Function implements IInspectable {
   }
 
   inspect(inspector: TreeInspector): void {
-    inspector.addAttribute(`${NAMESPACE}.InlineNodejsFunction.tmpfile`, this.tmpFile);
+    inspector.addAttribute(InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME, this.tmpFile);
   }
 }

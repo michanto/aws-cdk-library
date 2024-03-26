@@ -46,6 +46,24 @@ const project = new awscdk.AwsCdkConstructLibrary({
     `@aws-cdk/integ-runner@${cdkVersion}-alpha.0`,
     `@aws-cdk/integ-tests-alpha@${cdkVersion}-alpha.0`,
   ],
+
+  deps: [
+    '@aws-sdk/client-s3@3.6.1',
+    '@aws-sdk/client-sfn@3.501.0',
+    '@aws-sdk/client-ec2@3.501.0',
+    'esbuild@0.18.16',
+  ],
+
+  bundledDeps: [
+    '@aws-sdk/client-s3@3.6.1',
+    '@aws-sdk/client-sfn@3.501.0',
+    '@aws-sdk/client-ec2@3.501.0',
+    'esbuild@0.18.16',
+  ],
+  // devDeps: [
+
+  // ],
+
 });
 
 project.addTask('integ', {

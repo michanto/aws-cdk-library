@@ -2,6 +2,631 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### CfnEncodingResource <a name="CfnEncodingResource" id="@open-constructs/aws-cdk.CfnEncodingResource"></a>
+
+This resource will encode it's properties as a post-resolve step, It is meant to be used for CfnCustomResource, as it does not encode the ServiceToken, and it expects one to be there.
+
+Why encode resources?  Because CloudFormation will turn numbers and booleans
+into strings when it calls a custom resource Lambda, and that is not always desirable.
+Encoding the properties prevents that conversion.
+
+This is done a lot in the CDK, and is the recommended work-around for transmitting unaltered
+properties to the custom resource lambda.
+
+Note that the lambda MUST convert the properties back from encoded properties to unencoded properties.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CfnEncodingResource.Initializer"></a>
+
+```typescript
+import { CfnEncodingResource } from '@open-constructs/aws-cdk'
+
+new CfnEncodingResource(scope: Construct, id: string, props: CfnResourceProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.Initializer.parameter.props">props</a></code> | <code>aws-cdk-lib.CfnResourceProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnEncodingResource.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.CfnEncodingResource.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.CfnEncodingResource.Initializer.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.CfnResourceProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.CfnEncodingResource.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `overrideLogicalId` <a name="overrideLogicalId" id="@open-constructs/aws-cdk.CfnEncodingResource.overrideLogicalId"></a>
+
+```typescript
+public overrideLogicalId(newLogicalId: string): void
+```
+
+Overrides the auto-generated logical ID with a specific ID.
+
+###### `newLogicalId`<sup>Required</sup> <a name="newLogicalId" id="@open-constructs/aws-cdk.CfnEncodingResource.overrideLogicalId.parameter.newLogicalId"></a>
+
+- *Type:* string
+
+The new logical ID to use for this stack element.
+
+---
+
+##### `addDeletionOverride` <a name="addDeletionOverride" id="@open-constructs/aws-cdk.CfnEncodingResource.addDeletionOverride"></a>
+
+```typescript
+public addDeletionOverride(path: string): void
+```
+
+Syntactic sugar for `addOverride(path, undefined)`.
+
+###### `path`<sup>Required</sup> <a name="path" id="@open-constructs/aws-cdk.CfnEncodingResource.addDeletionOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the value to delete.
+
+---
+
+##### `addDependency` <a name="addDependency" id="@open-constructs/aws-cdk.CfnEncodingResource.addDependency"></a>
+
+```typescript
+public addDependency(target: CfnResource): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@open-constructs/aws-cdk.CfnEncodingResource.addDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### ~~`addDependsOn`~~ <a name="addDependsOn" id="@open-constructs/aws-cdk.CfnEncodingResource.addDependsOn"></a>
+
+```typescript
+public addDependsOn(target: CfnResource): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+###### `target`<sup>Required</sup> <a name="target" id="@open-constructs/aws-cdk.CfnEncodingResource.addDependsOn.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `addMetadata` <a name="addMetadata" id="@open-constructs/aws-cdk.CfnEncodingResource.addMetadata"></a>
+
+```typescript
+public addMetadata(key: string, value: any): void
+```
+
+Add a value to the CloudFormation Resource Metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.)
+
+###### `key`<sup>Required</sup> <a name="key" id="@open-constructs/aws-cdk.CfnEncodingResource.addMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@open-constructs/aws-cdk.CfnEncodingResource.addMetadata.parameter.value"></a>
+
+- *Type:* any
+
+---
+
+##### `addOverride` <a name="addOverride" id="@open-constructs/aws-cdk.CfnEncodingResource.addOverride"></a>
+
+```typescript
+public addOverride(path: string, value: any): void
+```
+
+Adds an override to the synthesized CloudFormation resource.
+
+To add a
+property override, either use `addPropertyOverride` or prefix `path` with
+"Properties." (i.e. `Properties.TopicName`).
+
+If the override is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example,
+```typescript
+cfnResource.addOverride('Properties.GlobalSecondaryIndexes.0.Projection.NonKeyAttributes', ['myattribute']);
+cfnResource.addOverride('Properties.GlobalSecondaryIndexes.1.ProjectionType', 'INCLUDE');
+```
+would add the overrides
+```json
+"Properties": {
+  "GlobalSecondaryIndexes": [
+    {
+      "Projection": {
+        "NonKeyAttributes": [ "myattribute" ]
+        ...
+      }
+      ...
+    },
+    {
+      "ProjectionType": "INCLUDE"
+      ...
+    },
+  ]
+  ...
+}
+```
+
+The `value` argument to `addOverride` will not be processed or translated
+in any way. Pass raw JSON values in here with the correct capitalization
+for CloudFormation. If you pass CDK classes or structs, they will be
+rendered with lowercased key names, and CloudFormation will reject the
+template.
+
+###### `path`<sup>Required</sup> <a name="path" id="@open-constructs/aws-cdk.CfnEncodingResource.addOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to override values in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@open-constructs/aws-cdk.CfnEncodingResource.addOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+Could be primitive or complex.
+
+---
+
+##### `addPropertyDeletionOverride` <a name="addPropertyDeletionOverride" id="@open-constructs/aws-cdk.CfnEncodingResource.addPropertyDeletionOverride"></a>
+
+```typescript
+public addPropertyDeletionOverride(propertyPath: string): void
+```
+
+Adds an override that deletes the value of a property from the resource definition.
+
+###### `propertyPath`<sup>Required</sup> <a name="propertyPath" id="@open-constructs/aws-cdk.CfnEncodingResource.addPropertyDeletionOverride.parameter.propertyPath"></a>
+
+- *Type:* string
+
+The path to the property.
+
+---
+
+##### `addPropertyOverride` <a name="addPropertyOverride" id="@open-constructs/aws-cdk.CfnEncodingResource.addPropertyOverride"></a>
+
+```typescript
+public addPropertyOverride(propertyPath: string, value: any): void
+```
+
+Adds an override to a resource property.
+
+Syntactic sugar for `addOverride("Properties.<...>", value)`.
+
+###### `propertyPath`<sup>Required</sup> <a name="propertyPath" id="@open-constructs/aws-cdk.CfnEncodingResource.addPropertyOverride.parameter.propertyPath"></a>
+
+- *Type:* string
+
+The path of the property.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@open-constructs/aws-cdk.CfnEncodingResource.addPropertyOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+---
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@open-constructs/aws-cdk.CfnEncodingResource.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy?: RemovalPolicy, options?: RemovalPolicyOptions): void
+```
+
+Sets the deletion policy of the resource based on the removal policy specified.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`). In some
+cases, a snapshot can be taken of the resource prior to deletion
+(`RemovalPolicy.SNAPSHOT`). A list of resources that support this policy
+can be found in the following link:
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html#aws-attribute-deletionpolicy-options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html#aws-attribute-deletionpolicy-options)
+
+###### `policy`<sup>Optional</sup> <a name="policy" id="@open-constructs/aws-cdk.CfnEncodingResource.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@open-constructs/aws-cdk.CfnEncodingResource.applyRemovalPolicy.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicyOptions
+
+---
+
+##### `getAtt` <a name="getAtt" id="@open-constructs/aws-cdk.CfnEncodingResource.getAtt"></a>
+
+```typescript
+public getAtt(attributeName: string, typeHint?: ResolutionTypeHint): Reference
+```
+
+Returns a token for an runtime attribute of this resource.
+
+Ideally, use generated attribute accessors (e.g. `resource.arn`), but this can be used for future compatibility
+in case there is no generated attribute.
+
+###### `attributeName`<sup>Required</sup> <a name="attributeName" id="@open-constructs/aws-cdk.CfnEncodingResource.getAtt.parameter.attributeName"></a>
+
+- *Type:* string
+
+The name of the attribute.
+
+---
+
+###### `typeHint`<sup>Optional</sup> <a name="typeHint" id="@open-constructs/aws-cdk.CfnEncodingResource.getAtt.parameter.typeHint"></a>
+
+- *Type:* aws-cdk-lib.ResolutionTypeHint
+
+---
+
+##### `getMetadata` <a name="getMetadata" id="@open-constructs/aws-cdk.CfnEncodingResource.getMetadata"></a>
+
+```typescript
+public getMetadata(key: string): any
+```
+
+Retrieve a value value from the CloudFormation Resource Metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.)
+
+###### `key`<sup>Required</sup> <a name="key" id="@open-constructs/aws-cdk.CfnEncodingResource.getMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+##### `obtainDependencies` <a name="obtainDependencies" id="@open-constructs/aws-cdk.CfnEncodingResource.obtainDependencies"></a>
+
+```typescript
+public obtainDependencies(): Stack | CfnResource[]
+```
+
+Retrieves an array of resources this resource depends on.
+
+This assembles dependencies on resources across stacks (including nested stacks)
+automatically.
+
+##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@open-constructs/aws-cdk.CfnEncodingResource.obtainResourceDependencies"></a>
+
+```typescript
+public obtainResourceDependencies(): CfnResource[]
+```
+
+Get a shallow copy of dependencies between this resource and other resources in the same stack.
+
+##### `removeDependency` <a name="removeDependency" id="@open-constructs/aws-cdk.CfnEncodingResource.removeDependency"></a>
+
+```typescript
+public removeDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@open-constructs/aws-cdk.CfnEncodingResource.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `replaceDependency` <a name="replaceDependency" id="@open-constructs/aws-cdk.CfnEncodingResource.replaceDependency"></a>
+
+```typescript
+public replaceDependency(target: CfnResource, newTarget: CfnResource): void
+```
+
+Replaces one dependency with another.
+
+###### `target`<sup>Required</sup> <a name="target" id="@open-constructs/aws-cdk.CfnEncodingResource.replaceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+The dependency to replace.
+
+---
+
+###### `newTarget`<sup>Required</sup> <a name="newTarget" id="@open-constructs/aws-cdk.CfnEncodingResource.replaceDependency.parameter.newTarget"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+The new dependency to add.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.isCfnElement">isCfnElement</a></code> | Returns `true` if a construct is a stack element (i.e. part of the synthesized cloudformation template). |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.isCfnResource">isCfnResource</a></code> | Check whether the given object is a CfnResource. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.makeEncodingResource">makeEncodingResource</a></code> | *No description.* |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.CfnEncodingResource.isConstruct"></a>
+
+```typescript
+import { CfnEncodingResource } from '@open-constructs/aws-cdk'
+
+CfnEncodingResource.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnEncodingResource.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isCfnElement` <a name="isCfnElement" id="@open-constructs/aws-cdk.CfnEncodingResource.isCfnElement"></a>
+
+```typescript
+import { CfnEncodingResource } from '@open-constructs/aws-cdk'
+
+CfnEncodingResource.isCfnElement(x: any)
+```
+
+Returns `true` if a construct is a stack element (i.e. part of the synthesized cloudformation template).
+
+Uses duck-typing instead of `instanceof` to allow stack elements from different
+versions of this library to be included in the same stack.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnEncodingResource.isCfnElement.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `isCfnResource` <a name="isCfnResource" id="@open-constructs/aws-cdk.CfnEncodingResource.isCfnResource"></a>
+
+```typescript
+import { CfnEncodingResource } from '@open-constructs/aws-cdk'
+
+CfnEncodingResource.isCfnResource(x: any)
+```
+
+Check whether the given object is a CfnResource.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnEncodingResource.isCfnResource.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `makeEncodingResource` <a name="makeEncodingResource" id="@open-constructs/aws-cdk.CfnEncodingResource.makeEncodingResource"></a>
+
+```typescript
+import { CfnEncodingResource } from '@open-constructs/aws-cdk'
+
+CfnEncodingResource.makeEncodingResource(customResource: Construct)
+```
+
+###### `customResource`<sup>Required</sup> <a name="customResource" id="@open-constructs/aws-cdk.CfnEncodingResource.makeEncodingResource.parameter.customResource"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.creationStack">creationStack</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.logicalId">logicalId</a></code> | <code>string</code> | The logical ID for this CloudFormation stack element. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this element is defined. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.ref">ref</a></code> | <code>string</code> | Return a string that will be resolved to a CloudFormation `{ Ref }` for this element. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.cfnOptions">cfnOptions</a></code> | <code>aws-cdk-lib.ICfnResourceOptions</code> | Options for this resource, such as condition, update policy etc. |
+| <code><a href="#@open-constructs/aws-cdk.CfnEncodingResource.property.cfnResourceType">cfnResourceType</a></code> | <code>string</code> | AWS resource type. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.CfnEncodingResource.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `creationStack`<sup>Required</sup> <a name="creationStack" id="@open-constructs/aws-cdk.CfnEncodingResource.property.creationStack"></a>
+
+```typescript
+public readonly creationStack: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnEncodingResource.property.logicalId"></a>
+
+```typescript
+public readonly logicalId: string;
+```
+
+- *Type:* string
+
+The logical ID for this CloudFormation stack element.
+
+The logical ID of the element
+is calculated from the path of the resource node in the construct tree.
+
+To override this value, use `overrideLogicalId(newLogicalId)`.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@open-constructs/aws-cdk.CfnEncodingResource.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this element is defined.
+
+CfnElements must be defined within a stack scope (directly or indirectly).
+
+---
+
+##### `ref`<sup>Required</sup> <a name="ref" id="@open-constructs/aws-cdk.CfnEncodingResource.property.ref"></a>
+
+```typescript
+public readonly ref: string;
+```
+
+- *Type:* string
+
+Return a string that will be resolved to a CloudFormation `{ Ref }` for this element.
+
+If, by any chance, the intrinsic reference of a resource is not a string, you could
+coerce it to an IResolvable through `Lazy.any({ produce: resource.ref })`.
+
+---
+
+##### `cfnOptions`<sup>Required</sup> <a name="cfnOptions" id="@open-constructs/aws-cdk.CfnEncodingResource.property.cfnOptions"></a>
+
+```typescript
+public readonly cfnOptions: ICfnResourceOptions;
+```
+
+- *Type:* aws-cdk-lib.ICfnResourceOptions
+
+Options for this resource, such as condition, update policy etc.
+
+---
+
+##### `cfnResourceType`<sup>Required</sup> <a name="cfnResourceType" id="@open-constructs/aws-cdk.CfnEncodingResource.property.cfnResourceType"></a>
+
+```typescript
+public readonly cfnResourceType: string;
+```
+
+- *Type:* string
+
+AWS resource type.
+
+---
+
+
 ### CfnTransform <a name="CfnTransform" id="@open-constructs/aws-cdk.CfnTransform"></a>
 
 - *Implements:* <a href="#@open-constructs/aws-cdk.ICfnTransform">ICfnTransform</a>
@@ -82,7 +707,7 @@ The template to transform.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.CfnTransform.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.CfnTransform.isConstruct"></a>
 
 ```typescript
 import { CfnTransform } from '@open-constructs/aws-cdk'
@@ -91,6 +716,20 @@ CfnTransform.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnTransform.isConstruct.parameter.x"></a>
 
@@ -217,7 +856,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.CfnTransformHost.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.CfnTransformHost.isConstruct"></a>
 
 ```typescript
 import { CfnTransformHost } from '@open-constructs/aws-cdk'
@@ -226,6 +865,20 @@ CfnTransformHost.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.CfnTransformHost.isConstruct.parameter.x"></a>
 
@@ -270,6 +923,158 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+
+### EncodeResource <a name="EncodeResource" id="@open-constructs/aws-cdk.EncodeResource"></a>
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.EncodeResource.Initializer"></a>
+
+```typescript
+import { EncodeResource } from '@open-constructs/aws-cdk'
+
+new EncodeResource(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.EncodeResource.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.EncodeResource.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.apply">apply</a></code> | Modifies the template. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.EncodeResource.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `apply` <a name="apply" id="@open-constructs/aws-cdk.EncodeResource.apply"></a>
+
+```typescript
+public apply(template: any): any
+```
+
+Modifies the template.
+
+###### `template`<sup>Required</sup> <a name="template" id="@open-constructs/aws-cdk.EncodeResource.apply.parameter.template"></a>
+
+- *Type:* any
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.isCfnTransform">isCfnTransform</a></code> | Returns `true` if a construct is a CfnTransform. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.EncodeResource.isConstruct"></a>
+
+```typescript
+import { EncodeResource } from '@open-constructs/aws-cdk'
+
+EncodeResource.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.EncodeResource.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isCfnTransform` <a name="isCfnTransform" id="@open-constructs/aws-cdk.EncodeResource.isCfnTransform"></a>
+
+```typescript
+import { EncodeResource } from '@open-constructs/aws-cdk'
+
+EncodeResource.isCfnTransform(x: any)
+```
+
+Returns `true` if a construct is a CfnTransform.
+
+Uses duck-typing instead of `instanceof` to allow CfnTransforms from different
+versions of this library to be included in the same stack.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.EncodeResource.isCfnTransform.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.property.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.EncodeResource.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.EncodeResource.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -805,7 +1610,7 @@ Examines construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.InlineNodejsFunction.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.InlineNodejsFunction.isConstruct"></a>
 
 ```typescript
 import { InlineNodejsFunction } from '@open-constructs/aws-cdk'
@@ -814,6 +1619,20 @@ InlineNodejsFunction.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.InlineNodejsFunction.isConstruct.parameter.x"></a>
 
@@ -1415,12 +2234,31 @@ TODO:  Example JQ query to extract file name from tree.json file.
 
 ---
 
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.TMP_FILE_ATTRIBUTE_NAME">TMP_FILE_ATTRIBUTE_NAME</a></code> | <code>string</code> | Link in tree.json to the file used for inline code. |
+
+---
+
+##### `TMP_FILE_ATTRIBUTE_NAME`<sup>Required</sup> <a name="TMP_FILE_ATTRIBUTE_NAME" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.TMP_FILE_ATTRIBUTE_NAME"></a>
+
+```typescript
+public readonly TMP_FILE_ATTRIBUTE_NAME: string;
+```
+
+- *Type:* string
+
+Link in tree.json to the file used for inline code.
+
+---
 
 ### LateBoundStepFunctionsStartExecution <a name="LateBoundStepFunctionsStartExecution" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution"></a>
 
 Class for StepFunction wrappers. Use it to add pre- or post-processing to a StepFunction.
 
-Runs the state machine specified by input field "$.stateMachineArn".
+Runs the state machine specified by {@link LateBoundStepFunctionsStartExecutionProps.stateMachineArnPath).}
 
 #### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.Initializer"></a>
 
@@ -1772,7 +2610,7 @@ aws_cur.CostReport.isConstruct(x: any)
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.LateBoundStepFunctionsStartExecution.isConstruct"></a>
 
 ```typescript
 import { LateBoundStepFunctionsStartExecution } from '@open-constructs/aws-cdk'
@@ -1781,6 +2619,20 @@ LateBoundStepFunctionsStartExecution.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 Use this method instead of `instanceof` to properly detect `Construct`
 instances, even when the construct library is symlinked.
@@ -1973,6 +2825,159 @@ public readonly stateId: string;
 - *Type:* string
 
 Tokenized string that evaluates to the state's ID.
+
+---
+
+
+### StepFunctionTask <a name="StepFunctionTask" id="@open-constructs/aws-cdk.StepFunctionTask"></a>
+
+This class creates multiple StepFunctionTaskStep resources to monitor the execution of a long-running step function.
+
+The first StepFunctionTaskStep is created with the StateMachine
+ARN and input so it can start the step function.  This resource
+sets it's physical ID to the ExecutionArn.
+
+Subsequent StepFunctionTaskStep resources are created with
+the ExecutionArn so they can continue monitoring the StepFunction.
+
+Once the StepFunction has finished running, subsequent
+StepFunctionTaskStep resources (if any) will fast-succeed.
+If the StepFunction fails, the subsequent StepFunctionTaskStep
+resources will fast-fail.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.StepFunctionTask.Initializer"></a>
+
+```typescript
+import { StepFunctionTask } from '@open-constructs/aws-cdk'
+
+new StepFunctionTask(scope: Construct, id: string, props: StepFunctionTaskProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.Initializer.parameter.props">props</a></code> | <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps">StepFunctionTaskProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.StepFunctionTask.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@open-constructs/aws-cdk.StepFunctionTask.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@open-constructs/aws-cdk.StepFunctionTask.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@open-constructs/aws-cdk.StepFunctionTaskProps">StepFunctionTaskProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@open-constructs/aws-cdk.StepFunctionTask.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.StepFunctionTask.isConstruct"></a>
+
+```typescript
+import { StepFunctionTask } from '@open-constructs/aws-cdk'
+
+StepFunctionTask.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@open-constructs/aws-cdk.StepFunctionTask.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.numberOfSteps">numberOfSteps</a></code> | <code>number</code> | Total number of StepFunctionTaskStep resources created. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Execution role. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@open-constructs/aws-cdk.StepFunctionTask.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `numberOfSteps`<sup>Required</sup> <a name="numberOfSteps" id="@open-constructs/aws-cdk.StepFunctionTask.property.numberOfSteps"></a>
+
+```typescript
+public readonly numberOfSteps: number;
+```
+
+- *Type:* number
+
+Total number of StepFunctionTaskStep resources created.
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="@open-constructs/aws-cdk.StepFunctionTask.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+Execution role.
 
 ---
 
@@ -3396,6 +4401,96 @@ public readonly servicePropertyName: string;
 - *Type:* string
 
 The particular service that was queried.
+
+---
+
+### StepFunctionTaskProps <a name="StepFunctionTaskProps" id="@open-constructs/aws-cdk.StepFunctionTaskProps"></a>
+
+#### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.StepFunctionTaskProps.Initializer"></a>
+
+```typescript
+import { StepFunctionTaskProps } from '@open-constructs/aws-cdk'
+
+const stepFunctionTaskProps: StepFunctionTaskProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.IStateMachine</code> | The state machine to execute. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.inputEvent">inputEvent</a></code> | <code>any</code> | The event to start the state machine with. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.prefix">prefix</a></code> | <code>string</code> | Prefix for the execution. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Role for execution and monitoring.  Must have permission to execute and describe the state machine, as well as ```ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole")```. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.totalTimeout">totalTimeout</a></code> | <code>aws-cdk-lib.Duration</code> | Total timeout for the entire operation. |
+
+---
+
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="@open-constructs/aws-cdk.StepFunctionTaskProps.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: IStateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.IStateMachine
+
+The state machine to execute.
+
+---
+
+##### `inputEvent`<sup>Optional</sup> <a name="inputEvent" id="@open-constructs/aws-cdk.StepFunctionTaskProps.property.inputEvent"></a>
+
+```typescript
+public readonly inputEvent: any;
+```
+
+- *Type:* any
+
+The event to start the state machine with.
+
+Should only be provided with stateMachine, not with stateMachineExecutionArn.
+
+---
+
+##### `prefix`<sup>Optional</sup> <a name="prefix" id="@open-constructs/aws-cdk.StepFunctionTaskProps.property.prefix"></a>
+
+```typescript
+public readonly prefix: string;
+```
+
+- *Type:* string
+
+Prefix for the execution.
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="@open-constructs/aws-cdk.StepFunctionTaskProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+Role for execution and monitoring.  Must have permission to execute and describe the state machine, as well as ```ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole")```.
+
+If not provided, a role will be created.
+
+---
+
+##### `totalTimeout`<sup>Optional</sup> <a name="totalTimeout" id="@open-constructs/aws-cdk.StepFunctionTaskProps.property.totalTimeout"></a>
+
+```typescript
+public readonly totalTimeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.hours(2)
+
+Total timeout for the entire operation.
+
+The maximum timeout is unknown, but less than 500 hours (yes, it can
+exceed the AWS Lambda 15 minutes)
 
 ---
 
@@ -5391,6 +6486,88 @@ public readonly treeServiceProps: ConstructTreeServiceProps;
 - *Type:* <a href="#@open-constructs/aws-cdk.ConstructTreeServiceProps">ConstructTreeServiceProps</a>
 
 ---
+
+
+### CustomResourceUtilities <a name="CustomResourceUtilities" id="@open-constructs/aws-cdk.CustomResourceUtilities"></a>
+
+Utilities for creating custom resources.
+
+#### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.CustomResourceUtilities.Initializer"></a>
+
+```typescript
+import { CustomResourceUtilities } from '@open-constructs/aws-cdk'
+
+new CustomResourceUtilities()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CustomResourceUtilities.findCfnCustomResource">findCfnCustomResource</a></code> | Returns the CfnResource that produces the custom resource. |
+| <code><a href="#@open-constructs/aws-cdk.CustomResourceUtilities.runResourceAlways">runResourceAlways</a></code> | Always run a custom resource. |
+
+---
+
+##### `findCfnCustomResource` <a name="findCfnCustomResource" id="@open-constructs/aws-cdk.CustomResourceUtilities.findCfnCustomResource"></a>
+
+```typescript
+public findCfnCustomResource(target: Construct): CfnResource
+```
+
+Returns the CfnResource that produces the custom resource.
+
+This
+
+###### `target`<sup>Required</sup> <a name="target" id="@open-constructs/aws-cdk.CustomResourceUtilities.findCfnCustomResource.parameter.target"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `runResourceAlways` <a name="runResourceAlways" id="@open-constructs/aws-cdk.CustomResourceUtilities.runResourceAlways"></a>
+
+```typescript
+public runResourceAlways(target: Construct): void
+```
+
+Always run a custom resource.
+
+###### `target`<sup>Required</sup> <a name="target" id="@open-constructs/aws-cdk.CustomResourceUtilities.runResourceAlways.parameter.target"></a>
+
+- *Type:* constructs.Construct
+
+CustomResource, AwsCustomResource or similar.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CustomResourceUtilities.isCustomResource">isCustomResource</a></code> | *No description.* |
+
+---
+
+##### `isCustomResource` <a name="isCustomResource" id="@open-constructs/aws-cdk.CustomResourceUtilities.isCustomResource"></a>
+
+```typescript
+import { CustomResourceUtilities } from '@open-constructs/aws-cdk'
+
+CustomResourceUtilities.isCustomResource(elt: Construct)
+```
+
+###### `elt`<sup>Required</sup> <a name="elt" id="@open-constructs/aws-cdk.CustomResourceUtilities.isCustomResource.parameter.elt"></a>
+
+- *Type:* constructs.Construct
+
+---
+
 
 
 ### Log <a name="Log" id="@open-constructs/aws-cdk.Log"></a>
@@ -7574,7 +8751,7 @@ public readonly TREE_INSPECTABLE_SERVICE: ConstructService;
 
 - *Extends:* constructs.IConstruct
 
-- *Implemented By:* <a href="#@open-constructs/aws-cdk.CfnTransform">CfnTransform</a>, <a href="#@open-constructs/aws-cdk.ICfnTransform">ICfnTransform</a>
+- *Implemented By:* <a href="#@open-constructs/aws-cdk.CfnTransform">CfnTransform</a>, <a href="#@open-constructs/aws-cdk.EncodeResource">EncodeResource</a>, <a href="#@open-constructs/aws-cdk.ICfnTransform">ICfnTransform</a>
 
 The base interface for CDK Transforms.
 

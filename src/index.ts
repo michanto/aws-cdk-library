@@ -5,3 +5,5 @@ export * from './transforms';
 export * from './aws-lambda-nodejs';
 export * from './aws-stepfunctions';
 export * from './cloudformation-include';
+export * from './custom-resources';
+export * from './orchestration';
