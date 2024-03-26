@@ -40,7 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk-lib": "2.120.0",
-    "constructs": "10.0.5",
+    "constructs": "10.0.92",
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
@@ -59,8 +59,20 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.120.0",
-    "constructs": "^10.0.5"
+    "constructs": "^10.0.92"
   },
+  "dependencies": {
+    "@aws-sdk/client-ec2": "3.501.0",
+    "@aws-sdk/client-s3": "3.6.1",
+    "@aws-sdk/client-sfn": "3.501.0",
+    "esbuild": "0.18.16"
+  },
+  "bundledDependencies": [
+    "@aws-sdk/client-ec2",
+    "@aws-sdk/client-s3",
+    "@aws-sdk/client-sfn",
+    "esbuild"
+  ],
   "keywords": [
     "cdk"
   ],
