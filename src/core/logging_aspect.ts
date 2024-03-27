@@ -12,7 +12,8 @@ export class LoggingAspect implements IAspect {
   }
 
   visit(node: IConstruct): void {
-    if (LoggingAspect.isFunction(node)) {
+    // If logging is on for the scope, turn logging on for the inline Lambda.
+    if (LoggingAspect.isFunction(node) && Logger.of(node)?.logLevel) {
       node.addEnvironment('LogLevel', Number(Logger.of(node).logLevel).toString());
     }
   }

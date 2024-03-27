@@ -6,7 +6,6 @@ import fs = require('fs');
 import { FileSystem, IInspectable, TreeInspector } from 'aws-cdk-lib';
 import { Code, Function, FunctionOptions, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
-import { Logger } from '../core';
 import { NAMESPACE } from '../core/private/internals';
 
 /**
@@ -215,11 +214,6 @@ export class InlineNodejsFunction extends Function implements IInspectable {
       runtime: props.runtime ?? Runtime.NODEJS_16_X,
       handler: props.handler ?? 'index.handler',
     });
-
-    // If logging is on for the scope, turn logging on for the inline Lambda.
-    if (Logger.of(this)?.logLevel) {
-      this.addEnvironment('LogLevel', Number(Logger.of(this).logLevel).toString());
-    }
 
     this.tmpFile = getMinifiedTmpFile(this.props.entry!);
   }
