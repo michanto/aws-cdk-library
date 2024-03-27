@@ -57,8 +57,6 @@ describe('InlineNodeJsFunction tests', () => {
     let inspector = new TreeInspector();
     fn.inspect(inspector);
     inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME];
-    console.log(engine);
-    console.log(JSON.stringify(inspector.attributes));
 
     // THEN
     let template = JSON.parse(JSON.stringify(Template.fromStack(stack)));

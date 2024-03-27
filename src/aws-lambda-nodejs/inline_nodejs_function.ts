@@ -139,8 +139,7 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
   /**
    * Path to the entry file (JavaScript only).
    *
-   * That means if you are in typescript, just pass the path to the compiled .js file.
-   * What that is will differ between projects.
+   * If you are using typescript, just pass the path to the compiled .js file.
    */
   readonly entry?: string;
 
@@ -172,16 +171,17 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * and proper variables names in your inline code.  They will be stripped away,
  * depending on which minification engine you use (See {@link MinifyEngine}).
  *
- * Even better, this class writes out the minified javascript code to it's same file name
- * under `${process.env.TMPDIR}/minified-${RANDOM_HASH}`.  This means you can find the
- * file and copy updated JavaScript right to the AWS lambda console.  This really reduces your
- * turn around time when coding a new lambda.
+ * This class writes out the minified javascript code to
+ * `${process.env.TMPDIR}/minified-${RANDOM_CHARS}/${OTHER_RANDOM_CHARS}-<entryfile>.js`.
+ * This allows the user to find the file and copy updated JavaScript right to the AWS lambda console.
+ * It reduces your turn around time when coding a new lambda.
  *
  * It's amazing how much can be accomplished using small, inline TypeScript Lambdas.
+ * Use cases:  StepFunction lambdas.  Provider-based Custom Resource handlers.
  *
  * InlineNodejsFunction.tmpFileName contains the path of the temporary file with the
- * minified code.  This path is also published via IInspectiable, and thus will appear in
- * the tree.json file.  This makes it possible to get quick development turn around by
+ * minified code.  This path is also published to tree.json via IInspectiable.
+ * This enables quick development turn around by
  * compiling your project and copying the minified code to the console.
  */
 export class InlineNodejsFunction extends Function implements IInspectable {
@@ -195,13 +195,11 @@ export class InlineNodejsFunction extends Function implements IInspectable {
   /**
    * Path to the temporary file with the minified code.
    * This path is also published via IInspectiable, and thus will appear in
-   * the tree.json file as attribute "cdk-long-promise.InlineNodejsFunction.tmpfile".
+   * the tree.json file as attribute "@open-constructs/aws-cdk.InlineNodejsFunction.tmpfile".
    *
    * This makes it possible to get quick development turn around by
    * compiling your project and copying the minified code to the console.
    * Note the location will change for each compile, so re-query the tree.json file.
-   *
-   * TODO:  Example JQ query to extract file name from tree.json file.
    */
   readonly tmpFile: string;
 

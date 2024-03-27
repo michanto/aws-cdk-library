@@ -57,8 +57,14 @@ export interface LateBoundStepFunctionsStartExecutionProps extends TaskStateBase
 }
 
 /**
- * Class for StepFunction wrappers.
- * Use it to add pre- or post-processing to a StepFunction.
+ * Calls a stepFunction who's ARN is not known until runtime.
+ *
+ * This class can be used to create StepFunction wrappers.
+ * Use it to add pre- or post-processing to any existing StepFunction.
+ *
+ * Examples:
+ *  - Wrapper that reads a file from S3, and passes that as input to the wrapped StepFunciton.
+ *  - Wrapper that writes a portion of StepFunction output to S3.
  *
  * Runs the state machine specified by {@link LateBoundStepFunctionsStartExecutionProps.stateMachineArnPath).
  */
