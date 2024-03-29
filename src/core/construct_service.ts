@@ -19,10 +19,15 @@ export interface IConstructFactory {
 /**
  * Properties for defining a construct service.
  *
- * A ConstructService is a service stored on a construct as a runtime-defined Symbol property
- * (hereafter referred to as the serviceProperty) rather than as a typescript compile-time property.
+ * A construct service is a symbol-keyed property on a construct.  The CDK uses
+ * symbol-keyed properties extensively for RTTI, service caches, such as the myStack cache on
+ * constructs created after calling Stack.of (see Stack.of in Stack.ts in the CDK), and hosting constructs (such as the Stack hosting
+ * CfnElements.  See cfnElements function in Stack.ts in the CDK).
  *
- * There is no type associated with these symbols unless an accessor function is defined,
+ * The construct service classes take these CDK techniques and make them explicit.
+ * Construct services are similar to construct context, but are settable after the construct has children.
+ *
+ * There is no type associated with these symbols unless a typed accessor function is defined,
  * such as {@link Stack.of} or {@link CfnElement.isCfnElement}, just to name two CDK examples.
  *
  * In regards to this technique the CDK says (wrt `CfnElement.isCfnElement`):
@@ -33,7 +38,7 @@ export interface IConstructFactory {
 export interface ConstructServiceProps {
   /**
    * The symbol property for this construct service.  This needs to be
-   * unique, so namespace your symbol:
+   * unique, so namespacing symobls is recommended:
    * ```
    * // Your package name
    * const NAMESPACE = "@open-constructs/aws-cdk"
@@ -75,10 +80,12 @@ export interface ServiceQueryResult {
 }
 
 /**
- * Defines a service (object-valued symbol property) that can be stored on a construct.
+ * Defines a service (symbol-keyed property) that can be stored on a construct.
  *
- * This class is not meant to be used directly by end users, but rather
- * wrapped by another class (or classes) that define and use the ConstructService.
+ * Symbol-keyed properties are rarely used directly by end users.  Usage is normally
+ * through construct methods, such as Stack.of and Stack.isStack in the CDK.
+ *
+ * This class and it's derivatives make it easier to use symbol-keyed properites in the CDK.
  */
 export class ConstructService {
   /**
@@ -103,16 +110,6 @@ export class ConstructService {
    */
   static scopesOf(found: ServiceQueryResult[]): IConstruct[] {
     return found.map(x => x.scope);
-  }
-
-  /**
-   * Can be changed to Construct.isConstruct once we get this fix:
-   * https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771
-   * constructs 10.0.92
-   * @returns True if the scope is a construct.
-   */
-  static isConstruct(scope: any): scope is Construct {
-    return scope && (scope.node != undefined);
   }
 
   /**
@@ -171,7 +168,7 @@ export class ConstructService {
    * Note:  Switch to Construct.isConstruct once we upgrade constructs to 10.0.92
    */
   protected validateConstruct(scope: IConstruct): scope is Construct {
-    if (!ConstructService.isConstruct(scope)) {
+    if (!Construct.isConstruct(scope)) {
       throw new Error('Construct services must be attached to constructs.');
     }
     return true;

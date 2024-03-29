@@ -2,7 +2,7 @@ import { Stack } from 'aws-cdk-lib';
 import { Construct, IConstruct } from 'constructs';
 import { ICfnTransform } from './icfn_transform';
 import { CFN_TRANSFORM_HOST_RTTI, CFN_TRANSFORM_RTTI, isTransformHost } from './private/transform_rtti';
-import { ConstructHost, ConstructService, Log } from '../core';
+import { ConstructHost, Log } from '../core';
 
 /**
  * This helper class can extract ICfnTransforms from a construct tree so they can be applied to a template.
@@ -49,7 +49,7 @@ export class Transforms {
       let ids: string[] = [];
       for (const transform of transforms) {
         /** istanbul ignore next */
-        if (!ConstructService.isConstruct(transform)) {
+        if (!Construct.isConstruct(transform)) {
           throw new Error('Transforms must be constructs.');
         }
         try {
