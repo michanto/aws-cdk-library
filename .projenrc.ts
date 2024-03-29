@@ -4,7 +4,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Open Construct Foundation',
   authorAddress: 'thorsten.hoeger@taimos.de',
   cdkVersion: '2.120.0',
-  constructsVersion: '10.0.92',
+  constructsVersion: '10.3.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.3.0',
   name: '@open-constructs/aws-cdk',

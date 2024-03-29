@@ -1083,24 +1083,18 @@ public readonly id: string;
 
 - *Implements:* aws-cdk-lib.IInspectable
 
-Inline code version of NodejsFunction.
+Inline code version of NodejsFunction.  Write Lambda code in the CDK package, in either JavaScript or TypeScript.
 
-This class minifies your JavaScript code, so you can feel free to add comments
-and proper variables names in your inline code.  They will be stripped away,
-depending on which minification engine you use (See {@link MinifyEngine}).
+Creates a Lambda from a single JavaScript file included in your package.
+This file is passed to InlineNodejsFunction via {@link InlineNodejsFunctionProps.entry}.
+It does not compile TypeScript, as the original TypeScript files will not be
+included in your package (by default), while the compiled JavaScript will be.
 
-This class writes out the minified javascript code to
-`${process.env.TMPDIR}/minified-${RANDOM_CHARS}/${OTHER_RANDOM_CHARS}-<entryfile>.js`.
-This allows the user to find the file and copy updated JavaScript right to the AWS lambda console.
-It reduces your turn around time when coding a new lambda.
-
-It's amazing how much can be accomplished using small, inline TypeScript Lambdas.
-Use cases:  StepFunction lambdas.  Provider-based Custom Resource handlers.
-
-InlineNodejsFunction.tmpFileName contains the path of the temporary file with the
-minified code.  This path is also published to tree.json via IInspectiable.
-This enables quick development turn around by
-compiling your project and copying the minified code to the console.
+Inline Lambda runs only with the code in the .js entry file provided and the
+AWS Lambda NodeJS runtime.  Thus while the entry file can export functions and
+types to the rest of your CDK package, it cannot import anything
+not available in the Lambda runtime.  The Lambda runtime includes the base Node library,
+along with aws-sdk and/or
 
 #### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.InlineNodejsFunction.Initializer"></a>
 
@@ -2993,10 +2987,15 @@ Normally this will at least exclude sub-stacks.
 
 Properties for defining a construct service.
 
-A ConstructService is a service stored on a construct as a runtime-defined Symbol property
-(hereafter referred to as the serviceProperty) rather than as a typescript compile-time property.
+A construct service is a symbol-keyed property on a construct.  The CDK uses
+symbol-keyed properties extensively for RTTI, service caches, such as the myStack cache on
+constructs created after calling Stack.of (see Stack.of in Stack.ts in the CDK), and hosting constructs (such as the Stack hosting
+CfnElements.  See cfnElements function in Stack.ts in the CDK).
 
-There is no type associated with these symbols unless an accessor function is defined,
+The construct service classes take these CDK techniques and make them explicit.
+Construct services are similar to construct context, but are settable after the construct has children.
+
+There is no type associated with these symbols unless a typed accessor function is defined,
 such as {@link Stack.of } or {@link CfnElement.isCfnElement }, just to name two CDK examples.
 
 In regards to this technique the CDK says (wrt `CfnElement.isCfnElement`):
@@ -3032,7 +3031,7 @@ public readonly servicePropertyName: string;
 The symbol property for this construct service.
 
 This needs to be
-unique, so namespace your symbol:
+unique, so namespacing symobls is recommended:
 ```
 // Your package name
 const NAMESPACE = "@open-constructs/aws-cdk"
@@ -3092,7 +3091,7 @@ public readonly servicePropertyName: string;
 The symbol property for this construct service.
 
 This needs to be
-unique, so namespace your symbol:
+unique, so namespacing symobls is recommended:
 ```
 // Your package name
 const NAMESPACE = "@open-constructs/aws-cdk"
@@ -4608,27 +4607,10 @@ cache it on the scope.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
 | <code><a href="#@open-constructs/aws-cdk.AppConstructTreeService.serviceOf">serviceOf</a></code> | Returns the value of the property from a ServiceQueryResult. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.AppConstructTreeService.isConstruct"></a>
-
-```typescript
-import { AppConstructTreeService } from '@open-constructs/aws-cdk'
-
-AppConstructTreeService.isConstruct(scope: any)
-```
-
-Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
-
-###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.AppConstructTreeService.isConstruct.parameter.scope"></a>
-
-- *Type:* any
 
 ---
 
@@ -5468,27 +5450,10 @@ Used to implement ConstructXXX:isConstructXXX functions.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.serviceOf">serviceOf</a></code> | Returns the value of the property from a ServiceQueryResult. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isConstruct"></a>
-
-```typescript
-import { ConstructRunTimeTypeInfo } from '@open-constructs/aws-cdk'
-
-ConstructRunTimeTypeInfo.isConstruct(scope: any)
-```
-
-Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
-
-###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructRunTimeTypeInfo.isConstruct.parameter.scope"></a>
-
-- *Type:* any
 
 ---
 
@@ -5577,10 +5542,12 @@ public readonly props: ConstructServiceProps;
 
 ### ConstructService <a name="ConstructService" id="@open-constructs/aws-cdk.ConstructService"></a>
 
-Defines a service (object-valued symbol property) that can be stored on a construct.
+Defines a service (symbol-keyed property) that can be stored on a construct.
 
-This class is not meant to be used directly by end users, but rather
-wrapped by another class (or classes) that define and use the ConstructService.
+Symbol-keyed properties are rarely used directly by end users.  Usage is normally
+through construct methods, such as Stack.of and Stack.isStack in the CDK.
+
+This class and it's derivatives make it easier to use symbol-keyed properites in the CDK.
 
 #### Initializers <a name="Initializers" id="@open-constructs/aws-cdk.ConstructService.Initializer"></a>
 
@@ -5767,27 +5734,10 @@ factory.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.ConstructService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructService.serviceOf">serviceOf</a></code> | Returns the value of the property from a ServiceQueryResult. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.ConstructService.isConstruct"></a>
-
-```typescript
-import { ConstructService } from '@open-constructs/aws-cdk'
-
-ConstructService.isConstruct(scope: any)
-```
-
-Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
-
-###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructService.isConstruct.parameter.scope"></a>
-
-- *Type:* any
 
 ---
 
@@ -6256,27 +6206,10 @@ cache it on the scope.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
 | <code><a href="#@open-constructs/aws-cdk.ConstructTreeService.serviceOf">serviceOf</a></code> | Returns the value of the property from a ServiceQueryResult. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.ConstructTreeService.isConstruct"></a>
-
-```typescript
-import { ConstructTreeService } from '@open-constructs/aws-cdk'
-
-ConstructTreeService.isConstruct(scope: any)
-```
-
-Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
-
-###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.ConstructTreeService.isConstruct.parameter.scope"></a>
-
-- *Type:* any
 
 ---
 
@@ -7397,27 +7330,10 @@ cache it on the scope.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.isConstruct">isConstruct</a></code> | Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.isFactory">isFactory</a></code> | Returns true if a service value is actualy a factory. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.scopeOf">scopeOf</a></code> | Returns the scope of the property from a ServiceQueryResult. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.scopesOf">scopesOf</a></code> | Returns the scopes from an array of ServiceQueryResults. |
 | <code><a href="#@open-constructs/aws-cdk.StackConstructTreeService.serviceOf">serviceOf</a></code> | Returns the value of the property from a ServiceQueryResult. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@open-constructs/aws-cdk.StackConstructTreeService.isConstruct"></a>
-
-```typescript
-import { StackConstructTreeService } from '@open-constructs/aws-cdk'
-
-StackConstructTreeService.isConstruct(scope: any)
-```
-
-Can be changed to Construct.isConstruct once we get this fix: https://github.com/aws/constructs/commit/bef8e4db061b6f6fc0d08fee9a1fe61673223771 constructs 10.0.92.
-
-###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.StackConstructTreeService.isConstruct.parameter.scope"></a>
-
-- *Type:* any
 
 ---
 

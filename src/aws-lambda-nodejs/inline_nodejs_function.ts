@@ -165,7 +165,20 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
 }
 
 /**
- * Inline code version of NodejsFunction.
+ * Inline code version of NodejsFunction.  Write Lambda code in the CDK package,
+ * in either JavaScript or TypeScript.
+ *
+ * Creates a Lambda from a single JavaScript file included in your package.
+ * This file is passed to InlineNodejsFunction via {@link InlineNodejsFunctionProps.entry}.
+ * It does not compile TypeScript, as the original TypeScript files will not be
+ * included in your package (by default), while the compiled JavaScript will be.
+ *
+ * Inline Lambda runs only with the code in the .js entry file provided and the
+ * AWS Lambda NodeJS runtime.  Thus while the entry file can export functions and
+ * types to the rest of your CDK package, it cannot import anything
+ * not available in the Lambda runtime.  The Lambda runtime includes the base Node library,
+ * along with aws-sdk and/or @aws-sdk.  If you require any additional
+ * bundling, use NodejsFunction, which supports the full suite of esbuild options.
  *
  * This class minifies your JavaScript code, so you can feel free to add comments
  * and proper variables names in your inline code.  They will be stripped away,
@@ -177,12 +190,14 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * It reduces your turn around time when coding a new lambda.
  *
  * It's amazing how much can be accomplished using small, inline TypeScript Lambdas.
- * Use cases:  StepFunction lambdas.  Provider-based Custom Resource handlers.
+ * Typical use cases:  StepFunction lambdas.  Provider-based Custom Resource handlers.
+ *
+ * Code size is limited by AWS Lambda to 4096 characters.
  *
  * InlineNodejsFunction.tmpFileName contains the path of the temporary file with the
  * minified code.  This path is also published to tree.json via IInspectiable.
  * This enables quick development turn around by
- * compiling your project and copying the minified code to the console.
+ * copying the minified code to the Lambda console.
  */
 export class InlineNodejsFunction extends Function implements IInspectable {
   /** Link in tree.json to the file used for inline code. */
