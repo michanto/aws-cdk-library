@@ -57,6 +57,41 @@ export class CfnIncludeToCdk {
     return construct;
   }
 
+
+  /**
+   * Finds a construct from CfnIncludes in scope with the given logicalId.
+   *
+   * @param logicalId
+   * @param scope
+   */
+  static findIncluded(logicalId: string, scope: Construct): CfnElement | undefined {
+    let stack = Stack.of(scope);
+    let cfnIncludes = ConstructTreeSearch.for(CfnIncludeToCdk.isCfnInclude).searchDown(stack, x => Stack.isStack(x)) as CfnInclude[];
+    for (let include of cfnIncludes) {
+      let included: CfnElement = include.getResource(logicalId);
+      if (!included) {
+        included = include.getOutput(logicalId);
+      }
+      if (!included) {
+        included = include.getCondition(logicalId);
+      }
+      if (!included) {
+        included = include.getMapping(logicalId);
+      }
+      if (!included) {
+        included = include.getParameter(logicalId);
+      }
+      if (!included) {
+        included = include.getRule(logicalId);
+      }
+      if (!included) {
+        included = include.getHook(logicalId);
+      }
+      return included;
+    }
+    return undefined;
+  }
+
   /**
    * Removes a construct from CfnInclude with the given logicalId.
    * Finds the CfnInclude in the stack of the given scope.
@@ -65,33 +100,11 @@ export class CfnIncludeToCdk {
    * @param scope
    */
   static removeIncluded(logicalId: string, scope: Construct) {
-    let stack = Stack.of(scope);
-    let cfnIncludes = ConstructTreeSearch.for(CfnIncludeToCdk.isCfnInclude).searchDown(stack, x => Stack.isStack(x)) as CfnInclude[];
-    for (let include of cfnIncludes) {
-      let original: CfnElement = include.getResource(logicalId);
-      if (!original) {
-        original = include.getOutput(logicalId);
-      }
-      if (!original) {
-        original = include.getCondition(logicalId);
-      }
-      if (!original) {
-        original = include.getMapping(logicalId);
-      }
-      if (!original) {
-        original = include.getParameter(logicalId);
-      }
-      if (!original) {
-        original = include.getRule(logicalId);
-      }
-      if (!original) {
-        original = include.getHook(logicalId);
-      }
-      // Found the original imported resource/mapping/output/whatever.  Remove it from the tree.
-      // NOTE:  If we didn't find it, probably the CfnInclude is completely converted and was removed.
-      if (original) {
-        include.node.tryRemoveChild(original.node.id);
-      }
+    let included = this.findIncluded(logicalId, scope);
+    // Found the original imported resource/mapping/output/whatever.  Remove it from the tree.
+    // NOTE:  If we didn't find it, probably the CfnInclude is completely converted and was removed.
+    if (included) {
+      included.node.scope?.node.tryRemoveChild(included.node.id);
     }
   }
 
