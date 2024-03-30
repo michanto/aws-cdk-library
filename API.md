@@ -5044,10 +5044,33 @@ new CfnIncludeToCdk()
 
 | **Name** | **Description** |
 | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.findIncluded">findIncluded</a></code> | Finds a construct from CfnIncludes in scope with the given logicalId. |
 | <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.isCfnInclude">isCfnInclude</a></code> | Returns true if the given construct is an instance of CfnInclude. |
 | <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.removeIncluded">removeIncluded</a></code> | Removes a construct from CfnInclude with the given logicalId. |
 | <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.replaceIncluded">replaceIncluded</a></code> | Replaces an L1 construct in a CfnInclude with an L1 or L2 CDK construct of your choosing. |
 | <code><a href="#@open-constructs/aws-cdk.CfnIncludeToCdk.setLogicalId">setLogicalId</a></code> | Sets the logical ID of the resource to the Node ID of the construct. |
+
+---
+
+##### `findIncluded` <a name="findIncluded" id="@open-constructs/aws-cdk.CfnIncludeToCdk.findIncluded"></a>
+
+```typescript
+import { CfnIncludeToCdk } from '@open-constructs/aws-cdk'
+
+CfnIncludeToCdk.findIncluded(logicalId: string, scope: Construct)
+```
+
+Finds a construct from CfnIncludes in scope with the given logicalId.
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@open-constructs/aws-cdk.CfnIncludeToCdk.findIncluded.parameter.logicalId"></a>
+
+- *Type:* string
+
+---
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@open-constructs/aws-cdk.CfnIncludeToCdk.findIncluded.parameter.scope"></a>
+
+- *Type:* constructs.Construct
 
 ---
 
