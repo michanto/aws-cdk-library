@@ -1,4 +1,4 @@
-import { Fn, Stack } from 'aws-cdk-lib';
+import { CfnCondition, CfnOutput, CfnParameter, Fn, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { CfnFunction, Function } from 'aws-cdk-lib/aws-lambda';
 import { Bucket, CfnBucket, EventType } from 'aws-cdk-lib/aws-s3';
@@ -23,7 +23,9 @@ describe('CfnIncludeToCdk tests', () => {
     bucket.addEventNotification(EventType.OBJECT_CREATED_PUT, new LambdaDestination(fn));
 
     CfnIncludeToCdk.replaceIncluded('S3BucketNotification', bucket);
+    let param = CfnIncludeToCdk.findIncluded('NotificationBucket', stack);
     let template = JSON.parse(JSON.stringify(Template.fromStack(stack)));
+    expect(param).toBeTruthy();
     expect(template).toMatchObject({
       Resources: {
         S3BucketNotification: {
@@ -86,5 +88,25 @@ describe('CfnIncludeToCdk tests', () => {
     new CfnBucket(scope, 'MyBucket');
     new CfnBucket(scope, 'MyOtherBucket');
     expect(() => CfnIncludeToCdk.setLogicalId(scope, 'MyBucket')).toThrow();
+  });
+  test('CfnIncludeToCdk findIncluded tests', () => {
+    const stack = new Stack();
+    new CfnInclude(stack, 'included1', {
+      templateFile: `${__dirname}/parameter-references.json`,
+    });
+    const param = CfnIncludeToCdk.findIncluded('MyParam', stack) as CfnParameter;
+    expect(param.default).toEqual('MyValue');
+    const output = CfnIncludeToCdk.findIncluded('MyOutput', stack) as CfnOutput;
+    expect(output.value).toBeTruthy();
+    const condition = CfnIncludeToCdk.findIncluded('AlwaysFalse', stack) as CfnCondition;
+    expect(condition.expression).toBeTruthy();
+
+    const dne = CfnIncludeToCdk.findIncluded('DoesNotExist', stack);
+    expect(dne).toBeUndefined();
+  });
+  test('CfnIncludeToCdk findIncluded no included', () => {
+    const stack = new Stack();
+    const dne = CfnIncludeToCdk.findIncluded('DoesNotExist', stack);
+    expect(dne).toBeUndefined();
   });
 });

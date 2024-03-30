@@ -68,24 +68,27 @@ export class CfnIncludeToCdk {
     let stack = Stack.of(scope);
     let cfnIncludes = ConstructTreeSearch.for(CfnIncludeToCdk.isCfnInclude).searchDown(stack, x => Stack.isStack(x)) as CfnInclude[];
     for (let include of cfnIncludes) {
-      let included: CfnElement = include.getResource(logicalId);
+      let included: CfnElement | undefined = undefined;
       if (!included) {
-        included = include.getOutput(logicalId);
+        try { included = include.getResource(logicalId); } catch {}
       }
       if (!included) {
-        included = include.getCondition(logicalId);
+        try { included = include.getOutput(logicalId); } catch {}
       }
       if (!included) {
-        included = include.getMapping(logicalId);
+        try { included = include.getCondition(logicalId); } catch {}
       }
       if (!included) {
-        included = include.getParameter(logicalId);
+        try { included = include.getMapping(logicalId); } catch {}
       }
       if (!included) {
-        included = include.getRule(logicalId);
+        try { included = include.getParameter(logicalId); } catch {}
       }
       if (!included) {
-        included = include.getHook(logicalId);
+        try { included = include.getRule(logicalId); } catch {}
+      }
+      if (!included) {
+        try { included = include.getHook(logicalId); } catch {}
       }
       return included;
     }
