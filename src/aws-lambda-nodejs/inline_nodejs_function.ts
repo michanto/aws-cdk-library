@@ -47,17 +47,18 @@ const minifiedOutDir = (function () {
  *
  * Uses simple minification.
  *
- * @param entry
- * @param minifyEngine What engine to use.
+ * @param constructPath Path to construct (construct.node.path).
+ * @param entry Javascript file path.
+ * @param minifyEngine Which minification engine to use.
  */
-function getInlineCode(path: string, entry: string, minifyEngine: number): string {
+function getInlineCode(constructPath: string, entry: string, minifyEngine: MinifyEngine): string {
   let inlineCode: string | undefined;
 
   if (!inlineCode && minifyEngine == MinifyEngine.ES_BUILD) {
-    inlineCode = getInlineCodeEsBuild(path, entry);
+    inlineCode = getInlineCodeEsBuild(constructPath, entry);
   }
   if (!inlineCode && minifyEngine == MinifyEngine.SIMPLE) {
-    inlineCode = getSimpleMinification(path, entry);
+    inlineCode = getSimpleMinification(constructPath, entry);
   }
 
   if (!inlineCode) {
@@ -67,32 +68,47 @@ function getInlineCode(path: string, entry: string, minifyEngine: number): strin
   return inlineCode;
 }
 
-
-function getMinifiedTmpFile(path: string, entry: string) {
+/**
+ * Returns the minified code temporary file for the construct.
+ * @param constructPath Path to construct (construct.node.path).
+ * @param entry Javascript file path.
+ */
+function getMinifiedTmpFile(constructPath: string, entry: string) {
   let fileName = function (str: string) {
     return str.split('\\').pop()!.split('/').pop()!;
   }(entry);
   // Good enough for git, good enough here.
   let hash = crypto
     .createHash('sha1')
-    .update(path)
+    .update(constructPath)
     .digest('hex')
     .substring(0, 8);
 
   return `${minifiedOutDir()}/${hash}-${fileName}`;
 }
 
-function getSimpleMinification(path: string, entry: string) {
+/**
+ * Trims whitespace and removes comments.
+ * @param constructPath Path to construct (construct.node.path).
+ * @param entry Javascript file path.
+ */
+function getSimpleMinification(constructPath: string, entry: string) {
   let code = trimLines(stripComments(fs.readFileSync(entry, { encoding: 'utf-8' })));
 
   // Write the minified code to a tmp file so the user can copy it into the console easily.
-  let tmpFile = getMinifiedTmpFile(path, entry);
+  let tmpFile = getMinifiedTmpFile(constructPath, entry);
   fs.writeFileSync(tmpFile, code, { encoding: 'utf-8' });
 
   return code;
 }
 
-function getInlineCodeEsBuild(path: string, entry: string) {
+/**
+ * EsBuild minifier.
+ * @param constructPath Path to construct (construct.node.path).
+ * @param entry Javascript file path.
+ * @returns Minified code.
+ */
+function getInlineCodeEsBuild(constructPath: string, entry: string) {
   let esBuild: any;
   try {
     esBuild = require('esbuild');
@@ -106,14 +122,14 @@ function getInlineCodeEsBuild(path: string, entry: string) {
   }).code;
 
   // Write the minified code to a tmp file so the user can copy it into the console easily.
-  let tmpFile = getMinifiedTmpFile(path, entry);
+  let tmpFile = getMinifiedTmpFile(constructPath, entry);
   fs.writeFileSync(tmpFile, code, { encoding: 'utf-8' });
 
   return code as string;
 }
 
 /**
- * Which minification engine to use.
+ * Minification engine enum.
  */
 export enum MinifyEngine {
   /** No minification. */
@@ -122,7 +138,7 @@ export enum MinifyEngine {
    * Uses esbuild for minification.
    * Add the following to your package.json file:
    * ```
-   * "esbuild": "^0.12.28"
+   * "esbuild": "^0.18.6"
    * ```
    */
   ES_BUILD = 1,
