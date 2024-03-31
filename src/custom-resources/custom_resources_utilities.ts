@@ -12,11 +12,12 @@ export class CustomResourceUtilities {
   protected treeSearch = ConstructTreeSearch.for(CustomResourceUtilities.isCustomResource);
 
   /**
-   * Returns the CfnResource that produces the custom resource.  This
+   * Returns the CfnResource that produces the custom resource.  This function throws
+   * if there are none (or more than one).
    * @param target
    * @returns
    */
-  findCfnCustomResource(target: Construct) {
+  findCustomResource(target: Construct) {
     let elements = this.treeSearch.searchDown(target);
     if (elements.length != 1) {
       throw new Error(`Construct ${
@@ -28,11 +29,11 @@ export class CustomResourceUtilities {
   }
 
   /**
-     * Always run a custom resource.
-     * @param target - CustomResource, AwsCustomResource or similar.
-     */
+   * Always run a custom resource.  Throws if it cannot find one custom resource under target.
+   * @param target - CustomResource, AwsCustomResource or similar.
+   */
   runResourceAlways(target: Construct) {
-    let resource = this.findCfnCustomResource(target);
+    let resource = this.findCustomResource(target);
 
     resource.addPropertyOverride('Version', BUILD_TIME);
   }

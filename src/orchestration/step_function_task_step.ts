@@ -6,7 +6,7 @@ import { Provider } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { InlineNodejsFunction } from '../aws-lambda-nodejs';
 import { BUILD_TIME, Singleton } from '../core';
-import { CfnEncodingResource } from '../custom-resources';
+import { EncodeResource } from '../custom-resources';
 
 /**
  * This class should not be public and should only be used by StepFunctionTask.
@@ -204,7 +204,7 @@ export class StepFunctionTaskStep extends Construct {
       pascalCaseProperties: true,
       properties: resourceProperties,
     });
-    CfnEncodingResource.makeEncodingResource(this.resource);
+    EncodeResource.encodeCustomResource(this.resource);
     if (props.stateMachine) {
       this.resource.node.addDependency(props.stateMachine);
     }
