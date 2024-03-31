@@ -33,7 +33,7 @@ describe('InlineNodeJsFunction tests', () => {
             Role: {
             },
             Handler: 'index.handler',
-            Runtime: 'nodejs16.x',
+            Runtime: 'nodejs18.x',
           },
         },
       },
@@ -71,7 +71,7 @@ describe('InlineNodeJsFunction tests', () => {
             Role: {
             },
             Handler: 'index.handler',
-            Runtime: 'nodejs16.x',
+            Runtime: 'nodejs18.x',
           },
         },
       },
