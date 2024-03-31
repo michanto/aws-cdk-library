@@ -3,8 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Chain, DefinitionBody, JsonPath, StateMachine, TaskInput } from 'aws-cdk-lib/aws-stepfunctions';
 import { Construct } from 'constructs';
-import { LateBoundStepFunctionsStartExecution } from '../../src/aws-stepfunctions';
-import { StepFunctionTask } from '../../src/orchestration';
+import { LateBoundStepFunctionsStartExecution, StepFunctionTask } from '../../src';
 
 /**
  * Shim step function that adds an S3 URI to be used as a return value.

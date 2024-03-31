@@ -1,11 +1,5 @@
 import { IResolvable, IResolveContext, IPostProcessor, Token } from 'aws-cdk-lib';
 
-export const getStackTrace = function() {
-  let obj:any = {};
-  // Error.captureStackTrace(obj, getStackTrace);
-  return obj.stack;
-};
-
 export interface IProcessor {
   process(x: any): any;
 }
@@ -14,7 +8,7 @@ export interface IProcessor {
  * Copied out of the CDK.  Because not public.
  */
 export class PostResolveToken implements IResolvable, IPostProcessor {
-  public readonly creationStack: string[];
+  public readonly creationStack: string[] = [];
 
   constructor(private readonly value: any, private readonly processor: IProcessor) {
     /* istanbul ignore next */
@@ -22,7 +16,6 @@ export class PostResolveToken implements IResolvable, IPostProcessor {
       throw new Error(`Argument to PostResolveToken must be a plain value object, got ${value}`);
     }
 
-    this.creationStack = getStackTrace();
     this.value = value;
   }
 
