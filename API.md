@@ -8589,7 +8589,7 @@ FATAL = 0.5).  Subclass Log and Logger to support custom log levels.
 
 ### MinifyEngine <a name="MinifyEngine" id="@open-constructs/aws-cdk.MinifyEngine"></a>
 
-Which minification engine to use.
+Minification engine enum.
 
 #### Members <a name="Members" id="Members"></a>
 
@@ -8614,7 +8614,7 @@ Uses esbuild for minification.
 
 Add the following to your package.json file:
 ```
-"esbuild": "^0.12.28"
+"esbuild": "^0.18.6"
 ```
 
 ---
