@@ -3968,7 +3968,7 @@ public readonly runtime: Runtime;
 ```
 
 - *Type:* aws-cdk-lib.aws_lambda.Runtime
-- *Default:* Runtime.NODEJS_16_X
+- *Default:* Runtime.NODEJS_18_X
 
 The runtime environment.
 

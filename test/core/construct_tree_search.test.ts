@@ -16,7 +16,7 @@ describe('ConstructTreeSearch tests', () => {
     let cfnBucket3 = new CfnBucket(stack3, 'TestBucket');
     let bucket3 = Bucket.fromCfnBucket(cfnBucket3);
     let stack4 = new Stack(app, 'TestStack4');
-    // Find constructs created by XXXX.fromCfnXXX (e.g. Key.fromCfnKey).
+    // Find constructs created by XXX.fromCfnXXX (e.g. Key.fromCfnKey).
     let isFrankenstein = (x: IConstruct): boolean => {
       return Resource.isResource(x) &&
         CfnResource.isCfnResource(x.node.scope) &&

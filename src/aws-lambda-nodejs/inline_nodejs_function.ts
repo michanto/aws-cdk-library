@@ -2,6 +2,7 @@
 /* eslint import/no-extraneous-dependencies: "off" */
 /* eslint no-bitwise: "off" */
 
+import crypto = require('crypto')
 import fs = require('fs');
 import { FileSystem, IInspectable, TreeInspector } from 'aws-cdk-lib';
 import { Code, Function, FunctionOptions, Runtime } from 'aws-cdk-lib/aws-lambda';
@@ -49,14 +50,14 @@ const minifiedOutDir = (function () {
  * @param entry
  * @param minifyEngine What engine to use.
  */
-function getInlineCode(entry: string, minifyEngine: number): string {
+function getInlineCode(path: string, entry: string, minifyEngine: number): string {
   let inlineCode: string | undefined;
 
   if (!inlineCode && minifyEngine == MinifyEngine.ES_BUILD) {
-    inlineCode = getInlineCodeEsBuild(entry);
+    inlineCode = getInlineCodeEsBuild(path, entry);
   }
   if (!inlineCode && minifyEngine == MinifyEngine.SIMPLE) {
-    inlineCode = getSimpleMinification(entry);
+    inlineCode = getSimpleMinification(path, entry);
   }
 
   if (!inlineCode) {
@@ -66,33 +67,32 @@ function getInlineCode(entry: string, minifyEngine: number): string {
   return inlineCode;
 }
 
-/**
- * @returns A randomish alphanumeric string of up to 6 characters.
- */
-function upToSixRandomChars() {
-  return (Math.random() + 1).toString(36).substring(7);
-}
 
-
-function getMinifiedTmpFile(entry: string) {
+function getMinifiedTmpFile(path: string, entry: string) {
   let fileName = function (str: string) {
     return str.split('\\').pop()!.split('/').pop()!;
   }(entry);
+  // Good enough for git, good enough here.
+  let hash = crypto
+    .createHash('sha1')
+    .update(path)
+    .digest('hex')
+    .substring(0, 8);
 
-  return `${minifiedOutDir()}/${upToSixRandomChars()}-${fileName}`;
+  return `${minifiedOutDir()}/${hash}-${fileName}`;
 }
 
-function getSimpleMinification(entry: string) {
+function getSimpleMinification(path: string, entry: string) {
   let code = trimLines(stripComments(fs.readFileSync(entry, { encoding: 'utf-8' })));
 
   // Write the minified code to a tmp file so the user can copy it into the console easily.
-  let tmpFile = getMinifiedTmpFile(entry);
+  let tmpFile = getMinifiedTmpFile(path, entry);
   fs.writeFileSync(tmpFile, code, { encoding: 'utf-8' });
 
   return code;
 }
 
-function getInlineCodeEsBuild(entry: string) {
+function getInlineCodeEsBuild(path: string, entry: string) {
   let esBuild: any;
   try {
     esBuild = require('esbuild');
@@ -106,7 +106,7 @@ function getInlineCodeEsBuild(entry: string) {
   }).code;
 
   // Write the minified code to a tmp file so the user can copy it into the console easily.
-  let tmpFile = getMinifiedTmpFile(entry);
+  let tmpFile = getMinifiedTmpFile(path, entry);
   fs.writeFileSync(tmpFile, code, { encoding: 'utf-8' });
 
   return code as string;
@@ -154,7 +154,7 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
    * The runtime environment. Only runtimes of the Node.js family are
    * supported.
    *
-   * @default Runtime.NODEJS_16_X
+   * @default Runtime.NODEJS_18_X
    */
   readonly runtime?: Runtime;
 
@@ -222,13 +222,13 @@ export class InlineNodejsFunction extends Function implements IInspectable {
     private readonly props: InlineNodejsFunctionProps) {
     super(scope, id, {
       ...props as FunctionOptions,
-      code: Code.fromInline(getInlineCode(props.entry!,
+      code: Code.fromInline(getInlineCode(scope.node.path + '/' + id, props.entry!,
         InlineNodejsFunction.minifyEngineFromProps(props))),
-      runtime: props.runtime ?? Runtime.NODEJS_16_X,
+      runtime: props.runtime ?? Runtime.NODEJS_18_X,
       handler: props.handler ?? 'index.handler',
     });
 
-    this.tmpFile = getMinifiedTmpFile(this.props.entry!);
+    this.tmpFile = getMinifiedTmpFile(scope.node.path + '/' + id, this.props.entry!);
   }
 
   inspect(inspector: TreeInspector): void {
