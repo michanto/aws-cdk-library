@@ -2,6 +2,59 @@ import { randomUUID } from 'crypto';
 import { SFN, StartExecutionCommandInput } from '@aws-sdk/client-sfn';
 const logger = process.env.LogLevel ? console : undefined;
 
+
+/**
+ * Flattens a nested object.
+ * Copied from AwsCustomResource runtime in aws-cdk.
+ *
+ * @param object the object to be flattened
+ * @returns a flat object with path as keys
+ */
+export function flatten(root: unknown): { [key: string]: any } {
+  const ret: { [key: string]: any } = {};
+  recurse(root);
+  return ret;
+
+  function recurse(x: unknown, path: string[] = []): any {
+    if (x && typeof x === 'object') {
+      for (const [key, value] of Object.entries(x)) {
+        recurse(value, [...path, key]);
+      }
+      return;
+    }
+
+    ret[path.join('.')] = x;
+  }
+}
+
+/**
+ * Filters the keys of an object.
+ * Copied from AwsCustomResource runtime in aws-cdk.
+ */
+export function filterKeys(object: object, pred: (key: string) => boolean) {
+  return Object.entries(object)
+    .reduce(
+      (acc, [k, v]) => pred(k)
+        ? { ...acc, [k]: v }
+        : acc,
+      {},
+    );
+}
+
+/**
+ * Copied from AwsCustomResource runtime in aws-cdk.
+ */
+export function startsWithOneOf(searchStrings: string[]): (string: string) => boolean {
+  return function(string: string): boolean {
+    for (const searchString of searchStrings) {
+      if (string.startsWith(searchString)) {
+        return true;
+      }
+    }
+    return false;
+  };
+}
+
 function log(message: Record<string, any>) {
   if (process.env.LogLevel) {
     console.log(JSON.stringify(message));
@@ -91,7 +144,7 @@ export const stepFunctionComplete = async (event: any, context: any) => {
   let succeededStates = ['SUCCEEDED'];
   let failedStates = ['FAILED', 'TIMED_OUT', 'ABORTED'];
   if (failedStates.includes(result.status!)) {
-    throw new Error(`Operation failed: ${result.status}.`);
+    throw new Error(`Arn: ${result.executionArn}. Status: ${result.status}. Error: '${result.error}' Cause: '${result.cause}'`);
   }
   let isComplete = succeededStates.includes(result.status!);
   if (!isComplete && !continueStates.includes(result.status!)) {
@@ -110,10 +163,21 @@ export const stepFunctionComplete = async (event: any, context: any) => {
     log({ IsComplete: isComplete });
   }
 
-  return Promise.resolve({
+  let response: any = {
     ExecutionArn: event.ExecutionArn,
     StartDate: event.StartDate,
     SucceedAfterMs: succeedAfterMs,
     IsComplete: isComplete,
-  });
+  };
+  // Only return data that was requested, in case SF output is long.
+  if (event.OutputPaths) {
+    let flattened = flatten(result.output);
+    let defaults = filterKeys((event.ResourceProperties.Defaults ?? {}), startsWithOneOf(event.OutputPaths));
+    let filtered = filterKeys(flattened, startsWithOneOf(event.outputPaths));
+    response.Data = {
+      ...defaults,
+      ...filtered,
+    };
+  }
+  return Promise.resolve(response);
 };

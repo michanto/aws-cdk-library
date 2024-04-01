@@ -2305,6 +2305,8 @@ new StepFunctionTask(scope: Construct, id: string, props: StepFunctionTaskProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.getAtt">getAtt</a></code> | See {@link CustomResource.getAtt }. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.getAttString">getAttString</a></code> | See {@link CustomResource.getAttString }. |
 
 ---
 
@@ -2315,6 +2317,34 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `getAtt` <a name="getAtt" id="@open-constructs/aws-cdk.StepFunctionTask.getAtt"></a>
+
+```typescript
+public getAtt(attributeName: string): Reference
+```
+
+See {@link CustomResource.getAtt }.
+
+###### `attributeName`<sup>Required</sup> <a name="attributeName" id="@open-constructs/aws-cdk.StepFunctionTask.getAtt.parameter.attributeName"></a>
+
+- *Type:* string
+
+---
+
+##### `getAttString` <a name="getAttString" id="@open-constructs/aws-cdk.StepFunctionTask.getAttString"></a>
+
+```typescript
+public getAttString(attributeName: string): string
+```
+
+See {@link CustomResource.getAttString }.
+
+###### `attributeName`<sup>Required</sup> <a name="attributeName" id="@open-constructs/aws-cdk.StepFunctionTask.getAttString.parameter.attributeName"></a>
+
+- *Type:* string
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -2362,6 +2392,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.numberOfSteps">numberOfSteps</a></code> | <code>number</code> | Total number of StepFunctionTaskStep resources created. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.ref">ref</a></code> | <code>string</code> | The physical name of this custom resource. |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTask.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Execution role. |
 
 ---
@@ -2387,6 +2418,18 @@ public readonly numberOfSteps: number;
 - *Type:* number
 
 Total number of StepFunctionTaskStep resources created.
+
+---
+
+##### `ref`<sup>Required</sup> <a name="ref" id="@open-constructs/aws-cdk.StepFunctionTask.property.ref"></a>
+
+```typescript
+public readonly ref: string;
+```
+
+- *Type:* string
+
+The physical name of this custom resource.
 
 ---
 
@@ -3831,6 +3874,8 @@ The particular service that was queried.
 
 ### StepFunctionTaskProps <a name="StepFunctionTaskProps" id="@open-constructs/aws-cdk.StepFunctionTaskProps"></a>
 
+Properties for StepFunctionTask.
+
 #### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.StepFunctionTaskProps.Initializer"></a>
 
 ```typescript
@@ -3844,6 +3889,7 @@ const stepFunctionTaskProps: StepFunctionTaskProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.IStateMachine</code> | The state machine to execute. |
+| <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.defaults">defaults</a></code> | <code>{[ key: string ]: string}</code> | Default attribute values to use when the StepFunction output does not contain a requested value. |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.inputEvent">inputEvent</a></code> | <code>any</code> | The event to start the state machine with. |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.prefix">prefix</a></code> | <code>string</code> | Prefix for the execution. |
 | <code><a href="#@open-constructs/aws-cdk.StepFunctionTaskProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Role for execution and monitoring.  Must have permission to execute and describe the state machine, as well as ```ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole")```. |
@@ -3860,6 +3906,18 @@ public readonly stateMachine: IStateMachine;
 - *Type:* aws-cdk-lib.aws_stepfunctions.IStateMachine
 
 The state machine to execute.
+
+---
+
+##### `defaults`<sup>Optional</sup> <a name="defaults" id="@open-constructs/aws-cdk.StepFunctionTaskProps.property.defaults"></a>
+
+```typescript
+public readonly defaults: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Default attribute values to use when the StepFunction output does not contain a requested value.
 
 ---
 
@@ -7758,6 +7816,23 @@ public readonly service: ConstructTreeService;
 
 ---
 
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@open-constructs/aws-cdk.TokenService.property.TOKEN_SERVICE_FACTORY">TOKEN_SERVICE_FACTORY</a></code> | <code><a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a></code> | *No description.* |
+
+---
+
+##### `TOKEN_SERVICE_FACTORY`<sup>Required</sup> <a name="TOKEN_SERVICE_FACTORY" id="@open-constructs/aws-cdk.TokenService.property.TOKEN_SERVICE_FACTORY"></a>
+
+```typescript
+public readonly TOKEN_SERVICE_FACTORY: IConstructServiceFactory;
+```
+
+- *Type:* <a href="#@open-constructs/aws-cdk.IConstructServiceFactory">IConstructServiceFactory</a>
+
+---
 
 ### TransformHost <a name="TransformHost" id="@open-constructs/aws-cdk.TransformHost"></a>
 
