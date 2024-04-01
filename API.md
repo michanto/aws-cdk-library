@@ -507,9 +507,8 @@ public readonly id: string;
 Inline code version of NodejsFunction.  Write Lambda code in the CDK package, in either JavaScript or TypeScript.
 
 Creates a Lambda from a single JavaScript file included in your package.
-This file is passed to InlineNodejsFunction via {@link InlineNodejsFunctionProps.entry}.
-It does not compile TypeScript, as the original TypeScript files will not be
-included in your package (by default), while the compiled JavaScript will be.
+Pass a file like to the js file from the dist/output directory as
+{@link InlineNodejsFunctionProps.entry}.
 
 Inline Lambda runs only with the code in the .js entry file provided and the
 AWS Lambda NodeJS runtime.  Thus while the entry file can export functions and
@@ -2616,7 +2615,7 @@ or {@link ConstructService.searchSelfOrCreate}.
 
 ### InlineNodejsFunctionProps <a name="InlineNodejsFunctionProps" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps"></a>
 
-Properties for a inline NodejsFunction.
+Properties for InlineNodejsFunction.
 
 #### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.Initializer"></a>
 

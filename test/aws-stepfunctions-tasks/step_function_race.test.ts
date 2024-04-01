@@ -55,8 +55,8 @@ export class LbSfseIntegrationTest extends Stack {
   }
 }
 
-describe('LateBoundStepFunctionsStartExecution tests', () => {
-  test('LateBoundStepFunctionsStartExecution works.', () => {
+describe('LateBoundStepFunctionsStartExecution integration tests', () => {
+  test('LateBoundStepFunctionsStartExecution integration test synthesizes.', () => {
     const app = new App();
     // TODO:  This will be part of the integration test for InlineNodejsFunction and LateBoundStepFunctionsStartExecution.
     // For now, just test synth.

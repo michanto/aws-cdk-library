@@ -45,8 +45,6 @@ const minifiedOutDir = (function () {
  * This allows one to keep the lambda typescript code readable, and still deploy it
  * as inline-code.
  *
- * Uses simple minification.
- *
  * @param constructPath Path to construct (construct.node.path).
  * @param entry Javascript file path.
  * @param minifyEngine Which minification engine to use.
@@ -149,7 +147,7 @@ export enum MinifyEngine {
 }
 
 /**
- * Properties for a inline NodejsFunction.
+ * Properties for InlineNodejsFunction.
  */
 export interface InlineNodejsFunctionProps extends FunctionOptions {
   /**
@@ -185,9 +183,8 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * in either JavaScript or TypeScript.
  *
  * Creates a Lambda from a single JavaScript file included in your package.
- * This file is passed to InlineNodejsFunction via {@link InlineNodejsFunctionProps.entry}.
- * It does not compile TypeScript, as the original TypeScript files will not be
- * included in your package (by default), while the compiled JavaScript will be.
+ * Pass a file like to the js file from the dist/output directory as
+ * {@link InlineNodejsFunctionProps.entry}.
  *
  * Inline Lambda runs only with the code in the .js entry file provided and the
  * AWS Lambda NodeJS runtime.  Thus while the entry file can export functions and
@@ -199,11 +196,6 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * This class minifies your JavaScript code, so you can feel free to add comments
  * and proper variables names in your inline code.  They will be stripped away,
  * depending on which minification engine you use (See {@link MinifyEngine}).
- *
- * This class writes out the minified javascript code to
- * `${process.env.TMPDIR}/minified-${RANDOM_CHARS}/${OTHER_RANDOM_CHARS}-<entryfile>.js`.
- * This allows the user to find the file and copy updated JavaScript right to the AWS lambda console.
- * It reduces your turn around time when coding a new lambda.
  *
  * It's amazing how much can be accomplished using small, inline TypeScript Lambdas.
  * Typical use cases:  StepFunction lambdas.  Provider-based Custom Resource handlers.

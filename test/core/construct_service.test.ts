@@ -9,7 +9,7 @@ const testService = new ConstructService({
 });
 
 describe('ConstructService tests', () => {
-  it('scopeOf undefined is undefined.', () => {
+  it('scopeOf tests.', () => {
     let app = new App();
     const serviceQueryResult = {
       scope: app,
@@ -21,7 +21,7 @@ describe('ConstructService tests', () => {
     expect(ConstructService.scopesOf([serviceQueryResult])).toEqual([app]);
   });
 
-  it('Increases coverage on this class.', () => {
+  it('get/set/setFactory tests.', () => {
     let notConstruct = new Object();
     let app = new App();
     let construct = new Construct(app, 'AConstruct');

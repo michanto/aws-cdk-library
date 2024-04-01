@@ -9,9 +9,9 @@ import { NAMESPACE } from './private/internals';
  */
 export class Singleton {
   /**
-     * Creates or returns a singleton object.
-     * Throws if the existing object was not created or marked by this class.
-     */
+   * Creates or returns a singleton object.
+   * Throws if the existing object was not created or marked by this class.
+   */
   static create(scope: Construct, id: string, factory: IConstructFactory) {
     let stack = Stack.of(scope);
     const existing = stack.node.tryFindChild(id);
@@ -26,18 +26,18 @@ export class Singleton {
   }
 
   /**
-     * True if the construct has been marked as Singleton by this class.
-     */
+   * True if the construct has been marked as Singleton by this class.
+   */
   static isSingleton(x: IConstruct): boolean {
     return Singleton.SINGELTON_RTTI.hasRtti(x);
   }
 
   /**
-     * Marks an existing construct as a singleton.
-     * This allows Singletons created outside this class to be used
-     * with this class.
-     * Throws if the construct is not a direct child of a stack.
-     */
+   * Marks an existing construct as a singleton.
+   * This allows Singletons created outside this class to be used
+   * with this class.
+   * Throws if the construct is not a direct child of a stack.
+   */
   static mark(scope: IConstruct) {
     if (scope.node.scope && Stack.isStack(scope.node.scope)) {
       Singleton.SINGELTON_RTTI.addRtti(scope);
