@@ -117,14 +117,11 @@ describe('UserToken tests', () => {
     // GIVEN
     const app = new App();
     const stack1 = new Stack(app, 'Stack1');
-    let fn = new Function(stack1, 'Function', {
-      code: Code.fromInline('bad code'),
-      handler: 'handler',
-      runtime: Runtime.NODEJS_18_X,
-    });
+    let fn = new BadFunction(stack1, 'Function');
     new Bucket(stack1, 'Bucket', {
       bucketName: AppToken.string(stack1, 'bucketName'),
     });
+    // Like StackTokenCustomResource, but with AppTokens.
     new CustomResource(stack1, 'CustomResource', {
       serviceToken: fn.functionArn,
       properties: {

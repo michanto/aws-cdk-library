@@ -37,7 +37,7 @@ describe('CfnIncludeToCdk tests', () => {
       },
     });
   });
-  test('CfnIncludeToCdk increase coverage', () => {
+  test('CfnIncludeToCdk.isCfnInclude(undefined)', () => {
     expect(CfnIncludeToCdk.isCfnInclude(undefined)).toBeFalsy();
   });
   test('CfnIncludeToCdk setLogicalId L1', () => {
@@ -82,7 +82,7 @@ describe('CfnIncludeToCdk tests', () => {
       },
     });
   });
-  test('CfnIncludeToCdk setLogicalId two L1', () => {
+  test('CfnIncludeToCdk setLogicalId two L1s (throws)', () => {
     const stack = new Stack();
     const scope = new Construct(stack, 'Construct');
     new CfnBucket(scope, 'MyBucket');

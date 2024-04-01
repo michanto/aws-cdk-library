@@ -4,7 +4,7 @@ import { IConstruct } from 'constructs';
 import { ConstructTreeSearch } from '../../src';
 
 describe('ConstructTreeSearch tests', () => {
-  it('Finds constructs using all methods.', () => {
+  it('Finds L1/L2/Frankenstein using all methods.', () => {
     let app = new App();
 
     // Given

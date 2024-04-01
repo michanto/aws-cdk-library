@@ -3,7 +3,7 @@ import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { ServiceInspectorAspect, TreeInspectable } from '../../src';
 
 describe('ServiceInspectorAspect tests', () => {
-  it('Can be applied to a tree.', () => {
+  it('Can be applied to a tree and produces expected output.', () => {
     let app = new App();
     let stack = new Stack(app, 'MyStack');
     let bucket = new Bucket(stack, 'MyBucket');
