@@ -10,6 +10,7 @@ import {
 } from 'aws-cdk-lib';
 import { IConstruct } from 'constructs';
 import { AppConstructTreeService } from './app_construct_tree_service';
+import { IConstructServiceFactory } from './construct_service';
 import { ConstructTreeService } from './construct_tree_service';
 import { NAMESPACE } from './private/internals';
 import { StackConstructTreeService } from './stack_construct_tree_service';
@@ -20,6 +21,10 @@ import { StackConstructTreeService } from './stack_construct_tree_service';
  * Users should use AppTokens or StackTokens instead of directly using this class.
  */
 export class TokenService {
+  static readonly TOKEN_SERVICE_FACTORY: IConstructServiceFactory = (_c: IConstruct) => {
+    return {};
+  };
+
   constructor(readonly service: ConstructTreeService) {
   }
 
@@ -153,9 +158,7 @@ export class AppToken {
 
   protected static readonly APP_TOKENS = new TokenService(new AppConstructTreeService({
     servicePropertyName: `${NAMESPACE}.AppTokens`,
-    factory: (_c) => {
-      return {};
-    },
+    factory: TokenService.TOKEN_SERVICE_FACTORY,
   }));
 }
 
@@ -222,8 +225,6 @@ export class StackToken {
 
   protected static readonly STACK_TOKENS = new TokenService(new StackConstructTreeService({
     servicePropertyName: `${NAMESPACE}.StackTokens`,
-    factory: (_c) => {
-      return {};
-    },
+    factory: TokenService.TOKEN_SERVICE_FACTORY,
   }));
 }

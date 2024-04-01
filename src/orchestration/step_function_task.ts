@@ -5,6 +5,7 @@ import { Construct } from 'constructs';
 import { StepFunctionTaskStep, StepFunctionTaskStepConstants } from './step_function_task_step';
 
 /**
+ * Properties for StepFunctionTask.
  */
 export interface StepFunctionTaskProps {
   /**
@@ -37,6 +38,11 @@ export interface StepFunctionTaskProps {
    * If not provided, a role will be created.
    */
   readonly role?: IRole;
+
+  /**
+   * Default attribute values to use when the StepFunction output does not contain a requested value.
+   */
+  readonly defaults?: {[name: string]: string};
 }
 
 /**
@@ -66,6 +72,11 @@ export class StepFunctionTask extends Construct {
    */
   readonly numberOfSteps: number;
 
+  /** First step is where we get ref from. */
+  private readonly startExecution: StepFunctionTaskStep;
+  /** Last step is where we get attributes from. */
+  private readonly lastStep: StepFunctionTaskStep;
+
   constructor(scope: Construct, id: string, props: StepFunctionTaskProps) {
     super(scope, id);
 
@@ -78,18 +89,19 @@ export class StepFunctionTask extends Construct {
     // decide that.
     this.numberOfSteps = Math.max(2, Math.ceil(totalTimeoutMs / timeoutMs));
 
-    let startExecution = new StepFunctionTaskStep(this, 'RunIt', {
+    this.startExecution = new StepFunctionTaskStep(this, 'RunIt', {
       succeedAfterMs: timeoutMs,
       stateMachine: props.stateMachine,
       inputEvent: props.inputEvent,
       prefix: props.prefix,
       role: props.role,
+      defaults: props.defaults,
     });
 
     // Ensure we use the same role for all steps.
-    this.role = startExecution.resources.role;
+    this.role = this.startExecution.resources.role;
 
-    let previousStep = startExecution;
+    let previousStep = this.startExecution;
     for (let index = 1; index < this.numberOfSteps; index++) {
       // Fail the last resource on timeout.
       // All other resources should succeed after a set number of MS if the
@@ -99,7 +111,7 @@ export class StepFunctionTask extends Construct {
         succeedAfterMs:
           failOnResourceTimeout ? undefined : timeoutMs*(index+1),
         suffix: `${index}`,
-        executionArn: startExecution.ref,
+        executionArn: this.startExecution.ref,
         role: this.role,
       });
       // Dependencies will ensure monitoring is done one resource
@@ -107,5 +119,21 @@ export class StepFunctionTask extends Construct {
       waitForIt.node.addDependency(previousStep);
       previousStep = waitForIt;
     }
+    this.lastStep = previousStep;
+  }
+
+  /** The physical name of this custom resource */
+  get ref() {
+    return this.startExecution.ref;
+  }
+
+  /** See {@link CustomResource.getAtt} */
+  getAtt(attributeName: string) {
+    return this.lastStep.getAtt(attributeName);
+  }
+
+  /** See {@link CustomResource.getAttString} */
+  getAttString(attributeName: string) {
+    return this.lastStep.getAttString(attributeName);
   }
 }
