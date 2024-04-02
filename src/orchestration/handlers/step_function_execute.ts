@@ -103,6 +103,8 @@ export const startStepFunction = async (event: any, context: any) => {
       StartDate: result.startDate!,
       SucceedAfterMs: succeedAfterMs,
       IsComplete: false,
+      OutputPaths: event.ResourceProperties.OutputPaths,
+      Defaults: event.ResourceProperties.Defaults,
     });
   } else if (executionArn) {
     let suffix = event.ResourceProperties.Suffix;
@@ -115,6 +117,8 @@ export const startStepFunction = async (event: any, context: any) => {
       ExecutionArn: result.executionArn!,
       StartDate: result.startDate!,
       SucceedAfterMs: succeedAfterMs,
+      OutputPaths: event.ResourceProperties.OutputPaths,
+      Defaults: event.ResourceProperties.Defaults,
       IsComplete: false,
     });
   }
@@ -172,8 +176,8 @@ export const stepFunctionComplete = async (event: any, context: any) => {
   // Only return data that was requested, in case SF output is long.
   if (event.OutputPaths) {
     let flattened = flatten(result.output);
-    let defaults = filterKeys((event.ResourceProperties.Defaults ?? {}), startsWithOneOf(event.OutputPaths));
-    let filtered = filterKeys(flattened, startsWithOneOf(event.outputPaths));
+    let defaults = filterKeys((event.Defaults ?? {}), startsWithOneOf(event.OutputPaths));
+    let filtered = filterKeys(flattened, startsWithOneOf(event.OutputPaths));
     response.Data = {
       ...defaults,
       ...filtered,

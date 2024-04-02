@@ -1,6 +1,6 @@
 import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { StateMachine, Chain, Wait, WaitTime, Fail } from 'aws-cdk-lib/aws-stepfunctions';
+import { StateMachine, Chain, Wait, WaitTime, Fail, DefinitionBody } from 'aws-cdk-lib/aws-stepfunctions';
 import { Construct } from 'constructs';
 import { StepFunctionRaceExecution } from './step_function_race';
 
@@ -16,10 +16,10 @@ export class WaitingStateMachine extends StateMachine {
   constructor(scope: Construct, id: string = 'WaitingStateMachine') {
     super(scope, id, {
       stateMachineName: 'WaitingStateMachine',
-      definition: Chain.start(new Wait(scope, 'Wait', {
+      definitionBody: DefinitionBody.fromChainable(Chain.start(new Wait(scope, 'Wait', {
         comment: 'Waits for the provided waitSeconds.',
         time: WaitTime.secondsPath('$.waitSeconds'),
-      })),
+      }))),
     });
   }
 }
@@ -28,10 +28,10 @@ export class FailStateMachine extends StateMachine {
   constructor(scope: Construct, id: string = 'FailStateMachine') {
     super(scope, id, {
       stateMachineName: 'FailStateMachine',
-      definition: Chain.start(new Fail(scope, 'Fail', {
+      definitionBody: DefinitionBody.fromChainable(Chain.start(new Fail(scope, 'Fail', {
         comment: 'Fails.',
         error: 'BadDoings',
-      })),
+      }))),
     });
   }
 }

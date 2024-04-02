@@ -189,9 +189,11 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * Inline Lambda runs only with the code in the .js entry file provided and the
  * AWS Lambda NodeJS runtime.  Thus while the entry file can export functions and
  * types to the rest of your CDK package, it cannot import anything
- * not available in the Lambda runtime.  The Lambda runtime includes the base Node library,
- * along with aws-sdk and/or @aws-sdk.  If you require any additional
- * bundling, use NodejsFunction, which supports the full suite of esbuild options.
+ * not available in the Lambda runtime.  The Lambda runtime includes the base Node library
+ * (such as https://nodejs.org/docs/latest-v18.x/api/), along with aws-sdk and/or @aws-sdk
+ * (see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html).
+ * If you require any additional bundling, use NodejsFunction, which supports the full
+ * suite of esbuild options.
  *
  * This class minifies your JavaScript code, so you can feel free to add comments
  * and proper variables names in your inline code.  They will be stripped away,
