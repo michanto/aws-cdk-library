@@ -61,8 +61,9 @@ export class TransformHost {
   /**
  * This turns a Stack or CfnElement into a transform host.
  *
- * Can be used from the stack constructor, or via the
- * provided cfnTransformHost decorator.
+ * Called from the ensureHosted, which itself is called from
+ * the CfnTransform constructor to ensure that the CfnTransform
+ * is hosted either by a CfnElement or a Stack.
  */
   static hook(construct: IConstruct) {
     const errorMsg = 'TransformHost.hook can only be used on Construct classes that implement _toCloudFormation.';

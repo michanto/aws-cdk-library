@@ -68,13 +68,13 @@ _toCloudFormation function to apply transforms at synthesis
 time.
 
 ```typescript
-// Now this Stack can host transforms.
-@cfnTransformHost
 class MyStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
     // Host a transform.
+    // This will proxy Stack._toCloudFormation to host
+    // Transforms (unless that has already been done).
     new StackDescription(this, "Description",
       "This description came from a transform.")
   }
