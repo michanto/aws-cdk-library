@@ -169,7 +169,7 @@ public readonly id: string;
 
 Normally, transforms are hosted by a Stack or CfnElement, and they are applied during synthesis (calls to _toCloudFormation).
 
-Adding a 
+Adding a
 CfnTransform to a Stack or CfnElement will cause the _toCloudFormation
 method to be proxied to apply Transforms.
 
@@ -7894,8 +7894,9 @@ TransformHost.hook(construct: IConstruct)
 
 This turns a Stack or CfnElement into a transform host.
 
-Can be used from the stack constructor, or via the
-provided cfnTransformHost decorator.
+Called from the ensureHosted, which itself is called from
+the CfnTransform constructor to ensure that the CfnTransform
+is hosted either by a CfnElement or a Stack.
 
 ###### `construct`<sup>Required</sup> <a name="construct" id="@open-constructs/aws-cdk.TransformHost.hook.parameter.construct"></a>
 
