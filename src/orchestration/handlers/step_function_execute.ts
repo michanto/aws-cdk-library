@@ -144,6 +144,7 @@ export const stepFunctionComplete = async (event: any, context: any) => {
   let result = await stepFunction.describeExecution({
     executionArn: event.ExecutionArn,
   });
+
   let continueStates = ['RUNNING'];
   let succeededStates = ['SUCCEEDED'];
   let failedStates = ['FAILED', 'TIMED_OUT', 'ABORTED'];
@@ -158,6 +159,7 @@ export const stepFunctionComplete = async (event: any, context: any) => {
   let now = Date.now();
   log({ Now: now, StartDate: result.startDate!.getTime() });
   let succeedAfterMs = event.SucceedAfterMs;
+
   // If we hit the succeedAfterMs duration, succeed the resource.
   // Otherwise the resource may fail due to timeout.
   if (!isComplete && succeedAfterMs && (now - result.startDate!.getTime()) > succeedAfterMs) {

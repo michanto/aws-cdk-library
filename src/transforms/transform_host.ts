@@ -65,7 +65,7 @@ export class TransformHost {
  * provided cfnTransformHost decorator.
  */
   static hook(construct: IConstruct) {
-    const errorMsg = '@cfnTransformHost and makeTransformHost can only be used on Construct classes that implement _toCloudFormation.';
+    const errorMsg = 'TransformHost.hook can only be used on Construct classes that implement _toCloudFormation.';
 
     if (!Construct.isConstruct(construct)) {
       throw new Error(errorMsg);
