@@ -5,9 +5,9 @@ import { Transforms } from './transforms';
 
 /**
  * Normally, transforms are hosted by a Stack or CfnElement, and they are
- * applied during synthesis (calls to _toCloudFormation). You can use
- * either cfnTransformHost (as a decorator) or makeTransformHost (called
- * from the Stack constructor) to turn a Stack into a transform host.
+ * applied during synthesis (calls to _toCloudFormation). Adding a
+ * CfnTransform to a Stack or CfnElement will cause the _toCloudFormation
+ * method to be proxied to apply Transforms.
  *
  * But if you want transforms hosted for some other reason, this is the class you should use.
  * This class hosts transforms, but does not know what to do with them.

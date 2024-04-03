@@ -1,5 +1,5 @@
 import { startStepFunction, stepFunctionComplete } from '../../../lib/orchestration/handlers/step_function_execute';
-
+const startDate = new Date(Date.now());
 const mockStepFunctions = {
   startExecutionCalls: 0,
   describeExecutionCalls: 0,
@@ -8,7 +8,7 @@ const mockStepFunctions = {
     mockStepFunctions.startExecutionCalls++;
     return Promise.resolve({
       executionArn: 'executionArn',
-      startDate: new Date(Date.now()),
+      startDate: startDate,
     });
   },
   describeExecution: () => {
@@ -16,7 +16,7 @@ const mockStepFunctions = {
     return Promise.resolve({
       executionArn: 'executionArn',
       status: mockStepFunctions.describeExecutionStatus,
-      startDate: new Date(Date.now()),
+      startDate: startDate,
       output: {
         simple: 'test_value',
         complex: {
@@ -26,6 +26,14 @@ const mockStepFunctions = {
     });
   },
 };
+
+function pause(ms: number) {
+  var start = Date.now(),
+    now = start;
+  while (now - start < ms) {
+    now = Date.now();
+  }
+}
 
 jest.mock('@aws-sdk/client-sfn', () => {
   return {
@@ -153,5 +161,61 @@ describe('step_function_execute handler tests', () => {
     } catch (error) {
       expect(error).toMatchObject({ Reason: 'One of StateMachineArn or ExecutionArn must be specified.' });
     }
+  });
+  test('Call stepFunctionComplete stepfunction failed.', async () => {
+    mockStepFunctions.describeExecutionStatus = 'FAILED';
+    try {
+      await stepFunctionComplete({
+        ExecutionArn: 'executionArn',
+        OutputPaths: ['complex.inner'],
+      }, context);
+      fail('stepFunctionComplete should have thrown.');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+  test('Call stepFunctionComplete stepfunction unknown status.', async () => {
+    mockStepFunctions.describeExecutionStatus = 'UNKNOWN';
+    try {
+      await stepFunctionComplete({
+        ExecutionArn: 'executionArn',
+        OutputPaths: ['complex.inner'],
+      }, context);
+      fail('stepFunctionComplete should have thrown.');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+  test('Call stepFunctionComplete SucceedAfterMs.', async () => {
+    pause(2); // Ensure at least two ms have passed.
+    mockStepFunctions.describeExecutionStatus = 'RUNNING';
+    let value = await stepFunctionComplete({
+      ExecutionArn: 'executionArn',
+      OutputPaths: ['complex.inner'],
+      SucceedAfterMs: 1,
+    }, context);
+    expect(value).toMatchObject({
+      ExecutionArn: 'executionArn',
+      IsComplete: true,
+      Data: { 'complex.inner': 'other_value' },
+    });
+  });
+  test('Call startStepFunction handler logging on.', async () => {
+    process.env.LogLevel = '1';
+
+    try {
+      let value = await startStepFunction({
+        RequestType: 'Delete',
+        ResourceProperties: {
+          PhysicalResoruceId: 'something',
+        },
+      }, context);
+      expect(value).toMatchObject({
+        IsComplete: true,
+      });
+    } catch {
+      fail('Should not have thrown.');
+    }
+    process.env.LogLevel = undefined;
   });
 });
