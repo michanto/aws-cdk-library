@@ -282,7 +282,7 @@ export class InlineNodejsFunction extends Function implements IInspectable {
   }
 
   /**
-   * Path to the temporary file with the minified code.
+   * Path to the temporary file with the minified code (if any).
    * This path is also published via IInspectiable, and thus will appear in
    * the tree.json file as attribute "@open-constructs/aws-cdk.InlineNodejsFunction.tmpfile".
    *
@@ -291,7 +291,7 @@ export class InlineNodejsFunction extends Function implements IInspectable {
    * Note the location will change to a new temporary directory each time the code
    * is compiled.
    */
-  readonly tmpFile: string;
+  readonly tmpFile: string | undefined;
 
   constructor(scope: Construct, id: string,
     private readonly props: InlineNodejsFunctionProps) {
@@ -308,10 +308,15 @@ export class InlineNodejsFunction extends Function implements IInspectable {
     if (props.awsSdkConnectionReuse ?? true) {
       this.addEnvironment('AWS_NODEJS_CONNECTION_REUSE_ENABLED', '1', { removeInEdge: true });
     }
-    this.tmpFile = getMinifiedTmpFile(scope.node.path + '/' + id, this.props.entry!);
+    let minifyEngine = InlineNodejsFunction.minifyEngineFromProps(props);
+    if (minifyEngine != MinifyEngine.NONE) {
+      this.tmpFile = getMinifiedTmpFile(scope.node.path + '/' + id, this.props.entry!);
+    }
   }
 
   inspect(inspector: TreeInspector): void {
-    inspector.addAttribute(InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME, this.tmpFile);
+    if (this.tmpFile) {
+      inspector.addAttribute(InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME, this.tmpFile);
+    }
   }
 }

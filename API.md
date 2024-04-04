@@ -1394,7 +1394,7 @@ InlineNodejsFunction.minifyEngineFromProps(props: InlineNodejsFunctionProps)
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | The DLQ (as queue) associated with this Lambda Function (this is an optional attribute). |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.deadLetterTopic">deadLetterTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | The DLQ (as topic) associated with this Lambda Function (this is an optional attribute). |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The timeout configured for this lambda. |
-| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.tmpFile">tmpFile</a></code> | <code>string</code> | Path to the temporary file with the minified code. |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunction.property.tmpFile">tmpFile</a></code> | <code>string</code> | Path to the temporary file with the minified code (if any). |
 
 ---
 
@@ -1654,7 +1654,7 @@ The timeout configured for this lambda.
 
 ---
 
-##### `tmpFile`<sup>Required</sup> <a name="tmpFile" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.tmpFile"></a>
+##### `tmpFile`<sup>Optional</sup> <a name="tmpFile" id="@open-constructs/aws-cdk.InlineNodejsFunction.property.tmpFile"></a>
 
 ```typescript
 public readonly tmpFile: string;
@@ -1662,7 +1662,7 @@ public readonly tmpFile: string;
 
 - *Type:* string
 
-Path to the temporary file with the minified code.
+Path to the temporary file with the minified code (if any).
 
 This path is also published via IInspectiable, and thus will appear in
 the tree.json file as attribute "@open-constructs/aws-cdk.InlineNodejsFunction.tmpfile".
