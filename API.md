@@ -2642,7 +2642,7 @@ or {@link ConstructService.searchSelfOrCreate}.
 
 ### InlineNodejsFunctionProps <a name="InlineNodejsFunctionProps" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps"></a>
 
-Properties for InlineNodejsFunction.
+Properties for an InlineNodejsFunction.
 
 #### Initializer <a name="Initializer" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.Initializer"></a>
 
@@ -2700,6 +2700,7 @@ const inlineNodejsFunctionProps: InlineNodejsFunctionProps = { ... }
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place Lambda network interfaces. |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.entry">entry</a></code> | <code>string</code> | Path to the entry file (JavaScript only). |
+| <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.awsSdkConnectionReuse">awsSdkConnectionReuse</a></code> | <code>boolean</code> | Whether to automatically reuse TCP connections when working with the AWS SDK for JavaScript. |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.handler">handler</a></code> | <code>string</code> | The name of the exported handler in the entry file. |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.minifyEngine">minifyEngine</a></code> | <code><a href="#@open-constructs/aws-cdk.MinifyEngine">MinifyEngine</a></code> | Default is "SIMPLE". |
 | <code><a href="#@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | The runtime environment. |
@@ -3366,6 +3367,24 @@ To support unit testing your constructs, it is best to pass a relative path to t
 `${__dirname}/../../../dist/lib/constructs/handlers/my_handler.js`
 ```
 Otherwise the unit tests may not be able to find the javascript file.
+
+---
+
+##### `awsSdkConnectionReuse`<sup>Optional</sup> <a name="awsSdkConnectionReuse" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.awsSdkConnectionReuse"></a>
+
+```typescript
+public readonly awsSdkConnectionReuse: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to automatically reuse TCP connections when working with the AWS SDK for JavaScript.
+
+This sets the `AWS_NODEJS_CONNECTION_REUSE_ENABLED` environment variable
+to `1`.
+
+> [https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-reusing-connections.html](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-reusing-connections.html)
 
 ---
 
