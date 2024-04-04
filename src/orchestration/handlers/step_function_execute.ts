@@ -174,6 +174,8 @@ export const stepFunctionComplete = async (event: any, context: any) => {
     StartDate: event.StartDate,
     SucceedAfterMs: succeedAfterMs,
     IsComplete: isComplete,
+    OutputPaths: event.OutputPaths,
+    Defaults: event.Defaults,
   };
   // Only return data that was requested, in case SF output is long.
   if (event.OutputPaths) {
