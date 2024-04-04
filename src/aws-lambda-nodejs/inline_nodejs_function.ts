@@ -1,6 +1,4 @@
 /* eslint @typescript-eslint/no-require-imports: "off" */
-/* eslint import/no-extraneous-dependencies: "off" */
-/* eslint no-bitwise: "off" */
 
 import crypto = require('crypto')
 import fs = require('fs');
@@ -20,10 +18,14 @@ function trimLines(code: string) {
 
 /**
  * Strips comments from inline JS
+ * 
+ * From: https://stackoverflow.com/questions/5989315/regex-for-match-replacing-javascript-comments-both-multiline-and-inline
+ * See: https://gist.github.com/DesignByOnyx/05c2241affc9dc498379e0d819c4d756
+ *
  * @param code
  */
 function stripComments(code: string) {
-  return code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim();
+  return code.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1').trim();
 }
 
 /**
@@ -128,6 +130,8 @@ function getInlineCodeEsBuild(constructPath: string, entry: string) {
 
 /**
  * Minification engine enum.
+ *
+ * The default minificaiton engine is SIMPLE.
  */
 export enum MinifyEngine {
   /** No minification. */
@@ -142,6 +146,29 @@ export enum MinifyEngine {
   ES_BUILD = 1,
   /**
    * Removes comments and trims leading/trailing spaces from lines.
+   *
+   * The advantages of SIMPLE minification are readability and simplicity - your line breaks
+   * and variable names are preserved, and you do not need
+   * to take a dependency on esbuild.
+   *
+   * Unlike ES_BUILD, SIMPLE minification does NOT use a parser.  It uses a RegEx to
+   * remove comments.  There are limits to this technique, and they are fully described
+   * in this gist file: https://gist.github.com/DesignByOnyx/05c2241affc9dc498379e0d819c4d756.
+   *
+   * In short:
+   *  - Comments in a string, such as:
+   * ```
+   * let baz = "There's no way to tell that this // is not a single line comment";
+   * ```
+   *  - glob patterns (\/**\/)
+   *  - Dangling property values:
+   * ```
+   * bar:// regex cannot distinguish "bar://" from "http://"
+   *   "the value for bar is dangling down here - this is valid"
+   * ```
+   *
+   * If your code falls under one of these categories, modify the code or switch to ES_BUILD
+   * minification, which handles these cases correctly.
    */
   SIMPLE = 2
 }
@@ -154,11 +181,20 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
    * Path to the entry file (JavaScript only).
    *
    * If you are using typescript, just pass the path to the compiled .js file.
+   *
+   * To support unit testing your constructs, it is best to pass a relative path to the code, such as:
+   * ```
+   * `${__dirname}/../../../dist/lib/constructs/handlers/my_handler.js`
+   * ```
+   * Otherwise the unit tests may not be able to find the javascript file.
    */
-  readonly entry?: string;
+  readonly entry: string;
 
   /**
    * The name of the exported handler in the entry file.
+   *
+   * The handler is prefixed with `index.` unless the specified handler value contains a `.`,
+   * in which case it is used as-is.
    *
    * @default index.handler
    */
@@ -198,11 +234,12 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
  * This class minifies your JavaScript code, so you can feel free to add comments
  * and proper variables names in your inline code.  They will be stripped away,
  * depending on which minification engine you use (See {@link MinifyEngine}).
+ * See {@link MinifyEngine.SIMPLE} for a note on the limitations of RegEx comment removal.
  *
  * It's amazing how much can be accomplished using small, inline TypeScript Lambdas.
  * Typical use cases:  StepFunction lambdas.  Provider-based Custom Resource handlers.
  *
- * Code size is limited by AWS Lambda to 4096 characters.
+ * Code size is limited by AWS Lambda (and CFN) to 4096 characters.
  *
  * InlineNodejsFunction.tmpFileName contains the path of the temporary file with the
  * minified code.  This path is also published to tree.json via IInspectiable.
@@ -224,7 +261,8 @@ export class InlineNodejsFunction extends Function implements IInspectable {
    *
    * This makes it possible to get quick development turn around by
    * compiling your project and copying the minified code to the console.
-   * Note the location will change for each compile, so re-query the tree.json file.
+   * Note the location will change to a new temporary directory each time the code
+   * is compiled.
    */
   readonly tmpFile: string;
 
@@ -235,7 +273,8 @@ export class InlineNodejsFunction extends Function implements IInspectable {
       code: Code.fromInline(getInlineCode(scope.node.path + '/' + id, props.entry!,
         InlineNodejsFunction.minifyEngineFromProps(props))),
       runtime: props.runtime ?? Runtime.NODEJS_18_X,
-      handler: props.handler ?? 'index.handler',
+      handler: props.handler ? (props.handler.indexOf('.') !== -1 ? `${
+        props.handler}` : `index.${props.handler}`) : 'index.handler',
     });
 
     this.tmpFile = getMinifiedTmpFile(scope.node.path + '/' + id, this.props.entry!);

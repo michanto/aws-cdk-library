@@ -138,6 +138,7 @@ versions of this library to be included in the same stack.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@open-constructs/aws-cdk.CfnTransform.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.CfnTransform.property.host">host</a></code> | <code>constructs.IConstruct</code> | Which construct will apply this transform. |
 | <code><a href="#@open-constructs/aws-cdk.CfnTransform.property.id">id</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -151,6 +152,18 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `host`<sup>Required</sup> <a name="host" id="@open-constructs/aws-cdk.CfnTransform.property.host"></a>
+
+```typescript
+public readonly host: IConstruct;
+```
+
+- *Type:* constructs.IConstruct
+
+Which construct will apply this transform.
 
 ---
 
@@ -473,6 +486,7 @@ Id for the EncodeResource transform.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@open-constructs/aws-cdk.EncodeResource.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@open-constructs/aws-cdk.EncodeResource.property.host">host</a></code> | <code>constructs.IConstruct</code> | Which construct will apply this transform. |
 | <code><a href="#@open-constructs/aws-cdk.EncodeResource.property.id">id</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -486,6 +500,18 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `host`<sup>Required</sup> <a name="host" id="@open-constructs/aws-cdk.EncodeResource.property.host"></a>
+
+```typescript
+public readonly host: IConstruct;
+```
+
+- *Type:* constructs.IConstruct
+
+Which construct will apply this transform.
 
 ---
 
@@ -1643,7 +1669,8 @@ the tree.json file as attribute "@open-constructs/aws-cdk.InlineNodejsFunction.t
 
 This makes it possible to get quick development turn around by
 compiling your project and copying the minified code to the console.
-Note the location will change for each compile, so re-query the tree.json file.
+Note the location will change to a new temporary directory each time the code
+is compiled.
 
 ---
 
@@ -3383,7 +3410,7 @@ public subnets is not allowed (unless `allowPublicSubnet` is set to `true`).
 
 ---
 
-##### `entry`<sup>Optional</sup> <a name="entry" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.entry"></a>
+##### `entry`<sup>Required</sup> <a name="entry" id="@open-constructs/aws-cdk.InlineNodejsFunctionProps.property.entry"></a>
 
 ```typescript
 public readonly entry: string;
@@ -3394,6 +3421,12 @@ public readonly entry: string;
 Path to the entry file (JavaScript only).
 
 If you are using typescript, just pass the path to the compiled .js file.
+
+To support unit testing your constructs, it is best to pass a relative path to the code, such as:
+```
+`${__dirname}/../../../dist/lib/constructs/handlers/my_handler.js`
+```
+Otherwise the unit tests may not be able to find the javascript file.
 
 ---
 
@@ -3407,6 +3440,9 @@ public readonly handler: string;
 - *Default:* index.handler
 
 The name of the exported handler in the entry file.
+
+The handler is prefixed with `index.` unless the specified handler value contains a `.`,
+in which case it is used as-is.
 
 ---
 
@@ -8452,6 +8488,8 @@ FATAL = 0.5).  Subclass Log and Logger to support custom log levels.
 
 Minification engine enum.
 
+The default minificaiton engine is SIMPLE.
+
 #### Members <a name="Members" id="Members"></a>
 
 | **Name** | **Description** |
@@ -8484,6 +8522,29 @@ Add the following to your package.json file:
 ##### `SIMPLE` <a name="SIMPLE" id="@open-constructs/aws-cdk.MinifyEngine.SIMPLE"></a>
 
 Removes comments and trims leading/trailing spaces from lines.
+
+The advantages of SIMPLE minification are readability and simplicity - your line breaks
+and variable names are preserved, and you do not need
+to take a dependency on esbuild.
+
+Unlike ES_BUILD, SIMPLE minification does NOT use a parser.  It uses a RegEx to
+remove comments.  There are limits to this technique, and they are fully described
+in this gist file: https://gist.github.com/DesignByOnyx/05c2241affc9dc498379e0d819c4d756.
+
+In short:
+ - Comments in a string, such as:
+```
+let baz = "There's no way to tell that this // is not a single line comment";
+```
+ - glob patterns (\/**\/)
+ - Dangling property values:
+```
+bar:// regex cannot distinguish "bar://" from "http://"
+  "the value for bar is dangling down here - this is valid"
+```
+
+If your code falls under one of these categories, modify the code or switch to ES_BUILD
+minification, which handles these cases correctly.
 
 ---
 
