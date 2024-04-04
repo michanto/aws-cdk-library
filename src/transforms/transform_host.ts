@@ -23,7 +23,7 @@ export class TransformHost {
    * Note: This returns the transform host, which may be either a Stack,
    * a CfnElement, or a CfnTransformHost.
    */
-  static of(scope: Construct) {
+  static of(scope: Construct): IConstruct {
     let found = TRANSFORM_HOST_OF.searchUpOrCreate(scope);
     return ConstructService.serviceOf(found);
   }
