@@ -8126,7 +8126,7 @@ FATAL = 0.5).  Subclass Log and Logger to support custom log levels.
 
 Minification engine enum.
 
-The default minificaiton engine is SIMPLE.
+The default minification engine is SIMPLE.
 
 #### Members <a name="Members" id="Members"></a>
 
