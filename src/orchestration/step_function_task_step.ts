@@ -208,7 +208,6 @@ export class StepFunctionTaskStep extends Construct {
       serviceToken: this.resources.provider.serviceToken,
       resourceType: resourceType,
       removalPolicy: RemovalPolicy.RETAIN,
-      pascalCaseProperties: true,
       properties: resourceProperties,
     });
     EncodeResource.encodeCustomResource(this.resource);

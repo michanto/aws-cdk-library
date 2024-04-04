@@ -85,7 +85,7 @@ export class StepFunctionTask extends Construct {
     let totalTimeoutMs = props.totalTimeout?.toMilliseconds() ??
       Duration.hours(2).toMilliseconds();
     let timeoutMs = StepFunctionTaskStepConstants.SUCCEED_AFTER_MS.toMilliseconds();
-    // At least 2 steps.  At most?  The CloudFormation resource limit will
+    // At least 1 step.  At most?  The CloudFormation resource limit will
     // decide that.
     this.numberOfSteps = Math.max(1, Math.ceil(totalTimeoutMs / timeoutMs));
 

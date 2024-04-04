@@ -115,7 +115,6 @@ describe('InlineNodeJsFunction tests', () => {
     // THEN
     let inspector = new TreeInspector();
     fn.inspect(inspector);
-    console.log(`${engine} => ${inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME]}`);
     if (engine == MinifyEngine.NONE) {
       expect(inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME]).toBeUndefined();
     } else {
