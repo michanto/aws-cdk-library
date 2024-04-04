@@ -2,8 +2,9 @@
 
 import crypto = require('crypto')
 import fs = require('fs');
-import { FileSystem, IInspectable, TreeInspector } from 'aws-cdk-lib';
+import { FeatureFlags, FileSystem, IInspectable, TreeInspector } from 'aws-cdk-lib';
 import { Code, Function, FunctionOptions, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { LAMBDA_NODEJS_USE_LATEST_RUNTIME } from 'aws-cdk-lib/cx-api';
 import { Construct } from 'constructs';
 import { NAMESPACE } from '../core/private/internals';
 
@@ -129,6 +130,19 @@ function getInlineCodeEsBuild(constructPath: string, entry: string) {
 }
 
 /**
+ * Copied from aws-cdk NodejsFunction class.
+ * Check if the feature flag is enabled and default to NODEJS_LATEST if so.
+ * Otherwise default to NODEJS_18_X.
+ */
+function getRuntime(scope: Construct, props: InlineNodejsFunctionProps): Runtime {
+  const defaultRuntime = FeatureFlags.of(scope).isEnabled(LAMBDA_NODEJS_USE_LATEST_RUNTIME)
+    ? Runtime.NODEJS_LATEST
+    : Runtime.NODEJS_18_X;
+  return props.runtime ?? defaultRuntime;
+}
+
+
+/**
  * Minification engine enum.
  *
  * The default minification engine is SIMPLE.
@@ -174,7 +188,7 @@ export enum MinifyEngine {
 }
 
 /**
- * Properties for InlineNodejsFunction.
+ * Properties for an InlineNodejsFunction.
  */
 export interface InlineNodejsFunctionProps extends FunctionOptions {
   /**
@@ -212,6 +226,19 @@ export interface InlineNodejsFunctionProps extends FunctionOptions {
     * Default is "SIMPLE".  See {@link MinifyEngine} for values.
     */
   readonly minifyEngine?: MinifyEngine;
+
+  /**
+   * Whether to automatically reuse TCP connections when working with the AWS
+   * SDK for JavaScript.
+   *
+   * This sets the `AWS_NODEJS_CONNECTION_REUSE_ENABLED` environment variable
+   * to `1`.
+   *
+   * @see https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-reusing-connections.html
+   *
+   * @default true
+   */
+  readonly awsSdkConnectionReuse?: boolean;
 }
 
 /**
@@ -272,11 +299,15 @@ export class InlineNodejsFunction extends Function implements IInspectable {
       ...props as FunctionOptions,
       code: Code.fromInline(getInlineCode(scope.node.path + '/' + id, props.entry!,
         InlineNodejsFunction.minifyEngineFromProps(props))),
-      runtime: props.runtime ?? Runtime.NODEJS_18_X,
+      runtime: getRuntime(scope, props),
       handler: props.handler ? (props.handler.indexOf('.') !== -1 ? `${
         props.handler}` : `index.${props.handler}`) : 'index.handler',
     });
 
+    // Enable connection reuse for aws-sdk
+    if (props.awsSdkConnectionReuse ?? true) {
+      this.addEnvironment('AWS_NODEJS_CONNECTION_REUSE_ENABLED', '1', { removeInEdge: true });
+    }
     this.tmpFile = getMinifiedTmpFile(scope.node.path + '/' + id, this.props.entry!);
   }
 
