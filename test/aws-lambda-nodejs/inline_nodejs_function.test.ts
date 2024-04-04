@@ -111,11 +111,17 @@ describe('InlineNodeJsFunction tests', () => {
     let fn = new MyInlineFunction(stack, 'MyInlineFunction', {
       minifyEngine: engine,
     });
-    let inspector = new TreeInspector();
-    fn.inspect(inspector);
-    inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME];
 
     // THEN
+    let inspector = new TreeInspector();
+    fn.inspect(inspector);
+    console.log(`${engine} => ${inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME]}`);
+    if (engine == MinifyEngine.NONE) {
+      expect(inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME]).toBeUndefined();
+    } else {
+      expect(inspector.attributes[InlineNodejsFunction.TMP_FILE_ATTRIBUTE_NAME]).toContain('-test_lambda.js');
+    }
+
     let template = JSON.parse(JSON.stringify(Template.fromStack(stack)));
     expect(template).toMatchObject({
       Resources: {
