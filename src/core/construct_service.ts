@@ -1,6 +1,6 @@
 import { Construct, IConstruct } from 'constructs';
 import { ConstructTreeSearch, IStopCondition } from './construct_tree_search';
-import { NAMESPACE } from './private/internals';
+import { NAMESPACE } from '../private/internals';
 
 /**
  * Factory for a construct service.

@@ -2,7 +2,7 @@ import { App, Stack } from 'aws-cdk-lib';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct, IConstruct } from 'constructs';
 import { ConstructRunTimeTypeInfo, ConstructTreeSearch } from '../../src';
-import { NAMESPACE } from '../../src/core/private/internals';
+import { NAMESPACE } from '../../src/private/internals';
 
 /** A construct with RTTI for testing. */
 export class TypedConstruct extends Construct {

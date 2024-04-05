@@ -1,7 +1,7 @@
 import { Stack } from 'aws-cdk-lib';
 import { Construct, IConstruct } from 'constructs';
 import { ConstructRunTimeTypeInfo, ConstructTreeService } from '../../core';
-import { NAMESPACE } from '../../core/private/internals';
+import { NAMESPACE } from '../../private/internals';
 
 export const CFN_TRANSFORM_RTTI = new ConstructRunTimeTypeInfo({
   servicePropertyName: `${NAMESPACE}.CfnTransform`,

@@ -6,7 +6,7 @@ import { FeatureFlags, FileSystem, IInspectable, TreeInspector } from 'aws-cdk-l
 import { Code, Function, FunctionOptions, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { LAMBDA_NODEJS_USE_LATEST_RUNTIME } from 'aws-cdk-lib/cx-api';
 import { Construct } from 'constructs';
-import { NAMESPACE } from '../core/private/internals';
+import { NAMESPACE } from '../private/internals';
 
 /**
  * Trims lines from inline JS

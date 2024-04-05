@@ -12,8 +12,8 @@ import { IConstruct } from 'constructs';
 import { AppConstructTreeService } from './app_construct_tree_service';
 import { IConstructServiceFactory } from './construct_service';
 import { ConstructTreeService } from './construct_tree_service';
-import { NAMESPACE } from './private/internals';
 import { StackConstructTreeService } from './stack_construct_tree_service';
+import { NAMESPACE } from '../private/internals';
 
 /**
  * Service for tokens scoped to a construct.
