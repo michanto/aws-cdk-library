@@ -1,7 +1,7 @@
 import { Construct } from 'constructs';
 import { ConstructTreeService } from './construct_tree_service';
-import { AnsiColors } from './private/ansi_colors';
-import { NAMESPACE } from './private/internals';
+import { AnsiColors } from '../private/ansi_colors';
+import { NAMESPACE } from '../private/internals';
 
 /**
  * The Node logging levels (from the console object).

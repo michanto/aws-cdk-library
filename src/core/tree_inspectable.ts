@@ -1,7 +1,7 @@
 import { IInspectable, TreeInspector } from 'aws-cdk-lib';
 import { IConstruct } from 'constructs';
 import { ConstructService } from './construct_service';
-import { NAMESPACE } from './private/internals';
+import { NAMESPACE } from '../private/internals';
 
 /**
  * Makes any construct IInspectable so it can add metadata to the

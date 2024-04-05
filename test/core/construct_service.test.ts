@@ -1,7 +1,7 @@
 import { App } from 'aws-cdk-lib';
 import { Construct, IConstruct } from 'constructs';
 import { ConstructService } from '../../src';
-import { NAMESPACE } from '../../src/core/private/internals';
+import { NAMESPACE } from '../../src/private/internals';
 
 // Service for tests.
 const testService = new ConstructService({

@@ -2,7 +2,7 @@ import { Stack } from 'aws-cdk-lib';
 import { Construct, IConstruct } from 'constructs';
 import { ConstructRunTimeTypeInfo } from './construct_rtti';
 import { IConstructFactory } from './construct_service';
-import { NAMESPACE } from './private/internals';
+import { NAMESPACE } from '../private/internals';
 
 /**
  * Manages singletons in the stack.
