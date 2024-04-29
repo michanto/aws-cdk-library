@@ -21,17 +21,28 @@ describe('ConstructService tests', () => {
     expect(ConstructService.scopesOf([serviceQueryResult])).toEqual([app]);
   });
 
-  it('get/set/setFactory tests.', () => {
+  it('not a construct tests.', () => {
     let notConstruct = new Object();
-    let app = new App();
-    let construct = new Construct(app, 'AConstruct');
     expect(() => testService.set(notConstruct as IConstruct, true)).toThrow();
     expect(() => testService.get(notConstruct as IConstruct)).toThrow();
+  })
+
+  it('get/set/setFactory tests.', () => {
+    let app = new App();
+    let construct = new Construct(app, 'AConstruct');
+    expect(testService.get(construct)).toBeUndefined();
+
+    // No factory means no service.
     expect(testService.searchSelfOrCreate(app)).toBeFalsy();
-    let factory = ((_x: IConstruct) => true);
+
+    // Test setting a factory.
+    let factory = ((_x: IConstruct) => 'from factory on app');
     expect(testService.setFactory(app, factory)).toBeTruthy();
     expect(ConstructService.isFactory(factory)).toBeTruthy();
-    // Created from factory set on app.
-    expect(() => testService.get(construct)).toBeTruthy();
+
+    // Setting a service works.
+    expect(testService.get(construct)).toBeUndefined();
+    testService.set(construct, 'From setter.');
+    expect(testService.get(construct)).toEqual('From setter.');
   });
 });
