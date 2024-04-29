@@ -12,7 +12,7 @@ class MyConstruct extends Construct {
       code: Code.fromInline('module.exports.handler = async () => "hello world";'),
       handler: 'main.handler',
       runtime: Runtime.NODEJS_20_X,
-      role: role,
+      role: props.role,
     });
   }
 }
